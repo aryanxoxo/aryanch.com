@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Curated engineering projects by Aryan Chahardovalee across satellites, RF, EMC, photonics, drones, FPGA, machine learning, cybersecurity, and CAD." />
+  <meta name="author" content="Aryan Chahardovalee" />
+  <title>Projects | Aryan Chahardovalee</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0a0a08;
+      --bg-soft: #111110;
+      --fg: #e8e4d9;
+      --fg-mid: rgba(232,228,217,0.5);
+      --fg-dim: rgba(232,228,217,0.28);
+      --fg-faint: rgba(232,228,217,0.08);
+      --gold: #c8b97a;
+      --gold-soft: rgba(200,185,122,0.12);
+      --serif: 'Instrument Serif', serif;
+      --mono: 'DM Mono', monospace;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--fg); font-family: var(--mono); font-size: 16px; line-height: 1.6; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+    body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E"); pointer-events: none; z-index: 2; opacity: 0.55; }
+    a { color: inherit; text-decoration: none; }
+    nav { position: sticky; top: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 2.5rem; border-bottom: 1px solid var(--fg-faint); background: rgba(10,10,8,0.7); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+    .logo { font-family: var(--serif); font-size: 1.15rem; letter-spacing: 0.06em; }
+    .logo b { color: var(--gold); font-weight: 400; }
+    .nav-center { display: flex; gap: 2.25rem; list-style: none; }
+    .nav-center a { font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--fg-mid); position: relative; padding: 0.25rem 0; transition: color 0.25s; }
+    .nav-center a:hover, .nav-center a.active { color: var(--fg); }
+    .nav-resume { font-size: 0.66rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--bg); background: var(--fg); padding: 0.55rem 1.1rem; transition: background 0.25s, color 0.25s; }
+    .nav-resume:hover { background: var(--gold); }
+    main { position: relative; z-index: 1; }
+    .hero { padding: 5rem 2.5rem 4rem; border-bottom: 1px solid var(--fg-faint); display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 4rem; align-items: end; }
+    .eyebrow { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); display: flex; align-items: center; gap: 0.7rem; }
+    .eyebrow::before { content: ''; width: 1.5rem; height: 1px; background: var(--gold); }
+    h1 { font-family: var(--serif); font-size: clamp(3rem, 8vw, 6.5rem); line-height: 0.92; letter-spacing: -0.02em; margin: 1.25rem 0 1.5rem; }
+    h1 em, .section-title em { color: var(--gold); font-style: italic; }
+    .lede { max-width: 58ch; color: var(--fg-mid); font-size: 0.82rem; line-height: 1.95; }
+    .hero-note { border-top: 1px solid var(--fg-faint); padding-top: 1.2rem; color: var(--fg-dim); font-size: 0.7rem; line-height: 1.9; }
+    .wrap { padding: 4.5rem 2.5rem; }
+    .section-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 2.75rem; }
+    .section-title { font-family: var(--serif); font-size: clamp(1.8rem, 4vw, 2.6rem); line-height: 1.05; margin-top: 0.6rem; }
+    .section-num { font-size: 0.6rem; letter-spacing: 0.2em; color: var(--fg-dim); }
+    .project-list { display: grid; gap: 1px; background: var(--fg-faint); }
+    .case { display: grid; grid-template-columns: minmax(220px, 0.85fr) 1.15fr; background: var(--bg); min-height: 320px; }
+    .case-media { position: relative; overflow: hidden; background: var(--bg-soft); }
+    .case-media img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(0.5) brightness(0.8) contrast(1.05); transition: transform 0.7s var(--ease), filter 0.5s; }
+    .case:hover .case-media img { transform: scale(1.04); filter: grayscale(0) brightness(0.92); }
+    .case-index { position: absolute; top: 1rem; left: 1rem; z-index: 2; font-family: var(--serif); font-size: 0.95rem; color: var(--gold); background: rgba(10,10,8,0.6); padding: 0.15rem 0.55rem; backdrop-filter: blur(4px); }
+    .case-body { padding: 2rem; display: flex; flex-direction: column; justify-content: center; }
+    .case-cat { font-size: 0.56rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--fg-dim); margin-bottom: 0.75rem; }
+    .case h2 { font-family: var(--serif); font-size: clamp(1.7rem, 4vw, 2.9rem); line-height: 1.02; margin-bottom: 1rem; }
+    .case p { color: var(--fg-mid); font-size: 0.76rem; line-height: 1.95; max-width: 72ch; }
+    .project-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 1.25rem; }
+    .ptag { font-size: 0.54rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(232,228,217,0.4); border: 1px solid rgba(232,228,217,0.1); padding: 0.18rem 0.5rem; }
+    .case-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .case-links a { font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); }
+    footer { position: relative; z-index: 1; background: var(--bg); padding: 1.75rem 2.5rem; border-top: 1px solid var(--fg-faint); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; font-size: 0.6rem; letter-spacing: 0.1em; color: var(--fg-dim); }
+    @media (max-width: 900px) { .hero, .case { grid-template-columns: 1fr; } .case-media { aspect-ratio: 16/9; } }
+    @media (max-width: 600px) { nav { padding: 1rem 1.25rem; } .nav-center { display: none; } .hero, .wrap { padding: 3rem 1.25rem; } .case-body { padding: 1.5rem; } footer { padding: 1.5rem 1.25rem; } }
+  </style>
+</head>
+<body>
+  <nav>
+    <a class="logo" href="index.html#home">A<b>.</b>C<b>.</b></a>
+    <ul class="nav-center">
+      <li><a href="index.html#domains">Domains</a></li>
+      <li><a href="Projects.html" class="active">Projects</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+    <a class="nav-resume" href="assets/downloads/ARYAN_RESUME_2024.pdf" target="_blank" rel="noopener">Resume</a>
+  </nav>
+  <main>
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Selected work</div>
+        <h1>Projects with <em>signal</em>.</h1>
+        <p class="lede">A curated set of engineering work across hardware, RF, photonics, embedded systems, machine learning, cybersecurity, and design. The emphasis is on systems: what had to work, what I built, and what constraints made it interesting.</p>
+      </div>
+      <p class="hero-note">Inspired by lab-notebook style portfolios: compact, technical, visual, and honest about the engineering surface area.</p>
+    </section>
+    <section class="wrap">
+      <div class="section-head">
+        <div><div class="eyebrow">Case index</div><h2 class="section-title">From boards to vehicles to <em>software tools</em>.</h2></div>
+        <span class="section-num">/ 02</span>
+      </div>
+      <div class="project-list">
+        <article class="case" id="emc-mpv">
+          <div class="case-media"><span class="case-index">01</span><img src="assets/img/farfield.png" alt="EMC EMI antenna far field analysis" /></div>
+          <div class="case-body"><div class="case-cat">Maritime / Huawei Capstone</div><h2>EMC / EMI Analysis of MPV</h2><p>Antenna placement and interference analysis for maritime communication systems where HF, VHF, UHF, SATCOM, and Wi-Fi systems share limited physical space.</p><div class="project-tags"><span class="ptag">EMC</span><span class="ptag">Antenna Placement</span><span class="ptag">Field Testing</span><span class="ptag">IEEE</span></div><div class="case-links"><a href="Ships.html">Ships page →</a></div></div>
+        </article>
+        <article class="case" id="antenna-deployer">
+          <div class="case-media"><span class="case-index">02</span><img src="assets/img/antennadep.png" alt="Antenna deployer module board" /></div>
+          <div class="case-body"><div class="case-cat">Space / UBC ORBIT</div><h2>Antenna Deployer Module</h2><p>Satellite communications hardware work spanning RF board integration, antenna deployment reliability, and subsystem-level testing for a CubeSat environment.</p><div class="project-tags"><span class="ptag">RF Design</span><span class="ptag">PCB</span><span class="ptag">Microcontrollers</span><span class="ptag">Signal Processing</span></div><div class="case-links"><a href="Satellites.html">Satellite page →</a></div></div>
+        </article>
+        <article class="case" id="pic-design">
+          <div class="case-media"><span class="case-index">03</span><img src="assets/img/PIC.png" alt="Photonic integrated circuit project visual" /></div>
+          <div class="case-body"><div class="case-cat">Photonics / ELEC 413</div><h2>Collaborative PIC Design</h2><p>A silicon photonics design project focused on optical resonators and layout work, connecting MATLAB analysis with photonic circuit implementation.</p><div class="project-tags"><span class="ptag">Silicon Photonics</span><span class="ptag">Optical Resonators</span><span class="ptag">MATLAB</span><span class="ptag">PWB</span></div><div class="case-links"><a href="https://github.com/aryanxoxo/UBC-ELEC413-2023/blob/main/Reports/EBeam_ELEC413_AryanC_p2.pdf" target="_blank" rel="noopener">Report →</a></div></div>
+        </article>
+        <article class="case" id="drone-wlan">
+          <div class="case-media"><span class="case-index">04</span><img src="assets/img/ddrone.jpg" alt="Drone communications project" /></div>
+          <div class="case-body"><div class="case-cat">Drone Communications / Huawei Canada</div><h2>WLAN for Huawei Drone</h2><p>Communication and integration work for a responsive AI vlogging drone, with WLAN data flow supporting real-time control and feedback.</p><div class="project-tags"><span class="ptag">WLAN</span><span class="ptag">Real-Time Data</span><span class="ptag">C&amp;C Systems</span><span class="ptag">Python</span></div><div class="case-links"><a href="Drones.html">Drone page →</a><a href="https://www.youtube.com/watch?v=Lz6MdKZGIeY" target="_blank" rel="noopener">Demo →</a></div></div>
+        </article>
+        <article class="case" id="fpga-snake">
+          <div class="case-media"><span class="case-index">05</span><img src="assets/img/shnake.jpg" alt="FPGA snake game" /></div>
+          <div class="case-body"><div class="case-cat">Embedded / Digital Systems</div><h2>FPGA Snake Game</h2><p>A hardware-first game implementation using finite-state-machine design, Verilog, and low-level control logic to make a familiar game run on constrained digital hardware.</p><div class="project-tags"><span class="ptag">FPGA</span><span class="ptag">Verilog</span><span class="ptag">Assembly</span><span class="ptag">FSM Design</span></div></div>
+        </article>
+        <article class="case" id="lottocrack">
+          <div class="case-media"><span class="case-index">06</span><img src="assets/img/LOTTOMAX.jpg" alt="LOTTOCRACK machine learning project" /></div>
+          <div class="case-body"><div class="case-cat">Machine Learning / Personal</div><h2>LOTTOCRACK</h2><p>A playful pattern-analysis project using neural-network tooling to explore lottery data as a machine-learning experiment, with the right caveat: probability remains probability.</p><div class="project-tags"><span class="ptag">Keras</span><span class="ptag">DNN</span><span class="ptag">Pattern Analysis</span><span class="ptag">Python</span></div><div class="case-links"><a href="https://github.com/aryanxoxo/LOTTOCRACK" target="_blank" rel="noopener">GitHub →</a></div></div>
+        </article>
+        <article class="case" id="cybersecurity">
+          <div class="case-media"><span class="case-index">07</span><img src="assets/img/GOOGLE.png" alt="Google Cybersecurity Certificate" /></div>
+          <div class="case-body"><div class="case-cat">Security / Certification</div><h2>Google Cybersecurity Certificate</h2><p>Hands-on security coursework covering incident response, network analysis, SQL, SIEM/SOAR concepts, and investigative workflows with tools such as Wireshark.</p><div class="project-tags"><span class="ptag">SQL</span><span class="ptag">SIEM / SOAR</span><span class="ptag">Wireshark</span><span class="ptag">Incident Response</span></div><div class="case-links"><a href="https://www.coursera.org/account/accomplishments/specialization/OHOVT68HIT18" target="_blank" rel="noopener">Certificate →</a></div></div>
+        </article>
+        <article class="case" id="cad-design">
+          <div class="case-media"><span class="case-index">08</span><img src="assets/img/CAD.png" alt="CAD design project" /></div>
+          <div class="case-body"><div class="case-cat">Design / 3D Modeling</div><h2>CAD Design</h2><p>Conceptual CAD and spatial design work exploring modular forms, organic architecture, and visual communication of physical ideas.</p><div class="project-tags"><span class="ptag">Organic Architecture</span><span class="ptag">Modular Design</span><span class="ptag">SketchUp</span></div><div class="case-links"><a href="https://github.com/aryanxoxo/portfolio-/tree/main/CAD%20Models" target="_blank" rel="noopener">Models →</a></div></div>
+        </article>
+      </div>
+    </section>
+  </main>
+  <footer><span>© 2026 Aryan Chahardovalee</span><span>Projects / Systems / Portfolio</span><span>Built with signal &amp; intent</span></footer>
+</body>
+</html>
