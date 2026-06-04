@@ -437,6 +437,35 @@
     }
     .chip:hover { border-color: var(--gold); color: var(--gold); }
     .chip.active { background: var(--gold); color: var(--bg); border-color: var(--gold); }
+    .chip.multi-active { background: rgba(200,185,122,0.18); color: var(--gold); border-color: var(--gold); }
+    .disc-tag[data-filter] { cursor: pointer; }
+    .disc-tag[data-filter]:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* ───── MODAL BACK NAV ───── */
+    .modal-back {
+      display: none; align-items: center; gap: 0.5rem;
+      font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--fg-dim); cursor: pointer; background: none; border: none;
+      font-family: var(--mono); padding: 0; margin-bottom: 0.25rem;
+      transition: color 0.2s;
+    }
+    .modal-back.visible { display: inline-flex; }
+    .modal-back:hover { color: var(--gold); }
+
+    /* ───── DOMAIN MODAL ───── */
+    .dom-proj-list { display: flex; flex-direction: column; gap: 0.5rem; }
+    .dom-proj-link {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.75rem 1rem; border: 1px solid var(--fg-faint);
+      background: transparent; cursor: pointer; text-decoration: none; color: inherit;
+      transition: border-color 0.2s, background 0.2s;
+      font-family: var(--mono);
+    }
+    .dom-proj-link:hover { border-color: var(--gold); background: var(--gold-soft); }
+    .dom-proj-link-title { font-size: 0.76rem; }
+    .dom-proj-link-cat { font-size: 0.54rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--fg-dim); margin-top: 0.2rem; }
+    .dom-proj-link-arrow { color: var(--gold); font-size: 0.8rem; flex-shrink: 0; transition: transform 0.2s var(--ease); }
+    .dom-proj-link:hover .dom-proj-link-arrow { transform: translate(3px,-3px); }
     .view-toggle { display: flex; gap: 0.4rem; flex-shrink: 0; }
     .view-btn {
       font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase;
@@ -574,11 +603,36 @@
 
   <div class="scroll-bar" aria-hidden="true"></div>
 
+  <!-- DOMAIN MODAL -->
+  <div class="modal-overlay" id="domainOverlay" role="dialog" aria-modal="true">
+    <div class="modal">
+      <div class="modal-head">
+        <div>
+          <div class="modal-num" id="domNum"></div>
+          <div class="modal-title" id="domTitle"></div>
+          <div class="modal-domain" id="domOrgs"></div>
+        </div>
+        <button class="modal-close" id="domClose" aria-label="Close">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-section">
+          <div class="modal-section-label">Overview</div>
+          <div class="modal-section-text" id="domOverview"></div>
+        </div>
+        <div class="modal-section">
+          <div class="modal-section-label">Related Projects</div>
+          <div class="dom-proj-list" id="domProjList"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- PROJECT MODAL -->
   <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
     <div class="modal">
       <div class="modal-head">
         <div>
+          <button class="modal-back" id="modalBack">← Back</button>
           <div class="modal-num" id="modalNum"></div>
           <div class="modal-title" id="modalTitle"></div>
           <div class="modal-domain" id="modalDomain"></div>
@@ -655,17 +709,17 @@
         </div>
         <div class="status-pill"><span class="dot"></span>Open to opportunities</div>
         <div class="stat-row">
-          <div class="stat"><span class="stat-num">26</span><span class="stat-label">Projects</span></div>
+          <div class="stat"><span class="stat-num">29</span><span class="stat-label">Projects</span></div>
           <div class="stat"><span class="stat-num">4</span><span class="stat-label">Orgs</span></div>
           <div class="stat"><span class="stat-num">E.I.T.</span><span class="stat-label">Engineer</span></div>
         </div>
         <div class="disciplines">
-          <span class="disc-tag">RF Design</span>
-          <span class="disc-tag">PCB</span>
-          <span class="disc-tag">Photonics</span>
-          <span class="disc-tag">FPGA</span>
-          <span class="disc-tag">EMC / EMI</span>
-          <span class="disc-tag">Signal Integrity</span>
+          <span class="disc-tag" data-filter="RF">RF Design</span>
+          <span class="disc-tag" data-filter="RF">PCB</span>
+          <span class="disc-tag" data-filter="Photonics">Photonics</span>
+          <span class="disc-tag" data-filter="FPGA">FPGA</span>
+          <span class="disc-tag" data-filter="RF">EMC / EMI</span>
+          <span class="disc-tag" data-filter="Telecom">Signal Integrity</span>
         </div>
       </div>
     </div>
@@ -703,7 +757,7 @@
         <span class="section-num">/ 01</span>
       </div>
       <div class="domain-grid reveal">
-        <a class="domain" href="#work" data-domain-filter="Space">
+        <a class="domain" href="#work" data-domain-filter="Space" data-domain-key="Satellites">
           <span class="domain-arrow">↗</span>
           <svg class="domain-svg" viewBox="0 0 40 40"><circle cx="20" cy="20" r="5"/><path d="M20 4v6M20 30v6M4 20h6M30 20h6"/><ellipse cx="20" cy="20" rx="16" ry="7" transform="rotate(45 20 20)"/></svg>
           <div class="domain-name">Satellites</div>
@@ -716,7 +770,7 @@
             <span class="domain-proj">433 MHz CubeSat Radio Link</span>
           </div>
         </a>
-        <a class="domain" href="#work" data-domain-filter="Embedded">
+        <a class="domain" href="#work" data-domain-filter="Embedded" data-domain-key="Drones">
           <span class="domain-arrow">↗</span>
           <svg class="domain-svg" viewBox="0 0 40 40"><circle cx="10" cy="10" r="4"/><circle cx="30" cy="10" r="4"/><circle cx="10" cy="30" r="4"/><circle cx="30" cy="30" r="4"/><rect x="16" y="16" width="8" height="8"/><path d="M13 13l3 3M27 13l-3 3M13 27l3-3M27 27l-3-3"/></svg>
           <div class="domain-name">Drones</div>
@@ -730,7 +784,7 @@
             <span class="domain-proj">LoRa Mesh Coverage Mapper</span>
           </div>
         </a>
-        <a class="domain" href="#work" data-domain-filter="Maritime">
+        <a class="domain" href="#work" data-domain-filter="Maritime" data-domain-key="Ships">
           <span class="domain-arrow">↗</span>
           <svg class="domain-svg" viewBox="0 0 40 40"><path d="M6 24h28l-4 8H10z"/><path d="M20 24V8M20 8l10 4-10 4"/></svg>
           <div class="domain-name">Ships</div>
@@ -739,22 +793,21 @@
           </div>
           <div class="domain-projects">
             <span class="domain-proj">EMC / EMI Analysis of MPV</span>
-            <span class="domain-proj">AIS Marine Receiver</span>
-            <span class="domain-proj">Wi-Fi Coverage Heatmap</span>
+            <span class="domain-proj">Marine Power System Design</span>
+            <span class="domain-proj">UPS Integration &amp; Load Analysis</span>
           </div>
         </a>
-        <a class="domain" href="#work" data-domain-filter="RF">
+        <a class="domain" href="#work" data-domain-filter="RF" data-domain-key="Airplanes">
           <span class="domain-arrow">↗</span>
           <svg class="domain-svg" viewBox="0 0 40 40"><path d="M20 4l3 14 13 6-13 2-3 8-3-8-13-2 13-6z"/></svg>
           <div class="domain-name">Airplanes</div>
           <div class="domain-orgs">
-            <span class="domain-org">Zipline</span>
             <span class="domain-org">Pilot Training</span>
           </div>
           <div class="domain-projects">
             <span class="domain-proj">SDR ADS-B Receiver</span>
-            <span class="domain-proj">Drone Telemetry Link Monitor</span>
             <span class="domain-proj">Spectrum Anomaly Detector</span>
+            <span class="domain-proj">Ham Radio Digital Modes Decoder</span>
           </div>
         </a>
       </div>
@@ -939,7 +992,17 @@
       });
 
       /* ---- Modal ---- */
-      function openModal(p, num) {
+      var modalSourceDomain = null;
+
+      function openModal(p, num, sourceDomain) {
+        modalSourceDomain = sourceDomain || null;
+        var back = document.getElementById('modalBack');
+        if (sourceDomain && DOMAINS[sourceDomain]) {
+          back.textContent = '← ' + DOMAINS[sourceDomain].label;
+          back.classList.add('visible');
+        } else {
+          back.classList.remove('visible');
+        }
         document.getElementById('modalNum').textContent = num;
         document.getElementById('modalTitle').textContent = p.title;
         document.getElementById('modalDomain').textContent = p.domain;
@@ -957,13 +1020,24 @@
       }
       function closeModal() {
         document.getElementById('modalOverlay').classList.remove('open');
-        document.body.style.overflow = '';
+        if (!modalSourceDomain) document.body.style.overflow = '';
+        modalSourceDomain = null;
       }
+      document.getElementById('modalBack').addEventListener('click', function() {
+        var src = modalSourceDomain;
+        closeModal();
+        if (src) openDomainModal(src);
+      });
       document.getElementById('modalClose').addEventListener('click', closeModal);
       document.getElementById('modalOverlay').addEventListener('click', function(e) {
         if (e.target === this) closeModal();
       });
-      document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          if (document.getElementById('modalOverlay').classList.contains('open')) closeModal();
+          else closeDomainModal();
+        }
+      });
 
       /* ---- Projects: data, render, filter, view toggle ---- */
       var PROJECTS = [
@@ -1201,6 +1275,30 @@
           outcome: 'Successfully logged and decoded CAN data from two vehicle platforms. Captured RPM, throttle position, wheel speed, and fault codes. Logger operated reliably for 4-hour road test sessions.',
           demo: ''
         },
+        { cats: ['Power','Maritime'], domain: 'Power · Seaspan', title: 'Marine Power System Design',
+          tags: ['Power Distribution','Cable Routing','Load Analysis','IEC 60092'],
+          overview: 'Designed and documented the electrical power distribution system for a shipboard retrofit at Seaspan, covering panel layouts, cable routing, load calculations, and fault protection coordination across AC and DC distribution networks.',
+          features: ['Full load analysis across vessel electrical distribution zones','Cable routing and sizing to ABYC / IEC 60092 marine standards','Protection coordination: breaker sizing and selectivity study','Single-line diagram and panel schedule documentation'],
+          challenges: 'Routing new cable runs through an existing vessel with limited conduit space required careful coordination with structural and mechanical teams. Ensuring protection selectivity across a multi-tier distribution system with legacy breakers was technically demanding.',
+          outcome: 'Completed power system documentation adopted by Seaspan engineering for the vessel retrofit. Load analysis identified two overloaded branch circuits that were remediated before commissioning.',
+          demo: ''
+        },
+        { cats: ['Power','Maritime'], domain: 'Power · Seaspan', title: 'UPS Integration & Load Analysis',
+          tags: ['UPS','Battery Backup','Marine Electrical','Transfer Switching'],
+          overview: 'Evaluated and integrated uninterruptible power supply systems for critical shipboard loads at Seaspan — navigation electronics, communication systems, and emergency lighting. Performed battery runtime calculations and transfer switching validation.',
+          features: ['Critical load identification and UPS sizing calculations','Battery runtime analysis for 30/60/120-minute backup scenarios','Transfer switch testing and switchover time measurement','Integration with vessel alarm monitoring system'],
+          challenges: 'Marine UPS installations must meet Transport Canada and class society requirements for vibration, temperature range, and EMC. Coordinating with the vessel alarm system for UPS fault reporting required custom interface wiring.',
+          outcome: 'UPS systems commissioned across three vessel systems. Transfer times measured at < 8 ms, meeting navigation electronics manufacturer specifications for ride-through.',
+          demo: ''
+        },
+        { cats: ['RF'], domain: 'RF · Amateur Radio', title: 'Ham Radio Digital Modes Decoder',
+          tags: ['PSK31','FT8','WSPR','GNU Radio','fldigi'],
+          overview: 'Built a software decoder for amateur radio digital modes (PSK31, RTTY, FT8, WSPR) using GNU Radio and fldigi. Received and decoded long-distance HF contacts, analyzing propagation characteristics across different bands and times of day.',
+          features: ['RTL-SDR and upconverter for HF reception down to 1.8 MHz','GNU Radio front end feeding fldigi for multi-mode decoding','WSPR spot logging and propagation path mapping','FT8 contact decoding with WSJT-X integration'],
+          challenges: 'HF propagation introduces significant frequency drift and multipath distortion. Calibrating the SDR reference against a GPS-disciplined oscillator improved decode rates substantially on weak-signal modes.',
+          outcome: 'Decoded WSPR spots from 43 countries across multiple bands. FT8 contacts confirmed reliable copy at SNR as low as -18 dB.',
+          demo: ''
+        },
       ];
 
       var phIcons = {
@@ -1292,28 +1390,152 @@
         cardObserver.observe(el);
       });
 
-      /* domain cards → filter + scroll to projects */
-      document.querySelectorAll('.domain[data-domain-filter]').forEach(function(card) {
-        card.addEventListener('click', function(e) {
-          e.preventDefault();
-          var f = card.dataset.domainFilter;
-          var chip = document.querySelector('.chip[data-filter="' + f + '"]');
-          if (chip) chip.click();
-          document.getElementById('work').scrollIntoView({ behavior: 'smooth' });
+      /* ---- Domain modal data ---- */
+      var DOMAINS = {
+        Satellites: {
+          label: 'Satellites', icon: '◈',
+          orgs: ['UBC ORBIT'],
+          overview: 'Space systems work anchored in UBC ORBIT — the University of British Columbia\'s CubeSat design team. I worked on RF hardware and the antenna deployment subsystem, from link budget analysis through PCB design, ground station integration, and over-the-air RF testing at 437 MHz. Every design decision gets pressure-tested by vacuum, vibration, and the physics of a 400 km orbit.',
+          projectIds: ['antenna-deployer','satnogs','cubesat-link']
+        },
+        Drones: {
+          label: 'Drones', icon: '◈',
+          orgs: ['Huawei Canada','Zipline International'],
+          overview: 'UAV work spans two very different organizations. At Huawei Canada I designed and characterized a WLAN-based C2 link for a drone platform — analyzing interference resilience and proposing a channel-hopping scheme that reduced dropouts by 73%. At Zipline International I work in Flight Test Operations, supporting autonomous fixed-wing delivery aircraft through live flight testing and safety procedures.',
+          projectIds: ['drone-wlan','drone-telemetry','lora-mesh']
+        },
+        Ships: {
+          label: 'Ships', icon: '◈',
+          orgs: ['Seaspan'],
+          overview: 'Maritime electrical engineering at Seaspan covered the full spectrum of shipboard systems. I conducted EMC/EMI assessments of a multi-purpose vessel, designed and routed marine power distribution systems, integrated UPS infrastructure for critical navigation and comms loads, and performed load analysis across vessel electrical networks. The marine environment is one of the most demanding for electrical systems — corrosive, vibration-heavy, and safety-critical.',
+          projectIds: ['emc-mpv','ais-receiver','marine-power','ups-integration']
+        },
+        Airplanes: {
+          label: 'Airplanes', icon: '◈',
+          orgs: ['Pilot Training'],
+          overview: 'My aviation interest is active — I\'m currently training for my private pilot license. This has deepened my understanding of avionics, ATC communication systems, and the RF infrastructure that aviation depends on. I\'ve built software-defined receivers to decode ADS-B transponders, giving me hands-on insight into the same collision-avoidance telemetry used in real aircraft.',
+          projectIds: ['ads-b','spectrum-anomaly','ham-radio']
+        }
+      };
+
+      /* map project id → index */
+      var projIdMap = {};
+      PROJECTS.forEach(function(p, i) { projIdMap[p.id || p.title.toLowerCase().replace(/[^a-z0-9]/g,'-')] = i; });
+      /* also build by short key */
+      var projKeyMap = {
+        'antenna-deployer': 1, 'satnogs': 6, 'cubesat-link': 7,
+        'drone-wlan': 3, 'drone-telemetry': 22, 'lora-mesh': 18,
+        'emc-mpv': 0, 'ais-receiver': 9, 'marine-power': 29, 'ups-integration': 30,
+        'ads-b': 8, 'spectrum-anomaly': 19, 'ham-radio': 31
+      };
+
+      var activeDomainKey = null;
+
+      function openDomainModal(key) {
+        var d = DOMAINS[key];
+        if (!d) return;
+        activeDomainKey = key;
+        document.getElementById('domNum').textContent = d.icon;
+        document.getElementById('domTitle').textContent = d.label;
+        document.getElementById('domOrgs').textContent = d.orgs.join(' · ');
+        document.getElementById('domOverview').textContent = d.overview;
+        var list = document.getElementById('domProjList');
+        list.innerHTML = '';
+        d.projectIds.forEach(function(pid) {
+          var idx = projKeyMap[pid];
+          if (idx === undefined || !PROJECTS[idx]) return;
+          var p = PROJECTS[idx];
+          var el = document.createElement('div');
+          el.className = 'dom-proj-link';
+          el.innerHTML = '<div><div class="dom-proj-link-title">' + p.title + '</div>' +
+            '<div class="dom-proj-link-cat">' + p.domain + '</div></div>' +
+            '<span class="dom-proj-link-arrow">↗</span>';
+          el.addEventListener('click', function() {
+            closeDomainModal(false);
+            openModal(p, String(idx + 1).padStart(2,'0'), key);
+          });
+          list.appendChild(el);
         });
+        document.getElementById('domainOverlay').classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeDomainModal(restoreScroll) {
+        document.getElementById('domainOverlay').classList.remove('open');
+        if (restoreScroll !== false) document.body.style.overflow = '';
+      }
+
+      document.getElementById('domClose').addEventListener('click', function() { closeDomainModal(); });
+      document.getElementById('domainOverlay').addEventListener('click', function(e) {
+        if (e.target === this) closeDomainModal();
       });
 
-      /* filter chips */
-      var currentFilter = 'All';
+      /* domain cards → open domain modal */
+      document.querySelectorAll('.domain[data-domain-key]').forEach(function(card) {
+        card.addEventListener('click', function(e) {
+          e.preventDefault();
+          openDomainModal(card.dataset.domainKey);
+        });
+      });
+      /* Satellites card has no data-domain-key yet, add it */
+      var satCard = document.querySelector('.domain[data-domain-filter="Space"]');
+      if (satCard) satCard.dataset.domainKey = 'Satellites';
+
+      /* ---- Multi-select filter chips ---- */
+      var activeFilters = new Set(['All']);
+
+      function applyFilters() {
+        var isAll = activeFilters.has('All');
+        document.querySelectorAll('#projectGrid .project, #termList .term-row').forEach(function(el) {
+          var cats = el.dataset.cats ? el.dataset.cats.split(' ') : [];
+          var match = isAll || cats.some(function(c) { return activeFilters.has(c); });
+          el.classList.toggle('hidden', !match);
+        });
+        /* wave preset: single selection or default */
+        if (!isAll && activeFilters.size === 1) setWavePreset([...activeFilters][0]);
+        else setWavePreset('All');
+      }
+
       document.getElementById('filterChips').addEventListener('click', function(e) {
         var btn = e.target.closest('.chip');
         if (!btn) return;
-        currentFilter = btn.dataset.filter;
-        document.querySelectorAll('.chip').forEach(function(c) { c.classList.toggle('active', c === btn); });
-        setWavePreset(currentFilter);
-        document.querySelectorAll('#projectGrid .project, #termList .term-row').forEach(function(el) {
-          var match = currentFilter === 'All' || el.dataset.cats.split(' ').indexOf(currentFilter) !== -1;
-          el.classList.toggle('hidden', !match);
+        var f = btn.dataset.filter;
+        if (f === 'All') {
+          activeFilters.clear(); activeFilters.add('All');
+          document.querySelectorAll('.chip').forEach(function(c) {
+            c.classList.toggle('active', c.dataset.filter === 'All');
+            c.classList.remove('multi-active');
+          });
+        } else {
+          activeFilters.delete('All');
+          document.querySelector('.chip[data-filter="All"]').classList.remove('active');
+          if (activeFilters.has(f)) {
+            activeFilters.delete(f); btn.classList.remove('active'); btn.classList.remove('multi-active');
+            if (activeFilters.size === 0) { activeFilters.add('All'); document.querySelector('.chip[data-filter="All"]').classList.add('active'); }
+          } else {
+            activeFilters.add(f);
+            btn.classList.add(activeFilters.size > 1 ? 'multi-active' : 'active');
+            /* re-style others that were single-active */
+            document.querySelectorAll('.chip.active:not([data-filter="All"])').forEach(function(c) {
+              c.classList.remove('active'); c.classList.add('multi-active');
+            });
+          }
+        }
+        applyFilters();
+      });
+
+      /* disc-tags → filter + scroll */
+      document.querySelectorAll('.disc-tag[data-filter]').forEach(function(tag) {
+        tag.addEventListener('click', function() {
+          var f = tag.dataset.filter;
+          /* activate just this filter */
+          activeFilters.clear(); activeFilters.add(f);
+          document.querySelectorAll('.chip').forEach(function(c) {
+            c.classList.remove('active','multi-active');
+            if (c.dataset.filter === f) c.classList.add('active');
+          });
+          applyFilters();
+          document.getElementById('work').scrollIntoView({ behavior: 'smooth' });
         });
       });
 
