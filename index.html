@@ -248,6 +248,21 @@
     .section-title { font-family: var(--serif); font-size: clamp(1.8rem, 4vw, 2.6rem); line-height: 1.05; margin-top: 0.6rem; }
     .section-num { font-size: 0.6rem; letter-spacing: 0.2em; color: var(--fg-dim); }
 
+    /* ───── MANIFESTO ───── */
+    .manifesto {
+      position: relative; z-index: 1; background: var(--bg);
+      border-top: 1px solid var(--fg-faint); border-bottom: 1px solid var(--fg-faint);
+      padding: 3.5rem 2.5rem; text-align: center;
+    }
+    .manifesto-text {
+      font-family: var(--serif); font-style: italic;
+      font-size: clamp(1.4rem, 3.5vw, 2.4rem);
+      letter-spacing: 0.04em; color: var(--fg-dim);
+      display: inline-flex; align-items: center; gap: 1.5rem;
+    }
+    .manifesto-text::before,
+    .manifesto-text::after { content: ''; width: 3rem; height: 1px; background: var(--gold); opacity: 0.5; flex-shrink: 0; }
+
     /* ───── DOMAINS ───── */
     .domain-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--fg-faint); }
     .domain {
@@ -626,7 +641,7 @@
         <div class="status-pill"><span class="dot"></span>Open to opportunities</div>
         <div class="stat-row">
           <div class="stat"><span class="stat-num">8</span><span class="stat-label">Projects</span></div>
-          <div class="stat"><span class="stat-num">3</span><span class="stat-label">Orgs</span></div>
+          <div class="stat"><span class="stat-num">4</span><span class="stat-label">Orgs</span></div>
           <div class="stat"><span class="stat-num">UBC</span><span class="stat-label">B.A.Sc.</span></div>
         </div>
         <div class="disciplines">
@@ -655,6 +670,11 @@
       <div class="marquee-item">Signal Processing<span></span></div>
       <div class="marquee-item">Telecommunications<span></span></div>
     </div>
+  </div>
+
+  <!-- MANIFESTO -->
+  <div class="manifesto reveal">
+    <span class="manifesto-text">Without hope, there is nothing.</span>
   </div>
 
   <!-- DOMAINS -->
@@ -738,12 +758,13 @@
         <div class="about-quote" style="margin-top:1rem;">From <span>small systems</span> to bigger ones.</div>
         <div class="about-body">
           <p>I'm an Electrical Engineering graduate from the University of British Columbia with hands-on experience across satellite hardware, maritime communication systems, photonic integrated circuits, and drone platforms.</p>
-          <p>My work spans the UBC ORBIT Satellite Design Team, an internship at Seaspan, and a year-long Capstone with Huawei Canada — and I'm currently training for my pilot's license. I'm drawn to the boundary between hardware and software, especially where signal integrity and system-level thinking decide whether something works.</p>
+          <p>My work spans the UBC ORBIT Satellite Design Team, an internship at Seaspan, a year-long Capstone with Huawei Canada, and Flight Test Operations at Zipline International — where I support autonomous delivery aircraft in live flight environments. I'm also training for my pilot's license. I'm drawn to the boundary between hardware and software, especially where signal integrity and system-level thinking decide whether something works.</p>
         </div>
       </div>
       <div class="about-right reveal">
         <div class="section-num" style="margin-bottom:1.5rem;">/ 03 — Experience</div>
         <div class="timeline">
+          <div class="exp"><div><div class="exp-role">Flight Test Operations Specialist</div><div class="exp-place">Zipline International</div></div><div class="exp-year">2024–Present</div></div>
           <div class="exp"><div><div class="exp-role">Capstone Engineer</div><div class="exp-place">Huawei Canada</div></div><div class="exp-year">2023–2024</div></div>
           <div class="exp"><div><div class="exp-role">Engineering Intern</div><div class="exp-place">Seaspan</div></div><div class="exp-year">2022</div></div>
           <div class="exp"><div><div class="exp-role">RF &amp; Hardware, Satellite Team</div><div class="exp-place">UBC ORBIT</div></div><div class="exp-year">2021–2023</div></div>
