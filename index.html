@@ -265,6 +265,33 @@
     .manifesto-text::before,
     .manifesto-text::after { content: ''; width: 3rem; height: 1px; background: var(--gold); opacity: 0.5; flex-shrink: 0; }
 
+    /* ───── IMPACT ───── */
+    .impact-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+      background: var(--fg-faint);
+    }
+    .impact-card {
+      background: rgba(10,10,8,0.86);
+      padding: 1.7rem 1.5rem;
+      min-height: 220px;
+      display: flex; flex-direction: column; justify-content: space-between;
+      transition: background 0.25s, transform 0.25s var(--ease);
+    }
+    .impact-card:hover { background: var(--bg-soft); transform: translateY(-2px); }
+    .impact-kicker {
+      font-size: 0.54rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 0.9rem;
+    }
+    .impact-title {
+      font-family: var(--serif); font-size: 1.55rem; line-height: 1.08;
+      margin-bottom: 1rem;
+    }
+    .impact-copy { font-size: 0.72rem; line-height: 1.85; color: var(--fg-mid); }
+    .impact-metric {
+      margin-top: 1.25rem; padding-top: 0.9rem; border-top: 1px solid var(--fg-faint);
+      font-family: var(--serif); font-size: 1.25rem; color: var(--gold);
+    }
+
     /* ───── DOMAINS ───── */
     .domain-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--fg-faint); }
     .domain {
@@ -331,6 +358,7 @@
     .project-body { padding: 1.5rem 1.6rem 1.75rem; }
     .project-cat { font-size: 0.56rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--fg-dim); margin-bottom: 0.75rem; }
     .project-title { font-family: var(--serif); font-size: 1.4rem; line-height: 1.1; margin-bottom: 0.85rem; }
+    .project-desc { font-size: 0.68rem; line-height: 1.75; color: var(--fg-mid); margin: -0.25rem 0 1rem; }
     .project-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; }
     .ptag { font-size: 0.54rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(232,228,217,0.4); border: 1px solid rgba(232,228,217,0.1); padding: 0.18rem 0.5rem; }
 
@@ -484,6 +512,7 @@
         repeating-linear-gradient(135deg, rgba(200,185,122,0.04) 0 1px, transparent 1px 18px),
         var(--bg-soft);
     }
+    .project-media img + .proj-placeholder { display: none; }
     .proj-ph-icon { width: 30px; height: 30px; stroke: rgba(200,185,122,0.3); fill: none; stroke-width: 1.2; }
     .proj-ph-cat { font-size: 0.52rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--fg-dim); }
 
@@ -518,6 +547,7 @@
       .stat-row, .disciplines { justify-content: flex-start; }
       .stat { text-align: left; }
       .domain-grid { grid-template-columns: repeat(2, 1fr); }
+      .impact-grid { grid-template-columns: repeat(2, 1fr); }
       .project-grid { grid-template-columns: 1fr; }
       #about .wrap, #contact .wrap { grid-template-columns: 1fr; gap: 2.5rem; }
     }
@@ -527,6 +557,7 @@
       .hero-inner { padding: 3rem 1.25rem 3rem; }
       .wrap { padding: 3rem 1.25rem; }
       .domain-grid { grid-template-columns: 1fr; }
+      .impact-grid { grid-template-columns: 1fr; }
       footer { padding: 1.5rem 1.25rem; }
     }
 
@@ -688,12 +719,12 @@
   <section id="home">
     <div class="hero-inner">
       <div class="hero-left">
-        <div class="hero-tag">Electrical Engineer · Systems Designer</div>
+        <div class="hero-tag">Electrical Engineer · Flight-Test Systems Thinker</div>
         <h1 class="hero-name" id="heroName">
           <span class="reveal-line"><span>Aryan</span></span>
           <span class="reveal-line"><span><em>Chahar</em>dovalee</span></span>
         </h1>
-        <p class="hero-desc">UBC Electrical Engineering grad working across satellites, silicon photonics, and RF systems — wherever signal integrity and system-level thinking matter most.</p>
+        <p class="hero-desc">UBC Electrical Engineering grad working across autonomous aircraft, satellites, maritime systems, RF hardware, and photonics — wherever signal integrity and system-level thinking decide whether the mission works.</p>
         <div class="hero-actions">
           <a class="btn solid magnetic" href="assets/downloads/ARYAN_RESUME_2024.pdf" target="_blank" rel="noopener">View Resume →</a>
           <a class="btn ghost magnetic" href="#contact">Get in touch</a>
@@ -745,6 +776,53 @@
   <div class="manifesto reveal">
     <span class="manifesto-text">Without hope, there is nothing.</span>
   </div>
+
+  <!-- IMPACT -->
+  <section id="impact">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div>
+          <div class="eyebrow">What stands out</div>
+          <h2 class="section-title">A portfolio built around real <em>systems</em>.</h2>
+        </div>
+        <span class="section-num">/ 00</span>
+      </div>
+      <div class="impact-grid reveal">
+        <article class="impact-card">
+          <div>
+            <div class="impact-kicker">Flight Test</div>
+            <h3 class="impact-title">Autonomous aircraft in live operations.</h3>
+            <p class="impact-copy">At Zipline, you work close to real flight environments where safety, procedures, aircraft behavior, and engineering judgment all matter at once.</p>
+          </div>
+          <div class="impact-metric">Zipline</div>
+        </article>
+        <article class="impact-card">
+          <div>
+            <div class="impact-kicker">Space Hardware</div>
+            <h3 class="impact-title">CubeSat RF and deployment hardware.</h3>
+            <p class="impact-copy">With UBC ORBIT, you worked on satellite communications, antenna deployment, RF testing, and link-budget thinking for hardware that has to survive orbit.</p>
+          </div>
+          <div class="impact-metric">437 MHz</div>
+        </article>
+        <article class="impact-card">
+          <div>
+            <div class="impact-kicker">Maritime Systems</div>
+            <h3 class="impact-title">Shipboard power, antennas, and EMC.</h3>
+            <p class="impact-copy">At Seaspan, you touched the practical side of large-scale electrical systems: communication reliability, interference, power distribution, UPS loads, and documentation.</p>
+          </div>
+          <div class="impact-metric">EMC / EMI</div>
+        </article>
+        <article class="impact-card">
+          <div>
+            <div class="impact-kicker">Builder Range</div>
+            <h3 class="impact-title">29 projects across hardware and software.</h3>
+            <p class="impact-copy">The work spans RF, FPGA, photonics, telecom, AI tooling, embedded systems, power electronics, SDR, and CAD — a rare mix of breadth and hands-on depth.</p>
+          </div>
+          <div class="impact-metric">29 projects</div>
+        </article>
+      </div>
+    </div>
+  </section>
 
   <!-- DOMAINS -->
   <section id="domains">
@@ -859,8 +937,8 @@
         <div class="eyebrow">About</div>
         <div class="about-quote" style="margin-top:1rem;">From <span>small systems</span> to bigger ones.</div>
         <div class="about-body">
-          <p>I'm an Electrical Engineering graduate from the University of British Columbia with hands-on experience across satellite hardware, maritime communication systems, photonic integrated circuits, and drone platforms.</p>
-          <p>My work spans the UBC ORBIT Satellite Design Team, an internship at Seaspan, a year-long Capstone with Huawei Canada, and Flight Test Operations at Zipline International — where I support autonomous delivery aircraft in live flight environments. I'm also training for my pilot's license. I'm drawn to the boundary between hardware and software, especially where signal integrity and system-level thinking decide whether something works.</p>
+          <p>I'm an Electrical Engineering graduate from the University of British Columbia with hands-on experience across autonomous aircraft, satellite hardware, maritime communication systems, photonic integrated circuits, RF systems, and drone platforms.</p>
+          <p>My work spans Flight Test Operations at Zipline International, the UBC ORBIT Satellite Design Team, an internship at Seaspan, and a year-long capstone with Huawei Canada. I'm also training for my pilot's license. I'm drawn to the boundary between hardware and software, especially where signal integrity, safety, and system-level thinking decide whether something works in the real world.</p>
         </div>
       </div>
       <div class="about-right reveal">
@@ -1323,36 +1401,54 @@
 
       var grid = document.getElementById('projectGrid');
       var termList = document.getElementById('termList');
+      var projectImages = {
+        'EMC / EMI Analysis of MPV': 'assets/img/farfield.png',
+        'Antenna Deployer Module': 'assets/img/antennadep.png',
+        'Collaborative PIC Design': 'assets/img/PIC.png',
+        'WLAN for Huawei Drone': 'assets/img/ddrone.jpg',
+        'FPGA Snake Game': 'assets/img/shnake.jpg',
+        'LOTTOCRACK': 'assets/img/LOTTOMAX.jpg',
+        'CAD Design': 'assets/img/CAD.png'
+      };
 
       PROJECTS.forEach(function(p, i) {
         var num = String(i + 1).padStart(2, '0');
         var catStr = p.cats.join(' ');
         var tagsHtml = p.tags.map(function(t) { return '<span class="ptag">' + t + '</span>'; }).join('');
         var termTagsHtml = p.tags.map(function(t) { return '<span class="term-tag">' + t + '</span>'; }).join('');
+        var imgSrc = projectImages[p.title];
+        var mediaHtml = imgSrc
+          ? '<img src="' + imgSrc + '" alt="' + p.title + '" loading="lazy" onerror="this.hidden=true;this.nextElementSibling.style.display=&quot;flex&quot;" />'
+          : '';
+        mediaHtml +=
+          '<div class="proj-placeholder">' +
+            '<svg class="proj-ph-icon" viewBox="0 0 32 32">' + getIcon(p.cats) + '</svg>' +
+            '<span class="proj-ph-cat">' + p.cats[0] + '</span>' +
+          '</div>';
 
         var card = document.createElement('a');
         card.className = 'project reveal';
-        card.href = p.href;
+        card.href = '#project-' + num;
+        card.dataset.projectIndex = i;
         card.dataset.cats = catStr;
         card.innerHTML =
           '<div class="project-media">' +
             '<span class="project-index">' + num + '</span>' +
             '<span class="project-arrow">↗</span>' +
-            '<div class="proj-placeholder">' +
-              '<svg class="proj-ph-icon" viewBox="0 0 32 32">' + getIcon(p.cats) + '</svg>' +
-              '<span class="proj-ph-cat">' + p.cats[0] + '</span>' +
-            '</div>' +
+            mediaHtml +
           '</div>' +
           '<div class="project-body">' +
             '<div class="project-cat">' + p.domain + '</div>' +
             '<div class="project-title">' + p.title + '</div>' +
+            '<p class="project-desc">' + (p.overview || '').split('. ')[0] + '.</p>' +
             '<div class="project-tags">' + tagsHtml + '</div>' +
           '</div>';
         grid.appendChild(card);
 
         var row = document.createElement('a');
         row.className = 'term-row';
-        row.href = p.href;
+        row.href = '#project-' + num;
+        row.dataset.projectIndex = i;
         row.dataset.cats = catStr;
         row.innerHTML =
           '<span class="term-idx">' + num + '</span>' +
@@ -1367,14 +1463,14 @@
         var card = e.target.closest('.project');
         if (!card) return;
         e.preventDefault();
-        var idx = Array.from(grid.querySelectorAll('.project')).indexOf(card);
+        var idx = Number(card.dataset.projectIndex);
         if (idx !== -1) openModal(PROJECTS[idx], String(idx + 1).padStart(2, '0'));
       });
       termList.addEventListener('click', function(e) {
         var row = e.target.closest('.term-row');
         if (!row) return;
         e.preventDefault();
-        var idx = Array.from(termList.querySelectorAll('.term-row')).indexOf(row);
+        var idx = Number(row.dataset.projectIndex);
         if (idx !== -1) openModal(PROJECTS[idx], String(idx + 1).padStart(2, '0'));
       });
 
@@ -1425,8 +1521,8 @@
       var projKeyMap = {
         'antenna-deployer': 1, 'satnogs': 6, 'cubesat-link': 7,
         'drone-wlan': 3, 'drone-telemetry': 22, 'lora-mesh': 18,
-        'emc-mpv': 0, 'ais-receiver': 9, 'marine-power': 29, 'ups-integration': 30,
-        'ads-b': 8, 'spectrum-anomaly': 19, 'ham-radio': 31
+        'emc-mpv': 0, 'ais-receiver': 9, 'marine-power': 26, 'ups-integration': 27,
+        'ads-b': 8, 'spectrum-anomaly': 19, 'ham-radio': 28
       };
 
       var activeDomainKey = null;
