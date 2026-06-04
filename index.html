@@ -273,9 +273,23 @@
       display: flex; flex-direction: column; justify-content: space-between;
     }
     .domain:hover { background: var(--bg-soft); }
-    .domain-svg { width: 38px; height: 38px; stroke: var(--gold); fill: none; stroke-width: 1.25; opacity: 0.85; }
+    .domain-svg { width: 34px; height: 34px; stroke: var(--gold); fill: none; stroke-width: 1.25; opacity: 0.85; margin-bottom: 0.5rem; }
     .domain-name { font-family: var(--serif); font-size: 1.5rem; }
-    .domain-sub { font-size: 0.6rem; letter-spacing: 0.08em; color: var(--fg-dim); text-transform: uppercase; margin-top: 0.4rem; }
+    .domain-orgs { display: flex; gap: 0.35rem; flex-wrap: wrap; margin-top: 0.65rem; }
+    .domain-org {
+      font-size: 0.5rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--gold); border: 1px solid rgba(200,185,122,0.28);
+      padding: 0.18rem 0.5rem;
+    }
+    .domain-projects { margin-top: 0.9rem; display: flex; flex-direction: column; gap: 0.3rem; border-top: 1px solid var(--fg-faint); padding-top: 0.75rem; }
+    .domain-proj {
+      font-size: 0.56rem; color: var(--fg-dim); line-height: 1.4;
+      display: flex; align-items: baseline; gap: 0.4rem;
+      transition: color 0.2s;
+    }
+    .domain-proj::before { content: '↳'; color: rgba(200,185,122,0.4); font-size: 0.5rem; flex-shrink: 0; }
+    .domain:hover .domain-proj { color: var(--fg-mid); }
+    .domain { min-height: 260px; }
     .domain-arrow { position: absolute; top: 1.5rem; right: 1.5rem; color: var(--fg-dim); font-size: 0.8rem; transition: color 0.3s, transform 0.3s var(--ease); }
     .domain:hover .domain-arrow { color: var(--gold); transform: translate(3px,-3px); }
 
@@ -604,8 +618,7 @@
     <a class="logo" href="#home">A<b>.</b>C<b>.</b></a>
     <ul class="nav-center">
       <li><a href="#domains" data-nav>Domains</a></li>
-      <li><a href="#work" data-nav>Work</a></li>
-      <li><a href="Projects.html">Projects</a></li>
+      <li><a href="#work" data-nav>Projects</a></li>
       <li><a href="#about" data-nav>About</a></li>
       <li><a href="#contact" data-nav>Contact</a></li>
     </ul>
@@ -624,8 +637,7 @@
         <div class="hero-tag">Electrical Engineer · Systems Designer</div>
         <h1 class="hero-name" id="heroName">
           <span class="reveal-line"><span>Aryan</span></span>
-          <span class="reveal-line"><span><em>Chahar-</em></span></span>
-          <span class="reveal-line"><span>dovalee</span></span>
+          <span class="reveal-line"><span><em>Chahar</em>dovalee</span></span>
         </h1>
         <p class="hero-desc">UBC Electrical Engineering grad working across satellites, silicon photonics, and RF systems — wherever signal integrity and system-level thinking matter most.</p>
         <div class="hero-actions">
@@ -643,9 +655,9 @@
         </div>
         <div class="status-pill"><span class="dot"></span>Open to opportunities</div>
         <div class="stat-row">
-          <div class="stat"><span class="stat-num">8</span><span class="stat-label">Projects</span></div>
+          <div class="stat"><span class="stat-num">26</span><span class="stat-label">Projects</span></div>
           <div class="stat"><span class="stat-num">4</span><span class="stat-label">Orgs</span></div>
-          <div class="stat"><span class="stat-num">UBC</span><span class="stat-label">B.A.Sc.</span></div>
+          <div class="stat"><span class="stat-num">E.I.T.</span><span class="stat-label">Engineer</span></div>
         </div>
         <div class="disciplines">
           <span class="disc-tag">RF Design</span>
@@ -691,25 +703,59 @@
         <span class="section-num">/ 01</span>
       </div>
       <div class="domain-grid reveal">
-        <a class="domain" href="Satellites.html">
+        <a class="domain" href="#work" data-domain-filter="Space">
           <span class="domain-arrow">↗</span>
           <svg class="domain-svg" viewBox="0 0 40 40"><circle cx="20" cy="20" r="5"/><path d="M20 4v6M20 30v6M4 20h6M30 20h6"/><ellipse cx="20" cy="20" rx="16" ry="7" transform="rotate(45 20 20)"/></svg>
-          <div><div class="domain-name">Satellites</div><div class="domain-sub">UBC ORBIT · CubeSat RF</div></div>
+          <div class="domain-name">Satellites</div>
+          <div class="domain-orgs">
+            <span class="domain-org">UBC ORBIT</span>
+          </div>
+          <div class="domain-projects">
+            <span class="domain-proj">Antenna Deployer Module</span>
+            <span class="domain-proj">SatNOGS Ground Station</span>
+            <span class="domain-proj">433 MHz CubeSat Radio Link</span>
+          </div>
         </a>
-        <a class="domain" href="Drones.html">
+        <a class="domain" href="#work" data-domain-filter="Embedded">
           <span class="domain-arrow">↗</span>
           <svg class="domain-svg" viewBox="0 0 40 40"><circle cx="10" cy="10" r="4"/><circle cx="30" cy="10" r="4"/><circle cx="10" cy="30" r="4"/><circle cx="30" cy="30" r="4"/><rect x="16" y="16" width="8" height="8"/><path d="M13 13l3 3M27 13l-3 3M13 27l3-3M27 27l-3-3"/></svg>
-          <div><div class="domain-name">Drones</div><div class="domain-sub">Huawei · WLAN comms</div></div>
+          <div class="domain-name">Drones</div>
+          <div class="domain-orgs">
+            <span class="domain-org">Huawei Canada</span>
+            <span class="domain-org">Zipline</span>
+          </div>
+          <div class="domain-projects">
+            <span class="domain-proj">WLAN for Huawei Drone</span>
+            <span class="domain-proj">Drone Telemetry Link Monitor</span>
+            <span class="domain-proj">LoRa Mesh Coverage Mapper</span>
+          </div>
         </a>
-        <a class="domain" href="Ships.html">
+        <a class="domain" href="#work" data-domain-filter="Maritime">
           <span class="domain-arrow">↗</span>
           <svg class="domain-svg" viewBox="0 0 40 40"><path d="M6 24h28l-4 8H10z"/><path d="M20 24V8M20 8l10 4-10 4"/></svg>
-          <div><div class="domain-name">Ships</div><div class="domain-sub">Seaspan · Maritime EMC</div></div>
+          <div class="domain-name">Ships</div>
+          <div class="domain-orgs">
+            <span class="domain-org">Seaspan</span>
+          </div>
+          <div class="domain-projects">
+            <span class="domain-proj">EMC / EMI Analysis of MPV</span>
+            <span class="domain-proj">AIS Marine Receiver</span>
+            <span class="domain-proj">Wi-Fi Coverage Heatmap</span>
+          </div>
         </a>
-        <a class="domain" href="Airplanes.html">
+        <a class="domain" href="#work" data-domain-filter="RF">
           <span class="domain-arrow">↗</span>
           <svg class="domain-svg" viewBox="0 0 40 40"><path d="M20 4l3 14 13 6-13 2-3 8-3-8-13-2 13-6z"/></svg>
-          <div><div class="domain-name">Airplanes</div><div class="domain-sub">Flight training</div></div>
+          <div class="domain-name">Airplanes</div>
+          <div class="domain-orgs">
+            <span class="domain-org">Zipline</span>
+            <span class="domain-org">Pilot Training</span>
+          </div>
+          <div class="domain-projects">
+            <span class="domain-proj">SDR ADS-B Receiver</span>
+            <span class="domain-proj">Drone Telemetry Link Monitor</span>
+            <span class="domain-proj">Spectrum Anomaly Detector</span>
+          </div>
         </a>
       </div>
     </div>
@@ -1244,6 +1290,17 @@
         if (reduce) { el.classList.add('in'); return; }
         el.style.transitionDelay = (i % 4) * 0.055 + 's';
         cardObserver.observe(el);
+      });
+
+      /* domain cards → filter + scroll to projects */
+      document.querySelectorAll('.domain[data-domain-filter]').forEach(function(card) {
+        card.addEventListener('click', function(e) {
+          e.preventDefault();
+          var f = card.dataset.domainFilter;
+          var chip = document.querySelector('.chip[data-filter="' + f + '"]');
+          if (chip) chip.click();
+          document.getElementById('work').scrollIntoView({ behavior: 'smooth' });
+        });
       });
 
       /* filter chips */
