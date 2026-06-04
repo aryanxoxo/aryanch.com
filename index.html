@@ -111,10 +111,10 @@
     .nav-resume:hover { background: var(--gold); }
 
     /* ───── HERO ───── */
-    #home { position: relative; z-index: 1; overflow: hidden; }
+    #home { position: relative; z-index: 1; }
     #scope {
-      position: absolute; inset: 0; width: 100%; height: 100%;
-      z-index: 0; opacity: 0.9;
+      position: fixed; inset: 0; width: 100%; height: 100%;
+      z-index: -1; pointer-events: none;
     }
     .hero-inner {
       position: relative; z-index: 1;
@@ -240,7 +240,9 @@
     @keyframes marquee { to { transform: translateX(-50%); } }
 
     /* ───── SECTION SCAFFOLD ───── */
-    section { position: relative; z-index: 1; background: var(--bg); }
+    section { position: relative; z-index: 1; background: rgba(10,10,8,0.78); }
+    .marquee { background: rgba(10,10,8,0.85) !important; }
+    footer { background: rgba(10,10,8,0.85) !important; }
     .wrap { padding: 4.5rem 2.5rem; }
     .section-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 2.75rem; }
     .eyebrow { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); display: flex; align-items: center; gap: 0.7rem; }
@@ -613,9 +615,10 @@
     </div>
   </nav>
 
+  <canvas id="scope" aria-hidden="true"></canvas>
+
   <!-- HERO -->
   <section id="home">
-    <canvas id="scope" aria-hidden="true"></canvas>
     <div class="hero-inner">
       <div class="hero-left">
         <div class="hero-tag">Electrical Engineer · Systems Designer</div>
@@ -1270,14 +1273,13 @@
         document.getElementById('termView').classList.add('visible');
       });
 
-      /* ---- Oscilloscope hero background ---- */
+      /* ---- Oscilloscope full-page background ---- */
       var canvas = document.getElementById('scope');
       if (canvas && canvas.getContext) {
         var ctx = canvas.getContext('2d');
         var w, h, dpr = Math.min(window.devicePixelRatio || 1, 2);
         function resize() {
-          var host = canvas.parentElement.getBoundingClientRect();
-          w = host.width; h = host.height;
+          w = window.innerWidth; h = window.innerHeight;
           canvas.width = w * dpr; canvas.height = h * dpr;
           canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
           ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -1286,29 +1288,42 @@
         window.addEventListener('resize', resize);
 
         var waves = [
-          { amp: 26, len: 0.012, speed: 0.018, y: 0.46, col: 'rgba(200,185,122,0.34)', wdt: 1.4 },
-          { amp: 16, len: 0.020, speed: 0.026, y: 0.52, col: 'rgba(200,185,122,0.16)', wdt: 1 },
-          { amp: 40, len: 0.007, speed: 0.011, y: 0.58, col: 'rgba(232,228,217,0.05)', wdt: 1 }
+          { amp: 38, len: 0.010, speed: 0.018, y: 0.30, col: 'rgba(200,185,122,0.55)', wdt: 1.6 },
+          { amp: 24, len: 0.018, speed: 0.026, y: 0.50, col: 'rgba(200,185,122,0.30)', wdt: 1.2 },
+          { amp: 55, len: 0.006, speed: 0.011, y: 0.70, col: 'rgba(232,228,217,0.14)', wdt: 1.0 },
+          { amp: 18, len: 0.025, speed: 0.032, y: 0.85, col: 'rgba(200,185,122,0.18)', wdt: 0.9 }
         ];
+
         var phase = 0;
+        var clickImpact = 0;
+
+        document.addEventListener('click', function () { clickImpact = 1.0; });
+
         function draw() {
           ctx.clearRect(0, 0, w, h);
-          // faint grid
-          ctx.strokeStyle = 'rgba(232,228,217,0.03)';
+
+          /* faint grid */
+          ctx.strokeStyle = 'rgba(232,228,217,0.04)';
           ctx.lineWidth = 1;
-          for (var gx = 0; gx < w; gx += 56) { ctx.beginPath(); ctx.moveTo(gx, 0); ctx.lineTo(gx, h); ctx.stroke(); }
-          for (var gy = 0; gy < h; gy += 56) { ctx.beginPath(); ctx.moveTo(0, gy); ctx.lineTo(w, gy); ctx.stroke(); }
+          for (var gx = 0; gx < w; gx += 60) { ctx.beginPath(); ctx.moveTo(gx, 0); ctx.lineTo(gx, h); ctx.stroke(); }
+          for (var gy = 0; gy < h; gy += 60) { ctx.beginPath(); ctx.moveTo(0, gy); ctx.lineTo(w, gy); ctx.stroke(); }
+
+          var boost = 1 + clickImpact * 3.5;
+          clickImpact *= 0.91;
+
           waves.forEach(function (wv, i) {
             ctx.beginPath();
-            ctx.strokeStyle = wv.col; ctx.lineWidth = wv.wdt;
+            ctx.strokeStyle = wv.col;
+            ctx.lineWidth = wv.wdt + clickImpact * 1.2;
             for (var x = 0; x <= w; x += 2) {
               var y = h * wv.y
-                + Math.sin(x * wv.len + phase * wv.speed * 60 + i) * wv.amp
-                + Math.sin(x * wv.len * 0.5 + phase * wv.speed * 30) * (wv.amp * 0.3);
+                + Math.sin(x * wv.len + phase * wv.speed * 60 + i * 1.1) * wv.amp * boost
+                + Math.sin(x * wv.len * 0.5 + phase * wv.speed * 30 + i) * (wv.amp * 0.35) * boost;
               if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
             }
             ctx.stroke();
           });
+
           phase += 1;
           requestAnimationFrame(draw);
         }
