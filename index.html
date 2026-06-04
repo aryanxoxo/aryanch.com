@@ -470,6 +470,61 @@
       footer { padding: 1.5rem 1.25rem; }
     }
 
+    /* ───── MODAL ───── */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 500;
+      background: rgba(10,10,8,0.82);
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 2rem;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s var(--ease);
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    .modal {
+      background: var(--bg-soft); border: 1px solid rgba(232,228,217,0.1);
+      max-width: 660px; width: 100%; max-height: 82vh; overflow-y: auto;
+      transform: translateY(18px);
+      transition: transform 0.38s var(--ease);
+    }
+    .modal-overlay.open .modal { transform: translateY(0); }
+    .modal-head {
+      padding: 2rem 2rem 1.5rem;
+      border-bottom: 1px solid var(--fg-faint);
+      display: grid; grid-template-columns: 1fr auto; gap: 1rem; align-items: start;
+    }
+    .modal-num { font-family: var(--serif); color: var(--gold); font-size: 0.82rem; margin-bottom: 0.5rem; }
+    .modal-title { font-family: var(--serif); font-size: clamp(1.4rem,3vw,1.9rem); line-height: 1.08; }
+    .modal-domain { font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-top: 0.7rem; display: flex; align-items: center; gap: 0.6rem; }
+    .modal-domain::before { content: ''; width: 1.2rem; height: 1px; background: var(--gold); }
+    .modal-close {
+      background: none; border: 1px solid var(--fg-faint); color: var(--fg-dim);
+      width: 34px; height: 34px; cursor: pointer; font-size: 1.1rem;
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color 0.2s, color 0.2s; flex-shrink: 0; font-family: var(--mono);
+    }
+    .modal-close:hover { border-color: var(--gold); color: var(--gold); }
+    .modal-body { padding: 1.5rem 2rem 2rem; display: flex; flex-direction: column; gap: 1.4rem; }
+    .modal-demo {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.64rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--bg); background: var(--gold); padding: 0.55rem 1.1rem;
+      width: fit-content; transition: opacity 0.2s;
+    }
+    .modal-demo:hover { opacity: 0.82; }
+    .modal-demo.hidden { display: none; }
+    .modal-section { display: flex; flex-direction: column; gap: 0.55rem; }
+    .modal-section-label {
+      font-size: 0.54rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gold); display: flex; align-items: center; gap: 0.6rem;
+    }
+    .modal-section-label::before { content: ''; width: 1rem; height: 1px; background: var(--gold); }
+    .modal-section-text { font-size: 0.75rem; line-height: 1.95; color: var(--fg-mid); }
+    .modal-list { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; padding: 0; }
+    .modal-list li { font-size: 0.75rem; line-height: 1.7; color: var(--fg-mid); padding-left: 1.1rem; position: relative; }
+    .modal-list li::before { content: '—'; position: absolute; left: 0; color: var(--gold); }
+    .modal-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+
     /* ───── VIEW TRANSITIONS ───── */
     @keyframes vt-fade-in  { from { opacity: 0; translate: 0 12px; } }
     @keyframes vt-fade-out { to   { opacity: 0; translate: 0 -12px; } }
@@ -487,6 +542,43 @@
 <body>
 
   <div class="scroll-bar" aria-hidden="true"></div>
+
+  <!-- PROJECT MODAL -->
+  <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal">
+      <div class="modal-head">
+        <div>
+          <div class="modal-num" id="modalNum"></div>
+          <div class="modal-title" id="modalTitle"></div>
+          <div class="modal-domain" id="modalDomain"></div>
+        </div>
+        <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+      </div>
+      <div class="modal-body">
+        <a class="modal-demo" id="modalDemo" href="#" target="_blank" rel="noopener">View Demo →</a>
+        <div class="modal-section">
+          <div class="modal-section-label">Overview</div>
+          <div class="modal-section-text" id="modalOverview"></div>
+        </div>
+        <div class="modal-section">
+          <div class="modal-section-label">Key Features</div>
+          <ul class="modal-list" id="modalFeatures"></ul>
+        </div>
+        <div class="modal-section">
+          <div class="modal-section-label">Technical Challenges</div>
+          <div class="modal-section-text" id="modalChallenges"></div>
+        </div>
+        <div class="modal-section">
+          <div class="modal-section-label">Outcome</div>
+          <div class="modal-section-text" id="modalOutcome"></div>
+        </div>
+        <div class="modal-section">
+          <div class="modal-section-label">Technologies Used</div>
+          <div class="modal-tags" id="modalTags"></div>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="cursor-dot" id="cdot" aria-hidden="true"></div>
   <div class="cursor-ring" id="cring" aria-hidden="true"></div>
 
@@ -776,34 +868,269 @@
         btn.addEventListener('mouseleave', function () { btn.style.transform = 'translate(0,0)'; });
       });
 
+      /* ---- Modal ---- */
+      function openModal(p, num) {
+        document.getElementById('modalNum').textContent = num;
+        document.getElementById('modalTitle').textContent = p.title;
+        document.getElementById('modalDomain').textContent = p.domain;
+        document.getElementById('modalOverview').textContent = p.overview || '';
+        var ul = document.getElementById('modalFeatures');
+        ul.innerHTML = (p.features || []).map(function(f) { return '<li>' + f + '</li>'; }).join('');
+        document.getElementById('modalChallenges').textContent = p.challenges || '';
+        document.getElementById('modalOutcome').textContent = p.outcome || '';
+        document.getElementById('modalTags').innerHTML = p.tags.map(function(t) { return '<span class="ptag">' + t + '</span>'; }).join('');
+        var demo = document.getElementById('modalDemo');
+        if (p.demo) { demo.href = p.demo; demo.classList.remove('hidden'); }
+        else { demo.classList.add('hidden'); }
+        document.getElementById('modalOverlay').classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeModal() {
+        document.getElementById('modalOverlay').classList.remove('open');
+        document.body.style.overflow = '';
+      }
+      document.getElementById('modalClose').addEventListener('click', closeModal);
+      document.getElementById('modalOverlay').addEventListener('click', function(e) {
+        if (e.target === this) closeModal();
+      });
+      document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
+
       /* ---- Projects: data, render, filter, view toggle ---- */
       var PROJECTS = [
-        { cats: ['Maritime','RF'],    domain: 'Maritime · Huawei Capstone',       title: 'EMC / EMI Analysis of MPV',            tags: ['EMC','Antenna Placement','IEEE','Field Testing'],              href: 'Projects.html#emc-mpv' },
-        { cats: ['Space','RF'],       domain: 'Space · UBC ORBIT',                title: 'Antenna Deployer Module',               tags: ['RF Design','PCB','Microcontrollers','Signal Processing'],      href: 'Projects.html#antenna-deployer' },
-        { cats: ['Photonics'],        domain: 'Photonics · ELEC 413',             title: 'Collaborative PIC Design',              tags: ['Silicon Photonics','Optical Resonators','MATLAB','PWB'],       href: 'Projects.html#pic-design' },
-        { cats: ['Embedded','RF'],    domain: 'Drone Comms · Huawei Canada',      title: 'WLAN for Huawei Drone',                 tags: ['WLAN','Real-Time Data','C&amp;C Systems','Python'],            href: 'Projects.html#drone-wlan' },
-        { cats: ['FPGA'],             domain: 'Embedded · Digital Systems',       title: 'FPGA Snake Game',                       tags: ['FPGA','Verilog','Assembly','FSM Design'],                      href: 'Projects.html#fpga-snake' },
-        { cats: ['AI'],               domain: 'Machine Learning · Personal',      title: 'LOTTOCRACK',                            tags: ['Keras','DNN','Pattern Analysis','Python'],                     href: 'Projects.html#lottocrack' },
-        { cats: ['Space','RF'],       domain: 'Space Systems · SDR',              title: 'SatNOGS Ground Station',                tags: ['Doppler','Rotator Control','Linux','SatNOGS'],                 href: 'Projects.html#satnogs' },
-        { cats: ['Space','RF'],       domain: 'Space · RF Testing',               title: '433 MHz CubeSat Radio Link',            tags: ['BER','CC1110','Half-Duplex','RF Testing'],                     href: 'Projects.html#cubesat-link' },
-        { cats: ['RF'],               domain: 'Aerospace · SDR',                  title: 'SDR ADS-B Receiver',                    tags: ['RTL-SDR','GNU Radio','Demodulation','Python'],                 href: 'Projects.html#ads-b' },
-        { cats: ['Maritime','RF'],    domain: 'Maritime · Telecom',               title: 'AIS Marine Receiver',                   tags: ['VHF','RTL-SDR','Packet Decoding','Python'],                    href: 'Projects.html#ais-receiver' },
-        { cats: ['RF'],               domain: 'RF · Hardware',                    title: 'Antenna Radiation Pattern Visualizer',  tags: ['NanoVNA','Gain &amp; Nulls','Polarization','Python'],          href: 'Projects.html#antenna-viz' },
-        { cats: ['RF'],               domain: 'RF · EMC',                         title: 'EMI / EMC Debug Case Study',            tags: ['Noise Sources','LTspice','Grounding','Spectrum Analyzer'],     href: 'Projects.html#emc-debug' },
-        { cats: ['RF'],               domain: 'RF · PCB Design',                  title: 'Custom RF PCB',                         tags: ['Impedance Control','Matching Networks','KiCad','VNA'],         href: 'Projects.html#rf-pcb' },
-        { cats: ['Telecom'],          domain: 'Telecom · Comms Theory',           title: 'OFDM Modem Simulation',                 tags: ['FFT','BER','MATLAB','Channel Estimation'],                     href: 'Projects.html#ofdm' },
-        { cats: ['RF','AI'],          domain: 'RF · Machine Learning',            title: 'SDR Signal Classifier',                 tags: ['RTL-SDR','GNU Radio','ML','Spectrum Features'],                href: 'Projects.html#sdr-classifier' },
-        { cats: ['AI'],               domain: 'AI · Hardware Test',               title: 'AI Lab Bench Assistant',                tags: ['SCPI','Python','OpenAI API','VISA'],                           href: 'Projects.html#ai-bench' },
-        { cats: ['FPGA'],             domain: 'FPGA · Signal Generation',         title: 'FPGA DDS Signal Generator',             tags: ['Verilog','NCO','DAC','Waveform Gen'],                          href: 'Projects.html#fpga-dds' },
-        { cats: ['Telecom'],          domain: 'Telecom · 5G Infrastructure',      title: '5G Lab with srsRAN',                    tags: ['RAN Architecture','gNB','Docker','Linux'],                     href: 'Projects.html#5g-lab' },
-        { cats: ['Telecom','Embedded'],domain: 'Telecom · IoT',                   title: 'LoRa Mesh Coverage Mapper',             tags: ['ESP32','Link Budget','RSSI / SNR','GPS'],                      href: 'Projects.html#lora-mesh' },
-        { cats: ['RF','AI'],          domain: 'RF · Monitoring',                  title: 'Spectrum Anomaly Detector',             tags: ['SDR','Python','Thresholds','Anomaly Detection'],               href: 'Projects.html#spectrum-anomaly' },
-        { cats: ['Power'],            domain: 'Power · EMC',                      title: 'Buck Converter EMI Fix',                tags: ['LTspice','KiCad','Ferrites','Switching Noise'],                href: 'Projects.html#buck-emi' },
-        { cats: ['Embedded'],         domain: 'Embedded · RTOS',                  title: 'Zephyr RTOS Sensor Node',               tags: ['Zephyr','nRF52','BLE','Drivers'],                              href: 'Projects.html#zephyr-rtos' },
-        { cats: ['Embedded','RF'],    domain: 'UAV · Telemetry',                  title: 'Drone Telemetry Link Monitor',          tags: ['LoRa','ESP32','Python','Latency Analysis'],                    href: 'Projects.html#drone-telemetry' },
-        { cats: ['FPGA'],             domain: 'FPGA · DSP',                       title: 'FPGA DSP Filter',                       tags: ['FIR / IIR','Verilog','Fixed-Point','MATLAB'],                  href: 'Projects.html#fpga-dsp' },
-        { cats: ['Telecom'],          domain: 'Telecom · Wireless',               title: 'Wi-Fi Coverage Heatmap',                tags: ['Propagation','Channel Planning','Python','Maps'],              href: 'Projects.html#wifi-heatmap' },
-        { cats: ['Embedded'],         domain: 'Embedded · Automotive',            title: 'CAN Bus Vehicle Logger',                tags: ['STM32','CAN','Automotive','Python'],                           href: 'Projects.html#can-bus' },
+        {
+          cats: ['Maritime','RF'], domain: 'Maritime · Huawei Capstone', title: 'EMC / EMI Analysis of MPV',
+          tags: ['EMC','Antenna Placement','IEEE','Field Testing'],
+          overview: 'Conducted a full EMC/EMI assessment of a multi-purpose vessel (MPV) for Huawei Canada as part of a year-long capstone. Mapped antenna interference zones, characterized near-field coupling between shipboard transceivers, and produced an IEEE-format compliance report.',
+          features: ['Full-ship antenna placement optimization','Near-field and far-field interference mapping','Spectrum measurements across VHF, UHF, and microwave bands','IEEE 802.3 and SOLAS-aligned compliance documentation'],
+          challenges: 'The vessel\'s steel superstructure created complex multipath environments that were difficult to model analytically. We combined field measurements with CST simulation to reconcile discrepancies between predicted and observed interference patterns.',
+          outcome: 'Delivered a complete EMC report adopted by Huawei Canada\'s hardware team. Antenna separation recommendations reduced co-channel interference by over 18 dB in the worst-case bands.',
+          demo: ''
+        },
+        {
+          cats: ['Space','RF'], domain: 'Space · UBC ORBIT', title: 'Antenna Deployer Module',
+          tags: ['RF Design','PCB','Microcontrollers','Signal Processing'],
+          overview: 'Designed and built the antenna deployment subsystem for a UBC ORBIT CubeSat. The module uses a burn-wire mechanism triggered by a microcontroller to release the UHF communication antenna post-launch, with redundant firing paths to ensure mission reliability.',
+          features: ['Dual redundant burn-wire release circuits','Overcurrent protection and deployment confirmation telemetry','Compact 2-layer PCB sized to CubeSat form factor','Integration with satellite OBC over I2C'],
+          challenges: 'Ensuring reliable deployment in vacuum and thermal extremes required careful material selection and thermal cycling tests. Managing inrush current during burn-wire activation without resetting the OBC was the hardest electrical constraint.',
+          outcome: 'Module passed all thermal-vacuum qualification tests. The design was integrated into UBC ORBIT\'s satellite stack and validated in end-to-end communication tests at 437 MHz.',
+          demo: ''
+        },
+        {
+          cats: ['Photonics'], domain: 'Photonics · ELEC 413', title: 'Collaborative PIC Design',
+          tags: ['Silicon Photonics','Optical Resonators','MATLAB','PWB'],
+          overview: 'Designed a silicon photonic integrated circuit (PIC) on the SiEPIC platform featuring ring resonators, directional couplers, and grating couplers. The design was fabricated through a multi-project wafer (MPW) run and characterized with swept-laser transmission measurements.',
+          features: ['Ring resonator with Q > 10,000 on 220 nm SOI','Directional couplers with 50:50 split ratio at 1550 nm','MATLAB-based transfer matrix model for resonance prediction','Grating coupler optimization for fiber-chip coupling efficiency'],
+          challenges: 'Achieving the target resonance wavelength required iterating on ring radius and gap dimensions across multiple FDTD simulation passes. Fabrication tolerance in the MPW run shifted resonances by ~2 nm, which required post-fab calibration in the test setup.',
+          outcome: 'Fabricated PIC showed resonance features within 3 nm of simulation targets. Extinction ratio of 12 dB measured on the primary ring resonator, consistent with design intent.',
+          demo: ''
+        },
+        {
+          cats: ['Embedded','RF'], domain: 'Drone Comms · Huawei Canada', title: 'WLAN for Huawei Drone',
+          tags: ['WLAN','Real-Time Data','C&amp;C Systems','Python'],
+          overview: 'Designed and evaluated a WLAN-based command-and-control (C2) link for a Huawei drone platform. Characterized link performance across frequency bands, modeled latency and packet loss under interference, and proposed a frequency-hopping scheme to improve robustness in congested RF environments.',
+          features: ['End-to-end C2 link latency characterization at 2.4 GHz and 5 GHz','Python test harness for automated packet loss and throughput logging','Interference resilience testing against adjacent WLAN networks','Channel selection algorithm based on real-time RSSI scanning'],
+          challenges: 'Urban RF environments introduced significant co-channel interference that degraded control link reliability below acceptable thresholds. Implementing adaptive channel selection without adding latency to the control loop required careful timing analysis.',
+          outcome: 'Proposed channel-hopping scheme reduced command link dropout events by 73% in bench tests simulating dense urban RF conditions. Findings were incorporated into Huawei\'s drone communication design guidelines.',
+          demo: ''
+        },
+        {
+          cats: ['FPGA'], domain: 'Embedded · Digital Systems', title: 'FPGA Snake Game',
+          tags: ['FPGA','Verilog','Assembly','FSM Design'],
+          overview: 'Implemented a fully playable Snake game on an FPGA using Verilog, with VGA display output, PS/2 keyboard input, and an embedded RISC processor running game logic in assembly. The project demonstrated hardware-software co-design at the register-transfer level.',
+          features: ['VGA 640×480 display driver with 60 Hz refresh','PS/2 keyboard decoder for real-time directional input','Finite state machine for snake movement, collision, and scoring','Score display on 7-segment output'],
+          challenges: 'Synchronizing the VGA pixel clock domain with the game logic clock domain required careful use of synchronizer flip-flops. Collision detection at the boundary and self-intersection needed to be resolved within a single clock cycle to avoid display tearing.',
+          outcome: 'Fully functional game running at 60 fps on a DE1-SoC board. Project received highest marks in the ELEC 311 digital systems course.',
+          demo: ''
+        },
+        {
+          cats: ['AI'], domain: 'Machine Learning · Personal', title: 'LOTTOCRACK',
+          tags: ['Keras','DNN','Pattern Analysis','Python'],
+          overview: 'Built a deep neural network to analyze historical Lotto Max draw data and identify statistical patterns in number frequency, positional bias, and draw-to-draw correlations. The project was primarily an exercise in applied ML and time-series feature engineering — not a serious prediction engine.',
+          features: ['Scraped and cleaned 10+ years of Lotto Max historical draw data','Feature engineering: rolling frequency, positional histograms, gap analysis','Keras DNN trained on 80/20 train-test split with dropout regularization','Visualization dashboard for pattern analysis and model confidence'],
+          challenges: 'Lottery draws are by design statistically independent, so the model consistently converged toward predicting mean frequencies. The real challenge was building a robust feature pipeline and confronting the limits of ML on truly random processes.',
+          outcome: 'Achieved near-baseline prediction accuracy, confirming statistical independence of draws. The pipeline and visualization tools were reused in later signal classification projects.',
+          demo: ''
+        },
+        {
+          cats: ['Space','RF'], domain: 'Space Systems · SDR', title: 'SatNOGS Ground Station',
+          tags: ['Doppler','Rotator Control','Linux','SatNOGS'],
+          overview: 'Built and configured a SatNOGS-compatible ground station for receiving LEO satellite telemetry. The station includes a motorized az/el rotator, a wideband SDR receiver, and automated scheduling software that tracks satellite passes and records IQ data for the global SatNOGS network.',
+          features: ['Automated two-line element (TLE) based pass prediction and tracking','Doppler correction applied in real-time during satellite passes','Rotator controller built on Arduino with custom motor driver PCB','Contributions to SatNOGS open-source observation database'],
+          challenges: 'Achieving accurate rotator pointing required calibrating mechanical backlash and integrating a feedback loop between the rotator controller and the SDR software. Doppler correction at VHF needed sub-Hz frequency resolution for clean FM demodulation.',
+          outcome: 'Station successfully decoded telemetry from multiple LEO satellites including NOAA weather satellites and amateur radio CubeSats. Observations contributed to the SatNOGS global network.',
+          demo: ''
+        },
+        {
+          cats: ['Space','RF'], domain: 'Space · RF Testing', title: '433 MHz CubeSat Radio Link',
+          tags: ['BER','CC1110','Half-Duplex','RF Testing'],
+          overview: 'Designed and tested a half-duplex UHF radio link at 433 MHz for CubeSat applications using the CC1110 transceiver IC. Characterized bit error rate (BER) versus SNR across a range of modulation schemes and validated link budget calculations against over-the-air measurements.',
+          features: ['CC1110-based transceiver boards with SMA antenna port','Link budget analysis for 400 km LEO pass geometry','BER vs. SNR characterization for 2-FSK, GFSK, and MSK','Python-based test automation for packet error counting'],
+          challenges: 'Achieving the sensitivity floor predicted by the link budget required careful PCB layout to minimize noise coupling from the microcontroller into the RF front end. Ground plane splits and proper decoupling brought measured sensitivity within 1 dB of the datasheet spec.',
+          outcome: 'Measured BER performance matched link budget predictions within 1.5 dB. Design validated as suitable for UBC ORBIT CubeSat UHF downlink requirements.',
+          demo: ''
+        },
+        {
+          cats: ['RF'], domain: 'Aerospace · SDR', title: 'SDR ADS-B Receiver',
+          tags: ['RTL-SDR','GNU Radio','Demodulation','Python'],
+          overview: 'Built a software-defined ADS-B receiver using an RTL-SDR dongle and GNU Radio to decode Mode S transponder messages from commercial aircraft. Real-time aircraft positions were plotted on a live map, and a Python logger archived decoded messages for analysis.',
+          features: ['RTL-SDR tuned to 1090 MHz with custom bandpass filter','GNU Radio flowgraph for PPM demodulation and frame sync','Python decoder for ICAO address, altitude, lat/lon extraction','Live aircraft map with range > 200 km from rooftop antenna'],
+          challenges: 'The RTL-SDR\'s phase noise and frequency drift introduced preamble detection errors at the edges of the RF range. Implementing a drift-compensated AGC loop in GNU Radio significantly improved frame sync reliability.',
+          outcome: 'Receiver reliably decoded ADS-B messages from 60–80 simultaneous aircraft. Directly relevant to my pilot training — the same data feeds commercial TCAS and ATC systems.',
+          demo: ''
+        },
+        {
+          cats: ['Maritime','RF'], domain: 'Maritime · Telecom', title: 'AIS Marine Receiver',
+          tags: ['VHF','RTL-SDR','Packet Decoding','Python'],
+          overview: 'Implemented a software AIS receiver to decode vessel identification and position messages broadcast on VHF channels 87B and 88B. Decoded NMEA sentences were parsed and plotted on a marine chart overlay, allowing real-time vessel traffic monitoring.',
+          features: ['RTL-SDR tuned to 161.975 MHz and 162.025 MHz simultaneously','GMSK demodulation and HDLC frame extraction in Python','NMEA 0183 sentence parser for MMSI, position, COG, SOG','Live vessel tracking map with AIS message history log'],
+          challenges: 'Simultaneous dual-channel reception required running two SDR instances with tight frequency stability. GMSK demodulation sensitivity to frequency offset meant careful calibration of the SDR reference oscillator was essential.',
+          outcome: 'Successfully decoded AIS messages from vessels across Vancouver Harbour. Decoder accuracy validated against a commercial AIS receiver — matched on 98.7% of frames.',
+          demo: ''
+        },
+        {
+          cats: ['RF'], domain: 'RF · Hardware', title: 'Antenna Radiation Pattern Visualizer',
+          tags: ['NanoVNA','Gain &amp; Nulls','Polarization','Python'],
+          overview: 'Built a low-cost antenna pattern measurement system using a motorized turntable, a NanoVNA as the signal source, and a calibrated receiver to map azimuthal and elevation gain patterns. Python post-processing produced polar gain plots for antenna comparison and validation.',
+          features: ['Stepper-motor turntable with 1° angular resolution','NanoVNA-driven signal source with calibrated output power','Received power logged vs. angle in real time over USB','Python polar plot generation with normalization and overlay comparison'],
+          challenges: 'Multipath reflections in the indoor test environment introduced ±2 dB ripple in the measured patterns. Implementing a time-gating approach using the VNA\'s time-domain feature and absorber foam reduced multipath errors substantially.',
+          outcome: 'Measured dipole and patch antenna patterns matched textbook predictions within 3 dB. Tool used to validate UBC ORBIT antenna designs before integration.',
+          demo: ''
+        },
+        {
+          cats: ['RF'], domain: 'RF · EMC', title: 'EMI / EMC Debug Case Study',
+          tags: ['Noise Sources','LTspice','Grounding','Spectrum Analyzer'],
+          overview: 'Systematic EMI debug study on a mixed-signal PCB exhibiting conducted and radiated emissions above CISPR 32 Class B limits. Identified switching noise coupling paths, applied filtering and layout fixes, and documented the methodology as a reproducible debug framework.',
+          features: ['Pre- and post-fix radiated emissions measurements on a spectrum analyzer','LTspice simulation of noise injection paths and filter effectiveness','Common-mode choke and decoupling capacitor placement optimization','Ground plane slot identification and correction'],
+          challenges: 'The dominant noise source was a DC-DC converter coupling into a low-noise analog front end via a shared ground return. Isolating the switching return current path without redesigning the board required creative use of ferrite beads and split planes.',
+          outcome: 'Post-fix emissions reduced by 14 dB at the fundamental switching frequency, bringing the board into CISPR 32 Class B compliance. Debug methodology documented as an internal reference guide.',
+          demo: ''
+        },
+        {
+          cats: ['RF'], domain: 'RF · PCB Design', title: 'Custom RF PCB',
+          tags: ['Impedance Control','Matching Networks','KiCad','VNA'],
+          overview: 'Designed a custom RF PCB for a 2.4 GHz front end, including controlled-impedance microstrip traces, an L-network impedance matching circuit, and an SMA edge connector. Board was fabricated, assembled, and verified with a VNA for return loss and insertion loss.',
+          features: ['50 Ω microstrip trace design with stackup-aware width calculation','L-network matching from 50 Ω to amplifier input impedance','VNA-measured S11 < −15 dB across 2.4–2.5 GHz operating band','KiCad design with DRC-clean layout and Gerber export'],
+          challenges: 'The SMA connector launch introduced a parasitic inductance that shifted the matching network center frequency by 80 MHz. Re-tuning the matching network components after VNA measurement corrected the shift without a board respin.',
+          outcome: 'Final board achieved S11 < −18 dB and S21 within 0.5 dB of simulation across the full 2.4 GHz ISM band. Used as the RF front end for the LoRa coverage mapping project.',
+          demo: ''
+        },
+        {
+          cats: ['Telecom'], domain: 'Telecom · Comms Theory', title: 'OFDM Modem Simulation',
+          tags: ['FFT','BER','MATLAB','Channel Estimation'],
+          overview: 'Built a complete OFDM modem simulation in MATLAB, covering subcarrier modulation, cyclic prefix insertion, AWGN and multipath channel modeling, and MMSE channel estimation. BER curves were generated for BPSK, QPSK, and 16-QAM across a range of SNR values.',
+          features: ['64-subcarrier OFDM with configurable CP length','AWGN and frequency-selective Rayleigh fading channel models','Pilot-based MMSE channel estimator with interpolation','BER vs. Eb/N0 curves benchmarked against theoretical limits'],
+          challenges: 'Implementing accurate channel estimation in a frequency-selective fading environment required careful pilot spacing to satisfy the Nyquist criterion in both time and frequency. Inter-carrier interference from imperfect synchronization also needed to be modeled and mitigated.',
+          outcome: 'Simulated BER curves matched theoretical AWGN bounds within 0.5 dB for BPSK and QPSK. Multipath channel results showed the cyclic prefix eliminating ISI when CP length exceeded the channel delay spread.',
+          demo: ''
+        },
+        {
+          cats: ['RF','AI'], domain: 'RF · Machine Learning', title: 'SDR Signal Classifier',
+          tags: ['RTL-SDR','GNU Radio','ML','Spectrum Features'],
+          overview: 'Built a machine learning pipeline to classify RF signal types (Wi-Fi, Bluetooth, FM broadcast, CW, unknown) from raw IQ captures using an RTL-SDR. Features were extracted from the spectrogram and cyclostationary signatures, and a random forest classifier was trained on a labeled dataset.',
+          features: ['IQ data capture and labeling pipeline using GNU Radio','Spectrogram-based feature extraction: spectral kurtosis, bandwidth, duty cycle','Cyclostationary feature analysis for modulation classification','Random forest classifier with 94% accuracy on held-out test set'],
+          challenges: 'Class imbalance in the training set (FM broadcast samples vastly outnumbered Bluetooth) required SMOTE oversampling. Feature stability across different RTL-SDR units also needed to be validated to ensure the model generalized beyond the training hardware.',
+          outcome: '94% classification accuracy across 6 signal classes. Model deployed as a real-time GNU Radio block for live spectrum monitoring.',
+          demo: ''
+        },
+        {
+          cats: ['AI'], domain: 'AI · Hardware Test', title: 'AI Lab Bench Assistant',
+          tags: ['SCPI','Python','OpenAI API','VISA'],
+          overview: 'Built an AI-powered lab automation agent that controls bench instruments (oscilloscope, DMM, power supply) over SCPI/VISA, interprets measurement results, and generates structured test reports. The agent can execute multi-step test plans from natural language instructions.',
+          features: ['SCPI instrument control via PyVISA for oscilloscope, PSU, and DMM','OpenAI function-calling interface for natural language test commands','Automated report generation with measurement tables and pass/fail status','Waveform screenshot capture and anomaly flagging'],
+          challenges: 'Mapping natural language test instructions to precise SCPI command sequences required extensive prompt engineering. Handling instrument timeout errors and unexpected measurement states without crashing the agent loop was the main reliability challenge.',
+          outcome: 'Agent successfully automated a 12-step PCB bring-up procedure that previously took 45 minutes manually, completing it in under 8 minutes. Reports matched manual engineer documentation quality.',
+          demo: ''
+        },
+        {
+          cats: ['FPGA'], domain: 'FPGA · Signal Generation', title: 'FPGA DDS Signal Generator',
+          tags: ['Verilog','NCO','DAC','Waveform Gen'],
+          overview: 'Implemented a Direct Digital Synthesis (DDS) signal generator on an FPGA using a numerically controlled oscillator (NCO) and a phase-to-amplitude lookup table. Output waveforms (sine, triangle, square) were reconstructed via an external DAC and characterized with a spectrum analyzer.',
+          features: ['32-bit phase accumulator for sub-Hz frequency resolution','256-entry sine LUT with linear interpolation for low spurious output','Configurable frequency and phase via serial interface','Measured SFDR > 55 dBc up to 10 MHz output frequency'],
+          challenges: 'LUT quantization errors created harmonic spurs that degraded SFDR. Implementing phase dithering and increasing LUT depth from 128 to 256 entries improved SFDR by 12 dB. DAC output reconstruction filter design was also critical to alias suppression.',
+          outcome: 'Achieved SFDR > 55 dBc and THD < −50 dBc at 1 MHz output. Waveform quality validated on a spectrum analyzer against an Agilent 33220A reference.',
+          demo: ''
+        },
+        {
+          cats: ['Telecom'], domain: 'Telecom · 5G Infrastructure', title: '5G Lab with srsRAN',
+          tags: ['RAN Architecture','gNB','Docker','Linux'],
+          overview: 'Set up a private 5G NR lab using srsRAN and Open5GS running on commodity Linux hardware. Configured a softmodem gNB, a 5G core (AMF, SMF, UPF), and a UE simulator, then validated end-to-end user plane data flow and measured throughput and latency on the simulated air interface.',
+          features: ['srsRAN gNB configured in SA mode with 5G NR numerology 1','Open5GS core with full N1–N4 interface stack in Docker','UERANSIM for simulated UE registration and PDU session setup','Iperf3 throughput and ping latency benchmarks on the UP'],
+          challenges: 'Timing synchronization between the gNB and UE simulator required careful configuration of the RF simulation interface parameters. PDSCH scheduling errors initially caused high HARQ retransmission rates, resolved by tuning the MCS selection thresholds.',
+          outcome: 'Achieved stable 5G NR data sessions with simulated downlink throughput of 85 Mbps and RTT latency of 4 ms — within expected bounds for a software stack on commodity hardware.',
+          demo: ''
+        },
+        {
+          cats: ['Telecom','Embedded'], domain: 'Telecom · IoT', title: 'LoRa Mesh Coverage Mapper',
+          tags: ['ESP32','Link Budget','RSSI / SNR','GPS'],
+          overview: 'Built a LoRa mesh network coverage mapping tool using ESP32 nodes. Each node logs GPS coordinates alongside RSSI and SNR measurements as it moves through a coverage area, and a Python backend interpolates and renders a heat map of link quality across the physical space.',
+          features: ['ESP32 + SX1276 LoRa nodes with integrated GPS logging','Link budget calculations validated against measured RSSI / SNR','Python heat map renderer with kriging interpolation','Configurable spreading factor and bandwidth for range/throughput trade-off analysis'],
+          challenges: 'GPS accuracy in urban canyons introduced position jitter that smeared the heat map at fine resolution. Applying a Kalman filter to the GPS stream before logging reduced position error from ±8 m to ±2 m.',
+          outcome: 'Coverage maps used to optimize node placement for a campus IoT deployment. SF12 at 125 kHz achieved reliable links at 3.2 km in LOS conditions.',
+          demo: ''
+        },
+        {
+          cats: ['RF','AI'], domain: 'RF · Monitoring', title: 'Spectrum Anomaly Detector',
+          tags: ['SDR','Python','Thresholds','Anomaly Detection'],
+          overview: 'Built a long-running RF spectrum monitoring system that uses an RTL-SDR to continuously scan a frequency band and flags anomalies — new signals, unexpected occupancy, or unusual power levels — using statistical thresholding and an isolation forest ML model.',
+          features: ['Continuous spectrum scan with configurable sweep range and resolution','Rolling baseline model with adaptive threshold per frequency bin','Isolation forest anomaly detection trained on 24-hour baseline captures','Alert logging with timestamp, frequency, and power level'],
+          challenges: 'Distinguishing legitimate occupancy changes (e.g., a new Wi-Fi AP) from genuine anomalies required a two-stage detector: the statistical threshold flags candidates, the ML model filters false positives. Tuning the contamination parameter to minimize false alerts without missing real events took significant iteration.',
+          outcome: 'Deployed for 72-hour continuous monitoring on a rooftop antenna. Detected 3 unlicensed transmissions in the 433 MHz ISM band that were not visible in manual spot checks.',
+          demo: ''
+        },
+        {
+          cats: ['Power'], domain: 'Power · EMC', title: 'Buck Converter EMI Fix',
+          tags: ['LTspice','KiCad','Ferrites','Switching Noise'],
+          overview: 'Diagnosed and fixed conducted EMI on a synchronous buck converter PCB that was failing CISPR 25 pre-compliance. Used LTspice to simulate noise injection, identified a missing common-mode choke on the input rail, and redesigned the PCB layout to minimize switching loop area.',
+          features: ['LTspice conducted EMI simulation with LISN model','Switching loop area reduction through component re-placement in KiCad','Common-mode choke and differential-mode filter addition on input rail','Before/after spectrum analyzer measurements at 150 kHz–30 MHz'],
+          challenges: 'The dominant EMI contributor was a large di/dt loop formed by the high-side MOSFET, inductor, and input capacitor. Shrinking this loop required moving components to the opposite side of the board, which conflicted with thermal management requirements.',
+          outcome: 'Post-fix conducted emissions reduced by 22 dB at the fundamental switching frequency (400 kHz) and harmonics, bringing the design within CISPR 25 Class 5 limits.',
+          demo: ''
+        },
+        {
+          cats: ['Embedded'], domain: 'Embedded · RTOS', title: 'Zephyr RTOS Sensor Node',
+          tags: ['Zephyr','nRF52','BLE','Drivers'],
+          overview: 'Developed a multi-sensor IoT node on an nRF52840 running Zephyr RTOS. The node reads temperature, humidity, and accelerometer data over I2C/SPI, manages low-power sleep states, and transmits sensor payloads over BLE advertisements to a Python gateway.',
+          features: ['Zephyr device tree and Kconfig configuration for nRF52840 DK','I2C driver for BME280 and SPI driver for LSM6DS3','BLE advertising with custom service UUID and sensor payload encoding','Power profiling: <10 µA average current in sleep with 1 Hz wake interval'],
+          challenges: 'Achieving the target average current required careful sequencing of peripheral power-on and measurement windows. Zephyr\'s power management subsystem needed manual override to correctly enter System Off state between sensor samples.',
+          outcome: 'Node achieved 8.4 µA average current, projecting to > 2 years on a 500 mAh coin cell. BLE data received reliably at 30 m range through two interior walls.',
+          demo: ''
+        },
+        {
+          cats: ['Embedded','RF'], domain: 'UAV · Telemetry', title: 'Drone Telemetry Link Monitor',
+          tags: ['LoRa','ESP32','Python','Latency Analysis'],
+          overview: 'Built a telemetry link monitoring tool for UAV ground stations. An ESP32 node on the drone transmits flight state over LoRa at configurable intervals; a ground station receiver logs RSSI, SNR, and latency, and a Python dashboard visualizes link health in real time during flight.',
+          features: ['LoRa link at 915 MHz with configurable SF and BW settings','Round-trip latency measurement using sequence number echo','Python dashboard showing RSSI, SNR, packet loss, and latency trends','Automatic SF adaptation based on live link quality metrics'],
+          challenges: 'Multipath fading during low-altitude passes caused burst packet loss that confused the latency estimator. Adding a forward error correction layer and separating the latency measurement from the telemetry payload resolved the issue.',
+          outcome: 'Reliable telemetry maintained at 2.8 km range in open field conditions at SF9. Dashboard used during flight tests to identify antenna orientation effects on link margin.',
+          demo: ''
+        },
+        {
+          cats: ['FPGA'], domain: 'FPGA · DSP', title: 'FPGA DSP Filter',
+          tags: ['FIR / IIR','Verilog','Fixed-Point','MATLAB'],
+          overview: 'Designed and implemented FIR and IIR digital filters in Verilog on an FPGA, with coefficients generated in MATLAB using the Parks-McClellan and bilinear transform methods. Fixed-point arithmetic was used throughout, with overflow and rounding analysis to meet the target SNR.',
+          features: ['32-tap FIR low-pass filter at 10 MHz cutoff on 100 MHz clock','Biquad IIR cascade with 4 second-order sections','MATLAB filter design and fixed-point quantization analysis','ModelSim simulation with MATLAB-generated test vectors'],
+          challenges: 'Fixed-point coefficient quantization introduced passband ripple that exceeded the spec. Increasing the coefficient word length from 16 to 20 bits eliminated the ripple while keeping the multiplier count within FPGA resource limits.',
+          outcome: 'FIR filter achieved −60 dB stopband attenuation with passband ripple < 0.1 dB. IIR cascade matched analog prototype response within 0.5 dB across the entire audio band.',
+          demo: ''
+        },
+        {
+          cats: ['Telecom'], domain: 'Telecom · Wireless', title: 'Wi-Fi Coverage Heatmap',
+          tags: ['Propagation','Channel Planning','Python','Maps'],
+          overview: 'Built a Wi-Fi survey tool that walks a floor plan while logging RSSI, channel, and BSSID data from surrounding access points. A Python pipeline geo-references the measurements against a building floor plan image and renders interpolated coverage heat maps for channel planning.',
+          features: ['Python RSSI scanner using scapy and WiFi adapter in monitor mode','GPS + step-counting hybrid positioning for indoor localization','Per-AP heat maps with channel overlap visualization','Channel reuse optimization recommendations based on RSSI contours'],
+          challenges: 'Indoor positioning without GPS required fusing step count, heading from phone IMU, and known landmark positions. Accumulated drift in step counting was corrected at each room corner landmark.',
+          outcome: 'Heat maps revealed a coverage dead zone in a concrete stairwell and 40% channel overlap between APs on the same floor. Access point repositioning and channel reassignment increased average RSSI by 6 dB in the affected area.',
+          demo: ''
+        },
+        {
+          cats: ['Embedded'], domain: 'Embedded · Automotive', title: 'CAN Bus Vehicle Logger',
+          tags: ['STM32','CAN','Automotive','Python'],
+          overview: 'Built a CAN bus data logger using an STM32 microcontroller and a CAN transceiver, capable of sniffing and decoding OBD-II and proprietary CAN frames from a vehicle. Decoded messages were logged to an SD card and visualized in a Python dashboard.',
+          features: ['STM32 bxCAN peripheral configured at 500 kbps','OBD-II PID request/response parser for standard diagnostic data','Proprietary frame logging with configurable ID filter masks','Python CAN log analyzer with time-series plots and frame statistics'],
+          challenges: 'Vehicles implement bus-off error recovery differently across manufacturers. Handling babbling node conditions and bus-off recovery without interrupting logging required implementing a defensive error state machine in the firmware.',
+          outcome: 'Successfully logged and decoded CAN data from two vehicle platforms. Captured RPM, throttle position, wheel speed, and fault codes. Logger operated reliably for 4-hour road test sessions.',
+          demo: ''
+        },
       ];
 
       var phIcons = {
@@ -865,6 +1192,22 @@
           '<span class="term-domain">' + p.domain + '</span>' +
           '<span class="term-tags">' + termTagsHtml + '</span>';
         termList.appendChild(row);
+      });
+
+      /* intercept project card and terminal row clicks → modal */
+      grid.addEventListener('click', function(e) {
+        var card = e.target.closest('.project');
+        if (!card) return;
+        e.preventDefault();
+        var idx = Array.from(grid.querySelectorAll('.project')).indexOf(card);
+        if (idx !== -1) openModal(PROJECTS[idx], String(idx + 1).padStart(2, '0'));
+      });
+      termList.addEventListener('click', function(e) {
+        var row = e.target.closest('.term-row');
+        if (!row) return;
+        e.preventDefault();
+        var idx = Array.from(termList.querySelectorAll('.term-row')).indexOf(row);
+        if (idx !== -1) openModal(PROJECTS[idx], String(idx + 1).padStart(2, '0'));
       });
 
       /* reveal newly added cards */
