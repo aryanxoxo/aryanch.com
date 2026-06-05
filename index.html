@@ -1507,14 +1507,28 @@
         'FPGA Snake Game': 'assets/img/shnake.jpg',
         'LOTTOCRACK': 'assets/img/LOTTOMAX.jpg',
         'SatNOGS Ground Station': 'assets/img/generated-projects/satnogs.jpg',
+        '433 MHz CubeSat Radio Link': 'assets/img/generated-projects/satnogs.jpg',
+        'SDR ADS-B Receiver': 'assets/img/generated-projects/ham-radio.jpg',
+        'AIS Marine Receiver': 'assets/img/generated-projects/ham-radio.jpg',
+        'Antenna Radiation Pattern Visualizer': 'assets/img/generated-projects/satnogs.jpg',
+        'EMI / EMC Debug Case Study': 'assets/img/generated-projects/buck-emi.jpg',
+        'Custom RF PCB': 'assets/img/generated-projects/buck-emi.jpg',
+        'OFDM Modem Simulation': 'assets/img/generated-projects/5g-lab.jpg',
+        'SDR Signal Classifier': 'assets/img/generated-projects/ham-radio.jpg',
         '5G Lab with srsRAN': 'assets/img/generated-projects/5g-lab.jpg',
         'LoRa Mesh Coverage Mapper': 'assets/img/generated-projects/lora-mesh.jpg',
+        'Spectrum Anomaly Detector': 'assets/img/generated-projects/wifi-heatmap.jpg',
         'CAN Bus Vehicle Logger': 'assets/img/generated-projects/can-logger.jpg',
         'Buck Converter EMI Fix': 'assets/img/generated-projects/buck-emi.jpg',
+        'Zephyr RTOS Sensor Node': 'assets/img/generated-projects/lora-mesh.jpg',
+        'Drone Telemetry Link Monitor': 'assets/img/generated-projects/lora-mesh.jpg',
+        'FPGA DDS Signal Generator': 'assets/img/generated-projects/ai-lab-bench.jpg',
+        'FPGA DSP Filter': 'assets/img/generated-projects/5g-lab.jpg',
         'AI Lab Bench Assistant': 'assets/img/generated-projects/ai-lab-bench.jpg',
         'Wi-Fi Coverage Heatmap': 'assets/img/generated-projects/wifi-heatmap.jpg',
         'Ham Radio Digital Modes Decoder': 'assets/img/generated-projects/ham-radio.jpg',
-        'Marine Power System Design': 'assets/img/MPV.png'
+        'Marine Power System Design': 'assets/img/MPV.png',
+        'UPS Integration & Load Analysis': 'assets/img/generated-projects/buck-emi.jpg'
       };
 
       PROJECTS.forEach(function(p, i) {
@@ -1524,7 +1538,7 @@
         var termTagsHtml = p.tags.map(function(t) { return '<span class="term-tag">' + t + '</span>'; }).join('');
         var imgSrc = projectImages[p.title];
         var mediaHtml = imgSrc
-          ? '<img src="' + imgSrc + '" alt="' + p.title + '" loading="lazy" onerror="this.hidden=true;this.nextElementSibling.style.display=&quot;flex&quot;" />'
+          ? '<img src="' + imgSrc + '" alt="' + p.title + '" loading="eager" decoding="async" onerror="this.hidden=true;this.nextElementSibling.style.display=&quot;flex&quot;" />'
           : '';
         mediaHtml +=
           '<div class="proj-placeholder">' +
