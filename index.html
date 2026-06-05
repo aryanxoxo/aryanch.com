@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Aryan Chahardovalee — Electrical Engineer specializing in RF design, satellite systems, photonics, and telecommunications. UBC B.A.Sc." />
+  <meta name="description" content="Aryan Chahardovalee — Electrical Engineer working across flight test, RF systems, satellites, maritime EMC, photonics, and telecommunications." />
   <meta name="author" content="Aryan Chahardovalee" />
   <meta name="view-transition" content="same-origin" />
   <meta property="og:title" content="Aryan Chahardovalee — Electrical Engineer" />
-  <meta property="og:description" content="From small systems to bigger ones. RF, photonics, satellites, and signal integrity." />
+  <meta property="og:description" content="From small systems to bigger ones: flight test, RF, satellites, maritime EMC, photonics, and signal integrity." />
   <meta property="og:type" content="website" />
-  <title>Aryan Chahardovalee — Electrical Engineer</title>
+  <title>Aryan Chahardovalee | Electrical Engineer</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -742,7 +742,7 @@
         <div class="stat-row">
           <div class="stat"><span class="stat-num">29</span><span class="stat-label">Projects</span></div>
           <div class="stat"><span class="stat-num">4</span><span class="stat-label">Orgs</span></div>
-          <div class="stat"><span class="stat-num">E.I.T.</span><span class="stat-label">Engineer</span></div>
+          <div class="stat"><span class="stat-num">E.I.T.</span><span class="stat-label">With EGBC</span></div>
         </div>
         <div class="disciplines">
           <span class="disc-tag" data-filter="RF">RF Design</span>
@@ -937,7 +937,7 @@
         <div class="eyebrow">About</div>
         <div class="about-quote" style="margin-top:1rem;">From <span>small systems</span> to bigger ones.</div>
         <div class="about-body">
-          <p>I'm an Electrical Engineering graduate from the University of British Columbia with hands-on experience across autonomous aircraft, satellite hardware, maritime communication systems, photonic integrated circuits, RF systems, and drone platforms.</p>
+          <p>I'm an Electrical Engineer and University of British Columbia graduate with hands-on experience across autonomous aircraft, satellite hardware, maritime communication systems, photonic integrated circuits, RF systems, and drone platforms.</p>
           <p>My work spans Flight Test Operations at Zipline International, the UBC ORBIT Satellite Design Team, an internship at Seaspan, and a year-long capstone with Huawei Canada. I'm also training for my pilot's license. I'm drawn to the boundary between hardware and software, especially where signal integrity, safety, and system-level thinking decide whether something works in the real world.</p>
         </div>
       </div>
@@ -1022,6 +1022,11 @@
       function updateNavActive() {
         var navOffset = 120;
         var current = '';
+        var atPageBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 3;
+        if (atPageBottom) {
+          setActiveNav('contact');
+          return;
+        }
         sections.forEach(function (section) {
           if (!section) return;
           var rect = section.getBoundingClientRect();
