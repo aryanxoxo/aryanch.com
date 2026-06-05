@@ -1014,16 +1014,31 @@
       /* ---- Scrollspy nav ---- */
       var navLinks = document.querySelectorAll('[data-nav]');
       var sections = ['domains', 'work', 'about', 'contact'].map(function (id) { return document.getElementById(id); });
-      var spy = new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) {
-          if (e.isIntersecting) {
-            navLinks.forEach(function (l) {
-              l.classList.toggle('active', l.getAttribute('href') === '#' + e.target.id);
-            });
-          }
+      function setActiveNav(id) {
+        navLinks.forEach(function (l) {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
         });
-      }, { threshold: 0.4 });
-      sections.forEach(function (s) { if (s) spy.observe(s); });
+      }
+      function updateNavActive() {
+        var navOffset = 120;
+        var current = '';
+        sections.forEach(function (section) {
+          if (!section) return;
+          var rect = section.getBoundingClientRect();
+          if (rect.top <= navOffset && rect.bottom > navOffset) current = section.id;
+        });
+        if (!current) {
+          var nearest = sections.filter(Boolean).reduce(function (best, section) {
+            var distance = Math.abs(section.getBoundingClientRect().top - navOffset);
+            return !best || distance < best.distance ? { id: section.id, distance: distance } : best;
+          }, null);
+          current = nearest ? nearest.id : '';
+        }
+        if (current) setActiveNav(current);
+      }
+      updateNavActive();
+      window.addEventListener('scroll', updateNavActive, { passive: true });
+      window.addEventListener('resize', updateNavActive);
 
       /* ---- Live Vancouver clock ---- */
       function tick() {
