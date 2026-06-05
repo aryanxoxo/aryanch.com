@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Aryan Chahardovalee — Electrical Engineer working across flight test, RF systems, satellites, maritime EMC, photonics, and telecommunications." />
+  <meta name="description" content="Aryan Chahardovalee, Electrical Engineer working across flight test, RF systems, satellites, maritime EMC, photonics, and telecommunications." />
   <meta name="author" content="Aryan Chahardovalee" />
   <meta name="view-transition" content="same-origin" />
-  <meta property="og:title" content="Aryan Chahardovalee — Electrical Engineer" />
+  <meta property="og:title" content="Aryan Chahardovalee, Electrical Engineer" />
   <meta property="og:description" content="From small systems to bigger ones: flight test, RF, satellites, maritime EMC, photonics, and signal integrity." />
   <meta property="og:type" content="website" />
   <title>Aryan Chahardovalee | Electrical Engineer</title>
@@ -249,6 +249,7 @@
     .eyebrow::before { content: ''; width: 1.5rem; height: 1px; background: var(--gold); }
     .section-title { font-family: var(--serif); font-size: clamp(1.8rem, 4vw, 2.6rem); line-height: 1.05; margin-top: 0.6rem; }
     .section-num { font-size: 0.6rem; letter-spacing: 0.2em; color: var(--fg-dim); }
+    .section-note { margin-top: 0.75rem; max-width: 58ch; font-size: 0.7rem; line-height: 1.75; color: var(--fg-mid); }
 
     /* ───── MANIFESTO ───── */
     .manifesto {
@@ -361,6 +362,15 @@
     .project-desc { font-size: 0.68rem; line-height: 1.75; color: var(--fg-mid); margin: -0.25rem 0 1rem; }
     .project-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; }
     .ptag { font-size: 0.54rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(232,228,217,0.4); border: 1px solid rgba(232,228,217,0.1); padding: 0.18rem 0.5rem; }
+    .project-proof {
+      margin-top: 0.85rem; padding-top: 0.85rem; border-top: 1px solid var(--fg-faint);
+      display: flex; gap: 0.4rem; flex-wrap: wrap;
+    }
+    .proof-chip {
+      font-size: 0.5rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--gold); border: 1px solid rgba(200,185,122,0.22);
+      padding: 0.18rem 0.5rem; background: rgba(200,185,122,0.05);
+    }
 
     /* ───── ABOUT ───── */
     #about .wrap { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 4rem; align-items: start; }
@@ -677,8 +687,9 @@
     .modal-section-text { font-size: 0.75rem; line-height: 1.95; color: var(--fg-mid); }
     .modal-list { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; padding: 0; }
     .modal-list li { font-size: 0.75rem; line-height: 1.7; color: var(--fg-mid); padding-left: 1.1rem; position: relative; }
-    .modal-list li::before { content: '—'; position: absolute; left: 0; color: var(--gold); }
+    .modal-list li::before { content: '*'; position: absolute; left: 0; color: var(--gold); }
     .modal-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+    .modal-proof { display: flex; gap: 0.4rem; flex-wrap: wrap; }
 
     @media (max-width: 600px) {
       .modal-overlay { align-items: flex-end; padding: 0; }
@@ -755,6 +766,10 @@
           <div class="modal-section-text" id="modalOverview"></div>
         </div>
         <div class="modal-section">
+          <div class="modal-section-label">Proof Trail</div>
+          <div class="modal-proof" id="modalProof"></div>
+        </div>
+        <div class="modal-section">
           <div class="modal-section-label">Key Features</div>
           <ul class="modal-list" id="modalFeatures"></ul>
         </div>
@@ -786,7 +801,7 @@
       <li><a href="#contact" data-nav>Contact</a></li>
     </ul>
     <div class="nav-right">
-      <span class="nav-clock"><span class="pip"></span>San Francisco <span id="clock">—</span></span>
+      <span class="nav-clock"><span class="pip"></span>San Francisco <span id="clock">Local</span></span>
       <a class="nav-resume" href="assets/downloads/ARYAN_RESUME_2024.pdf" target="_blank" rel="noopener">Resume</a>
     </div>
   </nav>
@@ -797,12 +812,12 @@
   <section id="home">
     <div class="hero-inner">
       <div class="hero-left">
-        <div class="hero-tag">Electrical Engineer · Flight-Test Systems Thinker</div>
+        <div class="hero-tag">Electrical Engineer · Flight Test Systems</div>
         <h1 class="hero-name" id="heroName">
           <span class="reveal-line"><span>Aryan</span></span>
           <span class="reveal-line"><span><em>Chahar</em>dovalee</span></span>
         </h1>
-        <p class="hero-desc">UBC Electrical Engineering grad working across autonomous aircraft, satellites, maritime systems, RF hardware, and photonics — wherever signal integrity and system-level thinking decide whether the mission works.</p>
+        <p class="hero-desc">UBC Electrical Engineering graduate with hands-on work in flight test operations, RF hardware, satellite systems, maritime EMC, photonics, and telecom labs.</p>
         <div class="hero-actions">
           <a class="btn solid magnetic" href="assets/downloads/ARYAN_RESUME_2024.pdf" target="_blank" rel="noopener">View Resume →</a>
           <a class="btn ghost magnetic" href="#contact">Get in touch</a>
@@ -818,9 +833,9 @@
         </div>
         <div class="status-pill"><span class="dot"></span>Open to opportunities</div>
         <div class="stat-row">
-          <div class="stat"><span class="stat-num">29</span><span class="stat-label">Projects</span></div>
+          <div class="stat"><span class="stat-num">29</span><span class="stat-label">Builds</span></div>
           <div class="stat"><span class="stat-num">4</span><span class="stat-label">Orgs</span></div>
-          <div class="stat"><span class="stat-num">E.I.T.</span><span class="stat-label">With EGBC</span></div>
+          <div class="stat"><span class="stat-num">EIT</span><span class="stat-label">EGBC</span></div>
         </div>
         <div class="disciplines">
           <span class="disc-tag" data-filter="RF">RF Design</span>
@@ -852,7 +867,7 @@
 
   <!-- MANIFESTO -->
   <div class="manifesto reveal">
-    <span class="manifesto-text">Without hope, there is nothing.</span>
+    <span class="manifesto-text">Measure it. Build it. Prove it.</span>
   </div>
 
   <!-- IMPACT -->
@@ -892,11 +907,11 @@
         </article>
         <article class="impact-card">
           <div>
-            <div class="impact-kicker">Builder Range</div>
-            <h3 class="impact-title">29 projects across hardware and software.</h3>
-            <p class="impact-copy">The work spans RF, FPGA, photonics, telecom, AI tooling, embedded systems, power electronics, SDR, and CAD — a rare mix of breadth and hands-on depth.</p>
+            <div class="impact-kicker">Proof Trail</div>
+            <h3 class="impact-title">Reports, boards, code, and test notes.</h3>
+            <p class="impact-copy">The strongest projects are tied to concrete artifacts: lab measurements, schematics, dashboards, reports, simulations, and build notes.</p>
           </div>
-          <div class="impact-metric">29 projects</div>
+          <div class="impact-metric">29 builds</div>
         </article>
       </div>
     </div>
@@ -977,6 +992,7 @@
         <div>
           <div class="eyebrow">Selected work</div>
           <h2 class="section-title">Projects</h2>
+          <p class="section-note">Each card includes a proof trail so the work reads as build history, not just portfolio copy.</p>
         </div>
         <span class="section-num">/ 02</span>
       </div>
@@ -1020,12 +1036,12 @@
         </div>
       </div>
       <div class="about-right reveal">
-        <div class="section-num" style="margin-bottom:1.5rem;">/ 03 — Experience</div>
+        <div class="section-num" style="margin-bottom:1.5rem;">/ 03 Experience</div>
         <div class="timeline">
-          <div class="exp"><div><div class="exp-role">Flight Test Operations Specialist</div><div class="exp-place">Zipline International</div></div><div class="exp-year">2024–Present</div></div>
-          <div class="exp"><div><div class="exp-role">Capstone Engineer</div><div class="exp-place">Huawei Canada</div></div><div class="exp-year">2023–2024</div></div>
+          <div class="exp"><div><div class="exp-role">Flight Test Operations Specialist</div><div class="exp-place">Zipline International</div></div><div class="exp-year">2024 to Present</div></div>
+          <div class="exp"><div><div class="exp-role">Capstone Engineer</div><div class="exp-place">Huawei Canada</div></div><div class="exp-year">2023 to 2024</div></div>
           <div class="exp"><div><div class="exp-role">Engineering Intern</div><div class="exp-place">Seaspan</div></div><div class="exp-year">2022</div></div>
-          <div class="exp"><div><div class="exp-role">RF &amp; Hardware, Satellite Team</div><div class="exp-place">UBC ORBIT</div></div><div class="exp-year">2021–2023</div></div>
+          <div class="exp"><div><div class="exp-role">RF &amp; Hardware, Satellite Team</div><div class="exp-place">UBC ORBIT</div></div><div class="exp-year">2021 to 2023</div></div>
           <div class="exp"><div><div class="exp-role">B.A.Sc. Electrical Engineering</div><div class="exp-place">University of British Columbia</div></div><div class="exp-year">2024</div></div>
         </div>
       </div>
@@ -1050,7 +1066,7 @@
           <div class="field"><label for="full-name">Full Name</label><input type="text" name="name" id="full-name" placeholder="First and last" required /></div>
           <div class="field"><label for="email-address">Email Address</label><input type="email" name="_replyto" id="email-address" placeholder="email@domain.com" required /></div>
           <div class="field"><label for="message">Message</label><textarea rows="5" name="message" id="message" placeholder="Your message" required></textarea></div>
-          <input type="hidden" name="_subject" value="Contact Form Submission — aryanch.com" />
+          <input type="hidden" name="_subject" value="Contact Form Submission for aryanch.com" />
           <button type="submit">Send message →</button>
         </form>
       </div>
@@ -1059,7 +1075,7 @@
 
   <footer>
     <span>© 2026 Aryan Chahardovalee</span>
-    <span class="foot-clock">San Francisco, CA · <span id="clock2">—</span></span>
+    <span class="foot-clock">San Francisco, CA · <span id="clock2">Local</span></span>
     <span>Built with signal &amp; intent</span>
   </footer>
 
@@ -1185,6 +1201,8 @@
         document.getElementById('modalOverview').textContent = p.overview || '';
         var ul = document.getElementById('modalFeatures');
         ul.innerHTML = (p.features || []).map(function(f) { return '<li>' + f + '</li>'; }).join('');
+        var proof = projectProof[p.title] || fallbackProof(p);
+        document.getElementById('modalProof').innerHTML = proof.map(function(t) { return '<span class="proof-chip">' + t + '</span>'; }).join('');
         document.getElementById('modalChallenges').textContent = p.challenges || '';
         document.getElementById('modalOutcome').textContent = p.outcome || '';
         document.getElementById('modalTags').innerHTML = p.tags.map(function(t) { return '<span class="ptag">' + t + '</span>'; }).join('');
@@ -1223,7 +1241,7 @@
           overview: 'Conducted a full EMC/EMI assessment of a multi-purpose vessel (MPV) for Huawei Canada as part of a year-long capstone. Mapped antenna interference zones, characterized near-field coupling between shipboard transceivers, and produced an IEEE-format compliance report.',
           features: ['Full-ship antenna placement optimization','Near-field and far-field interference mapping','Spectrum measurements across VHF, UHF, and microwave bands','IEEE 802.3 and SOLAS-aligned compliance documentation'],
           challenges: 'The vessel\'s steel superstructure created complex multipath environments that were difficult to model analytically. We combined field measurements with CST simulation to reconcile discrepancies between predicted and observed interference patterns.',
-          outcome: 'Delivered a complete EMC report adopted by Huawei Canada\'s hardware team. Antenna separation recommendations reduced co-channel interference by over 18 dB in the worst-case bands.',
+          outcome: 'Delivered an EMC report and antenna separation recommendations for the capstone sponsor. Worst-case co-channel interference was reduced by over 18 dB in the measured bands.',
           demo: ''
         },
         {
@@ -1232,7 +1250,7 @@
           overview: 'Designed and built the antenna deployment subsystem for a UBC ORBIT CubeSat. The module uses a burn-wire mechanism triggered by a microcontroller to release the UHF communication antenna post-launch, with redundant firing paths to ensure mission reliability.',
           features: ['Dual redundant burn-wire release circuits','Overcurrent protection and deployment confirmation telemetry','Compact 2-layer PCB sized to CubeSat form factor','Integration with satellite OBC over I2C'],
           challenges: 'Ensuring reliable deployment in vacuum and thermal extremes required careful material selection and thermal cycling tests. Managing inrush current during burn-wire activation without resetting the OBC was the hardest electrical constraint.',
-          outcome: 'Module passed all thermal-vacuum qualification tests. The design was integrated into UBC ORBIT\'s satellite stack and validated in end-to-end communication tests at 437 MHz.',
+          outcome: 'Module passed team-level thermal vacuum testing. The design was integrated into the UBC ORBIT satellite stack and validated during 437 MHz communication tests.',
           demo: ''
         },
         {
@@ -1250,7 +1268,7 @@
           overview: 'Designed and evaluated a WLAN-based command-and-control (C2) link for a Huawei drone platform. Characterized link performance across frequency bands, modeled latency and packet loss under interference, and proposed a frequency-hopping scheme to improve robustness in congested RF environments.',
           features: ['End-to-end C2 link latency characterization at 2.4 GHz and 5 GHz','Python test harness for automated packet loss and throughput logging','Interference resilience testing against adjacent WLAN networks','Channel selection algorithm based on real-time RSSI scanning'],
           challenges: 'Urban RF environments introduced significant co-channel interference that degraded control link reliability below acceptable thresholds. Implementing adaptive channel selection without adding latency to the control loop required careful timing analysis.',
-          outcome: 'Proposed channel-hopping scheme reduced command link dropout events by 73% in bench tests simulating dense urban RF conditions. Findings were incorporated into Huawei\'s drone communication design guidelines.',
+          outcome: 'Proposed channel selection changes reduced command link dropout events by 73% in bench tests simulating dense urban RF conditions. The findings were documented for the capstone sponsor.',
           demo: ''
         },
         {
@@ -1265,7 +1283,7 @@
         {
           cats: ['AI'], domain: 'Machine Learning · Personal', title: 'LOTTOCRACK',
           tags: ['Keras','DNN','Pattern Analysis','Python'],
-          overview: 'Built a deep neural network to analyze historical Lotto Max draw data and identify statistical patterns in number frequency, positional bias, and draw-to-draw correlations. The project was primarily an exercise in applied ML and time-series feature engineering — not a serious prediction engine.',
+          overview: 'Built a neural network experiment to analyze historical Lotto Max draw data and test feature engineering ideas around number frequency, positional bias, and draw-to-draw correlations. The point was applied ML practice, not lottery prediction.',
           features: ['Scraped and cleaned 10+ years of Lotto Max historical draw data','Feature engineering: rolling frequency, positional histograms, gap analysis','Keras DNN trained on 80/20 train-test split with dropout regularization','Visualization dashboard for pattern analysis and model confidence'],
           challenges: 'Lottery draws are by design statistically independent, so the model consistently converged toward predicting mean frequencies. The real challenge was building a robust feature pipeline and confronting the limits of ML on truly random processes.',
           outcome: 'Achieved near-baseline prediction accuracy, confirming statistical independence of draws. The pipeline and visualization tools were reused in later signal classification projects.',
@@ -1277,7 +1295,7 @@
           overview: 'Built and configured a SatNOGS-compatible ground station for receiving LEO satellite telemetry. The station includes a motorized az/el rotator, a wideband SDR receiver, and automated scheduling software that tracks satellite passes and records IQ data for the global SatNOGS network.',
           features: ['Automated two-line element (TLE) based pass prediction and tracking','Doppler correction applied in real-time during satellite passes','Rotator controller built on Arduino with custom motor driver PCB','Contributions to SatNOGS open-source observation database'],
           challenges: 'Achieving accurate rotator pointing required calibrating mechanical backlash and integrating a feedback loop between the rotator controller and the SDR software. Doppler correction at VHF needed sub-Hz frequency resolution for clean FM demodulation.',
-          outcome: 'Station successfully decoded telemetry from multiple LEO satellites including NOAA weather satellites and amateur radio CubeSats. Observations contributed to the SatNOGS global network.',
+          outcome: 'Station decoded telemetry from multiple LEO satellites, including NOAA weather satellites and amateur radio CubeSats. Observation logs were prepared for SatNOGS style workflows.',
           demo: ''
         },
         {
@@ -1295,7 +1313,7 @@
           overview: 'Built a software-defined ADS-B receiver using an RTL-SDR dongle and GNU Radio to decode Mode S transponder messages from commercial aircraft. Real-time aircraft positions were plotted on a live map, and a Python logger archived decoded messages for analysis.',
           features: ['RTL-SDR tuned to 1090 MHz with custom bandpass filter','GNU Radio flowgraph for PPM demodulation and frame sync','Python decoder for ICAO address, altitude, lat/lon extraction','Live aircraft map with range > 200 km from rooftop antenna'],
           challenges: 'The RTL-SDR\'s phase noise and frequency drift introduced preamble detection errors at the edges of the RF range. Implementing a drift-compensated AGC loop in GNU Radio significantly improved frame sync reliability.',
-          outcome: 'Receiver reliably decoded ADS-B messages from 60–80 simultaneous aircraft. Directly relevant to my pilot training — the same data feeds commercial TCAS and ATC systems.',
+          outcome: 'Receiver reliably decoded ADS-B messages from 60 to 80 simultaneous aircraft. The work connects directly to my pilot training because the same data feeds commercial TCAS and ATC systems.',
           demo: ''
         },
         {
@@ -1304,7 +1322,7 @@
           overview: 'Implemented a software AIS receiver to decode vessel identification and position messages broadcast on VHF channels 87B and 88B. Decoded NMEA sentences were parsed and plotted on a marine chart overlay, allowing real-time vessel traffic monitoring.',
           features: ['RTL-SDR tuned to 161.975 MHz and 162.025 MHz simultaneously','GMSK demodulation and HDLC frame extraction in Python','NMEA 0183 sentence parser for MMSI, position, COG, SOG','Live vessel tracking map with AIS message history log'],
           challenges: 'Simultaneous dual-channel reception required running two SDR instances with tight frequency stability. GMSK demodulation sensitivity to frequency offset meant careful calibration of the SDR reference oscillator was essential.',
-          outcome: 'Successfully decoded AIS messages from vessels across Vancouver Harbour. Decoder accuracy validated against a commercial AIS receiver — matched on 98.7% of frames.',
+          outcome: 'Decoded AIS messages from vessels across Vancouver Harbour. Output was compared against a commercial AIS receiver and matched on 98.7% of sampled frames.',
           demo: ''
         },
         {
@@ -1322,14 +1340,14 @@
           overview: 'Systematic EMI debug study on a mixed-signal PCB exhibiting conducted and radiated emissions above CISPR 32 Class B limits. Identified switching noise coupling paths, applied filtering and layout fixes, and documented the methodology as a reproducible debug framework.',
           features: ['Pre- and post-fix radiated emissions measurements on a spectrum analyzer','LTspice simulation of noise injection paths and filter effectiveness','Common-mode choke and decoupling capacitor placement optimization','Ground plane slot identification and correction'],
           challenges: 'The dominant noise source was a DC-DC converter coupling into a low-noise analog front end via a shared ground return. Isolating the switching return current path without redesigning the board required creative use of ferrite beads and split planes.',
-          outcome: 'Post-fix emissions reduced by 14 dB at the fundamental switching frequency, bringing the board into CISPR 32 Class B compliance. Debug methodology documented as an internal reference guide.',
+          outcome: 'Post-fix emissions were reduced by 14 dB at the fundamental switching frequency. The debug method was written up as a repeatable checklist.',
           demo: ''
         },
         {
           cats: ['RF'], domain: 'RF · PCB Design', title: 'Custom RF PCB',
           tags: ['Impedance Control','Matching Networks','KiCad','VNA'],
           overview: 'Designed a custom RF PCB for a 2.4 GHz front end, including controlled-impedance microstrip traces, an L-network impedance matching circuit, and an SMA edge connector. Board was fabricated, assembled, and verified with a VNA for return loss and insertion loss.',
-          features: ['50 Ω microstrip trace design with stackup-aware width calculation','L-network matching from 50 Ω to amplifier input impedance','VNA-measured S11 < −15 dB across 2.4–2.5 GHz operating band','KiCad design with DRC-clean layout and Gerber export'],
+          features: ['50 Ω microstrip trace design with stackup-aware width calculation','L-network matching from 50 Ω to amplifier input impedance','VNA-measured S11 < -15 dB across 2.4 to 2.5 GHz operating band','KiCad design with DRC-clean layout and Gerber export'],
           challenges: 'The SMA connector launch introduced a parasitic inductance that shifted the matching network center frequency by 80 MHz. Re-tuning the matching network components after VNA measurement corrected the shift without a board respin.',
           outcome: 'Final board achieved S11 < −18 dB and S21 within 0.5 dB of simulation across the full 2.4 GHz ISM band. Used as the RF front end for the LoRa coverage mapping project.',
           demo: ''
@@ -1358,7 +1376,7 @@
           overview: 'Built an AI-powered lab automation agent that controls bench instruments (oscilloscope, DMM, power supply) over SCPI/VISA, interprets measurement results, and generates structured test reports. The agent can execute multi-step test plans from natural language instructions.',
           features: ['SCPI instrument control via PyVISA for oscilloscope, PSU, and DMM','OpenAI function-calling interface for natural language test commands','Automated report generation with measurement tables and pass/fail status','Waveform screenshot capture and anomaly flagging'],
           challenges: 'Mapping natural language test instructions to precise SCPI command sequences required extensive prompt engineering. Handling instrument timeout errors and unexpected measurement states without crashing the agent loop was the main reliability challenge.',
-          outcome: 'Agent successfully automated a 12-step PCB bring-up procedure that previously took 45 minutes manually, completing it in under 8 minutes. Reports matched manual engineer documentation quality.',
+          outcome: 'Agent automated a 12-step PCB bring-up procedure that previously took about 45 minutes manually, completing it in under 8 minutes. Reports captured the same measurements in a repeatable format.',
           demo: ''
         },
         {
@@ -1374,9 +1392,9 @@
           cats: ['Telecom'], domain: 'Telecom · 5G Infrastructure', title: '5G Lab with srsRAN',
           tags: ['RAN Architecture','gNB','Docker','Linux'],
           overview: 'Set up a private 5G NR lab using srsRAN and Open5GS running on commodity Linux hardware. Configured a softmodem gNB, a 5G core (AMF, SMF, UPF), and a UE simulator, then validated end-to-end user plane data flow and measured throughput and latency on the simulated air interface.',
-          features: ['srsRAN gNB configured in SA mode with 5G NR numerology 1','Open5GS core with full N1–N4 interface stack in Docker','UERANSIM for simulated UE registration and PDU session setup','Iperf3 throughput and ping latency benchmarks on the UP'],
+          features: ['srsRAN gNB configured in SA mode with 5G NR numerology 1','Open5GS core with full N1 to N4 interface stack in Docker','UERANSIM for simulated UE registration and PDU session setup','Iperf3 throughput and ping latency benchmarks on the UP'],
           challenges: 'Timing synchronization between the gNB and UE simulator required careful configuration of the RF simulation interface parameters. PDSCH scheduling errors initially caused high HARQ retransmission rates, resolved by tuning the MCS selection thresholds.',
-          outcome: 'Achieved stable 5G NR data sessions with simulated downlink throughput of 85 Mbps and RTT latency of 4 ms — within expected bounds for a software stack on commodity hardware.',
+          outcome: 'Achieved stable 5G NR data sessions with simulated downlink throughput of 85 Mbps and RTT latency of 4 ms, within expected bounds for a software stack on commodity hardware.',
           demo: ''
         },
         {
@@ -1391,19 +1409,19 @@
         {
           cats: ['RF','AI'], domain: 'RF · Monitoring', title: 'Spectrum Anomaly Detector',
           tags: ['SDR','Python','Thresholds','Anomaly Detection'],
-          overview: 'Built a long-running RF spectrum monitoring system that uses an RTL-SDR to continuously scan a frequency band and flags anomalies — new signals, unexpected occupancy, or unusual power levels — using statistical thresholding and an isolation forest ML model.',
+          overview: 'Built a long-running RF spectrum monitoring system that uses an RTL-SDR to continuously scan a frequency band and flag anomalies such as new signals, unexpected occupancy, or unusual power levels using statistical thresholding and an isolation forest ML model.',
           features: ['Continuous spectrum scan with configurable sweep range and resolution','Rolling baseline model with adaptive threshold per frequency bin','Isolation forest anomaly detection trained on 24-hour baseline captures','Alert logging with timestamp, frequency, and power level'],
           challenges: 'Distinguishing legitimate occupancy changes (e.g., a new Wi-Fi AP) from genuine anomalies required a two-stage detector: the statistical threshold flags candidates, the ML model filters false positives. Tuning the contamination parameter to minimize false alerts without missing real events took significant iteration.',
-          outcome: 'Deployed for 72-hour continuous monitoring on a rooftop antenna. Detected 3 unlicensed transmissions in the 433 MHz ISM band that were not visible in manual spot checks.',
+          outcome: 'Ran a 72-hour monitoring test on a rooftop antenna. The system flagged 3 unexpected transmissions in the 433 MHz ISM band for manual review.',
           demo: ''
         },
         {
           cats: ['Power'], domain: 'Power · EMC', title: 'Buck Converter EMI Fix',
           tags: ['LTspice','KiCad','Ferrites','Switching Noise'],
           overview: 'Diagnosed and fixed conducted EMI on a synchronous buck converter PCB that was failing CISPR 25 pre-compliance. Used LTspice to simulate noise injection, identified a missing common-mode choke on the input rail, and redesigned the PCB layout to minimize switching loop area.',
-          features: ['LTspice conducted EMI simulation with LISN model','Switching loop area reduction through component re-placement in KiCad','Common-mode choke and differential-mode filter addition on input rail','Before/after spectrum analyzer measurements at 150 kHz–30 MHz'],
+          features: ['LTspice conducted EMI simulation with LISN model','Switching loop area reduction through component re-placement in KiCad','Common-mode choke and differential-mode filter addition on input rail','Before and after spectrum analyzer measurements at 150 kHz to 30 MHz'],
           challenges: 'The dominant EMI contributor was a large di/dt loop formed by the high-side MOSFET, inductor, and input capacitor. Shrinking this loop required moving components to the opposite side of the board, which conflicted with thermal management requirements.',
-          outcome: 'Post-fix conducted emissions reduced by 22 dB at the fundamental switching frequency (400 kHz) and harmonics, bringing the design within CISPR 25 Class 5 limits.',
+          outcome: 'Post-fix conducted emissions dropped by 22 dB at the 400 kHz switching frequency and nearby harmonics, enough to meet the pre-compliance target used for the study.',
           demo: ''
         },
         {
@@ -1456,15 +1474,15 @@
           overview: 'Designed and documented the electrical power distribution system for a shipboard retrofit at Seaspan, covering panel layouts, cable routing, load calculations, and fault protection coordination across AC and DC distribution networks.',
           features: ['Full load analysis across vessel electrical distribution zones','Cable routing and sizing to ABYC / IEC 60092 marine standards','Protection coordination: breaker sizing and selectivity study','Single-line diagram and panel schedule documentation'],
           challenges: 'Routing new cable runs through an existing vessel with limited conduit space required careful coordination with structural and mechanical teams. Ensuring protection selectivity across a multi-tier distribution system with legacy breakers was technically demanding.',
-          outcome: 'Completed power system documentation adopted by Seaspan engineering for the vessel retrofit. Load analysis identified two overloaded branch circuits that were remediated before commissioning.',
+          outcome: 'Completed power system documentation for the vessel retrofit. Load analysis identified two overloaded branch circuits that were remediated before commissioning.',
           demo: ''
         },
         { cats: ['Power','Maritime'], domain: 'Power · Seaspan', title: 'UPS Integration & Load Analysis',
           tags: ['UPS','Battery Backup','Marine Electrical','Transfer Switching'],
-          overview: 'Evaluated and integrated uninterruptible power supply systems for critical shipboard loads at Seaspan — navigation electronics, communication systems, and emergency lighting. Performed battery runtime calculations and transfer switching validation.',
+          overview: 'Evaluated and integrated uninterruptible power supply systems for critical shipboard loads at Seaspan, including navigation electronics, communication systems, and emergency lighting. Performed battery runtime calculations and transfer switching validation.',
           features: ['Critical load identification and UPS sizing calculations','Battery runtime analysis for 30/60/120-minute backup scenarios','Transfer switch testing and switchover time measurement','Integration with vessel alarm monitoring system'],
           challenges: 'Marine UPS installations must meet Transport Canada and class society requirements for vibration, temperature range, and EMC. Coordinating with the vessel alarm system for UPS fault reporting required custom interface wiring.',
-          outcome: 'UPS systems commissioned across three vessel systems. Transfer times measured at < 8 ms, meeting navigation electronics manufacturer specifications for ride-through.',
+          outcome: 'UPS integration checks covered three vessel systems. Transfer times measured under 8 ms, meeting the navigation electronics ride-through requirement used for the installation.',
           demo: ''
         },
         { cats: ['RF'], domain: 'RF · Amateur Radio', title: 'Ham Radio Digital Modes Decoder',
@@ -1495,6 +1513,48 @@
           if (phIcons[cats[i]]) return phIcons[cats[i]];
         }
         return phIcons.Default;
+      }
+
+      var projectProof = {
+        'EMC / EMI Analysis of MPV': ['Huawei capstone', 'EMC report', 'field measurements'],
+        'Antenna Deployer Module': ['UBC ORBIT', 'PCB build', 'thermal vac test'],
+        'Collaborative PIC Design': ['course design', 'MPW run', 'lab characterization'],
+        'WLAN for Huawei Drone': ['Huawei capstone', 'test harness', 'link analysis'],
+        'FPGA Snake Game': ['course project', 'Verilog', 'DE1 SoC demo'],
+        'LOTTOCRACK': ['personal ML', 'Python pipeline', 'negative result'],
+        'SatNOGS Ground Station': ['SDR build', 'Linux setup', 'satellite passes'],
+        '433 MHz CubeSat Radio Link': ['link budget', 'BER testing', 'RF board'],
+        'SDR ADS-B Receiver': ['RTL SDR', 'GNU Radio', 'aircraft map'],
+        'AIS Marine Receiver': ['RTL SDR', 'NMEA parser', 'vessel map'],
+        'Antenna Radiation Pattern Visualizer': ['NanoVNA', 'turntable', 'polar plots'],
+        'EMI / EMC Debug Case Study': ['spectrum data', 'LTspice', 'filter fix'],
+        'Custom RF PCB': ['KiCad', 'VNA data', 'SMA launch'],
+        'OFDM Modem Simulation': ['MATLAB', 'BER curves', 'channel model'],
+        'SDR Signal Classifier': ['IQ captures', 'feature extraction', 'model test'],
+        'AI Lab Bench Assistant': ['SCPI control', 'PyVISA', 'test report'],
+        'FPGA DDS Signal Generator': ['Verilog', 'DAC output', 'spectrum check'],
+        '5G Lab with srsRAN': ['srsRAN', 'Open5GS', 'iperf test'],
+        'LoRa Mesh Coverage Mapper': ['ESP32 nodes', 'RSSI logs', 'coverage map'],
+        'Spectrum Anomaly Detector': ['RTL SDR', 'baseline model', 'alert log'],
+        'Buck Converter EMI Fix': ['KiCad', 'LTspice', 'before after data'],
+        'Zephyr RTOS Sensor Node': ['nRF52840', 'Zephyr', 'power profile'],
+        'Drone Telemetry Link Monitor': ['LoRa link', 'flight logs', 'dashboard'],
+        'FPGA DSP Filter': ['Verilog', 'ModelSim', 'MATLAB vectors'],
+        'Wi-Fi Coverage Heatmap': ['RSSI survey', 'floor plan', 'heat map'],
+        'CAN Bus Vehicle Logger': ['STM32', 'OBD II logs', 'Python dashboard'],
+        'Marine Power System Design': ['Seaspan', 'load analysis', 'single line docs'],
+        'UPS Integration & Load Analysis': ['Seaspan', 'runtime calc', 'transfer test'],
+        'Ham Radio Digital Modes Decoder': ['GNU Radio', 'fldigi', 'WSPR logs']
+      };
+
+      function fallbackProof(p) {
+        var proof = [];
+        if (p.domain.indexOf('Seaspan') !== -1 || p.domain.indexOf('Huawei') !== -1 || p.domain.indexOf('UBC ORBIT') !== -1) proof.push('team project');
+        else if (p.domain.indexOf('Personal') !== -1) proof.push('personal build');
+        else proof.push('lab build');
+        if (p.tags && p.tags[0]) proof.push(p.tags[0]);
+        proof.push('notes available');
+        return proof;
       }
 
       var grid = document.getElementById('projectGrid');
@@ -1536,6 +1596,7 @@
         var catStr = p.cats.join(' ');
         var tagsHtml = p.tags.map(function(t) { return '<span class="ptag">' + t + '</span>'; }).join('');
         var termTagsHtml = p.tags.map(function(t) { return '<span class="term-tag">' + t + '</span>'; }).join('');
+        var proofHtml = (projectProof[p.title] || fallbackProof(p)).slice(0, 2).map(function(t) { return '<span class="proof-chip">' + t + '</span>'; }).join('');
         var imgSrc = projectImages[p.title];
         var mediaHtml = imgSrc
           ? '<img src="' + imgSrc + '" alt="' + p.title + '" loading="eager" decoding="async" onerror="this.hidden=true;this.nextElementSibling.style.display=&quot;flex&quot;" />'
@@ -1560,8 +1621,9 @@
           '<div class="project-body">' +
             '<div class="project-cat">' + p.domain + '</div>' +
             '<div class="project-title">' + p.title + '</div>' +
-            '<p class="project-desc">' + (p.overview || '').split('. ')[0] + '.</p>' +
+            '<p class="project-desc">' + firstSentence(p.overview || '') + '</p>' +
             '<div class="project-tags">' + tagsHtml + '</div>' +
+            '<div class="project-proof">' + proofHtml + '</div>' +
           '</div>';
         grid.appendChild(card);
 
@@ -1577,6 +1639,11 @@
           '<span class="term-tags">' + termTagsHtml + '</span>';
         termList.appendChild(row);
       });
+
+      function firstSentence(text) {
+        var first = (text || '').split('. ')[0].trim();
+        return first.replace(/\.+$/, '') + '.';
+      }
 
       /* intercept project card and terminal row clicks → modal */
       grid.addEventListener('click', function(e) {
@@ -1611,25 +1678,25 @@
         Satellites: {
           label: 'Satellites', icon: '◈',
           orgs: ['UBC ORBIT'],
-          overview: 'Space systems work anchored in UBC ORBIT — the University of British Columbia\'s CubeSat design team. I worked on RF hardware and the antenna deployment subsystem, from link budget analysis through PCB design, ground station integration, and over-the-air RF testing at 437 MHz. Every design decision gets pressure-tested by vacuum, vibration, and the physics of a 400 km orbit.',
+          overview: 'Space systems work anchored in UBC ORBIT, the University of British Columbia\'s CubeSat design team. I worked on RF hardware and the antenna deployment subsystem, from link budget analysis through PCB design, ground station integration, and over-the-air RF testing at 437 MHz. Every design decision gets pressure-tested by vacuum, vibration, and the physics of a 400 km orbit.',
           projectIds: ['antenna-deployer','satnogs','cubesat-link']
         },
         Drones: {
           label: 'Drones', icon: '◈',
           orgs: ['Huawei Canada','Zipline International'],
-          overview: 'UAV work spans two very different organizations. At Huawei Canada I designed and characterized a WLAN-based C2 link for a drone platform — analyzing interference resilience and proposing a channel-hopping scheme that reduced dropouts by 73%. At Zipline International I work in Flight Test Operations, supporting autonomous fixed-wing delivery aircraft through live flight testing and safety procedures.',
+          overview: 'UAV work spans two very different organizations. At Huawei Canada I designed and characterized a WLAN-based C2 link for a drone platform, analyzing interference resilience and proposing channel selection changes that reduced dropouts by 73%. At Zipline International I work in Flight Test Operations, supporting autonomous fixed-wing delivery aircraft through live flight testing and safety procedures.',
           projectIds: ['drone-wlan','drone-telemetry','lora-mesh']
         },
         Ships: {
           label: 'Ships', icon: '◈',
           orgs: ['Seaspan'],
-          overview: 'Maritime electrical engineering at Seaspan covered the full spectrum of shipboard systems. I conducted EMC/EMI assessments of a multi-purpose vessel, designed and routed marine power distribution systems, integrated UPS infrastructure for critical navigation and comms loads, and performed load analysis across vessel electrical networks. The marine environment is one of the most demanding for electrical systems — corrosive, vibration-heavy, and safety-critical.',
+          overview: 'Maritime electrical engineering at Seaspan covered the full spectrum of shipboard systems. I conducted EMC/EMI assessments of a multi-purpose vessel, designed and routed marine power distribution systems, integrated UPS infrastructure for critical navigation and comms loads, and performed load analysis across vessel electrical networks. The marine environment is demanding for electrical systems because it is corrosive, vibration-heavy, and safety-critical.',
           projectIds: ['emc-mpv','ais-receiver','marine-power','ups-integration']
         },
         Airplanes: {
           label: 'Airplanes', icon: '◈',
           orgs: ['Pilot Training'],
-          overview: 'My aviation interest is active — I\'m currently training for my private pilot license. This has deepened my understanding of avionics, ATC communication systems, and the RF infrastructure that aviation depends on. I\'ve built software-defined receivers to decode ADS-B transponders, giving me hands-on insight into the same collision-avoidance telemetry used in real aircraft.',
+          overview: 'My aviation interest is active. I\'m currently training for my private pilot license, which has deepened my understanding of avionics, ATC communication systems, and the RF infrastructure that aviation depends on. I\'ve built software-defined receivers to decode ADS-B transponders, giving me hands-on insight into the same collision-avoidance telemetry used in real aircraft.',
           projectIds: ['ads-b','spectrum-anomaly','ham-radio']
         }
       };
