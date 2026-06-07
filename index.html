@@ -1296,7 +1296,7 @@
           features: ['Automated two-line element (TLE) based pass prediction and tracking','Doppler correction applied in real-time during satellite passes','Rotator controller built on Arduino with custom motor driver PCB','Contributions to SatNOGS open-source observation database'],
           challenges: 'Achieving accurate rotator pointing required calibrating mechanical backlash and integrating a feedback loop between the rotator controller and the SDR software. Doppler correction at VHF needed sub-Hz frequency resolution for clean FM demodulation.',
           outcome: 'Station decoded telemetry from multiple LEO satellites, including NOAA weather satellites and amateur radio CubeSats. Observation logs were prepared for SatNOGS style workflows.',
-          demo: ''
+          demo: 'https://aryanxoxo.github.io/satnogs-ground-station-dashboard/'
         },
         {
           cats: ['Space','RF'], domain: 'Space · RF Testing', title: '433 MHz CubeSat Radio Link',
@@ -1314,7 +1314,7 @@
           features: ['RTL-SDR tuned to 1090 MHz with custom bandpass filter','GNU Radio flowgraph for PPM demodulation and frame sync','Python decoder for ICAO address, altitude, lat/lon extraction','Live aircraft map with range > 200 km from rooftop antenna'],
           challenges: 'The RTL-SDR\'s phase noise and frequency drift introduced preamble detection errors at the edges of the RF range. Implementing a drift-compensated AGC loop in GNU Radio significantly improved frame sync reliability.',
           outcome: 'Receiver reliably decoded ADS-B messages from 60 to 80 simultaneous aircraft. The work connects directly to my pilot training because the same data feeds commercial TCAS and ATC systems.',
-          demo: ''
+          demo: 'https://aryanxoxo.github.io/ads-b-aircraft-receiver-dashboard/'
         },
         {
           cats: ['Maritime','RF'], domain: 'Maritime · Telecom', title: 'AIS Marine Receiver',
