@@ -1496,9 +1496,9 @@
         { cats: ['RF'], domain: 'Medical Imaging - Simulation', title: 'MRI Slice-Selective RF Pulse Designer',
           tags: ['Bloch Equations','Streamlit','Python','RF Pulse Design'],
           overview: 'Built a Python and Streamlit dashboard for slice-selective MRI excitation. The simulator connects scan-console choices such as flip angle and slice thickness to the RF pulse, slice-selection gradient, bandwidth, and magnetization response underneath.',
-          features: ['Hamming-windowed sinc RF pulse model','Constant Gz slice-selection gradient with position-dependent off-resonance','Rotating-frame Bloch-equation simulation without relaxation','Interactive controls for pulse duration, gradient strength, slice thickness, TBW, flip angle, and numerical resolution'],
+          features: ['Hamming-windowed sinc RF pulse model','Constant Gz slice-selection gradient with position-dependent off-resonance','Rotating-frame Bloch-equation simulation without relaxation','Multi-slice preset comparison for thin-slice, localizer, sharp-edge, low-gradient, and inversion scenarios'],
           challenges: 'The main challenge was keeping the dashboard clinically readable while preserving the physics: small changes to bandwidth, gradient strength, or pulse duration directly reshape the selected slice profile.',
-          outcome: 'Produced a reusable MRI RF design dashboard with visual outputs for the RF waveform, RF spectrum, magnetization components, and final flip-angle profile across position.',
+          outcome: 'Produced a reusable MRI RF design dashboard with visual outputs for the RF waveform, RF spectrum, magnetization components, final flip-angle profile, and overlaid Bloch slice presets.',
           demo: '/projects/mri-rf-pulse-designer/'
         },
       ];
@@ -1538,7 +1538,7 @@
         'EMI / EMC Debug Case Study': ['spectrum data', 'LTspice', 'filter fix'],
         'Custom RF PCB': ['KiCad', 'VNA data', 'SMA launch'],
         'OFDM Modem Simulation': ['MATLAB', 'BER curves', 'channel model'],
-        'MRI Slice-Selective RF Pulse Designer': ['Streamlit dashboard', 'Bloch equations', 'RF pulse plots'],
+        'MRI Slice-Selective RF Pulse Designer': ['Streamlit dashboard', 'Bloch preset comparison', 'RF pulse plots'],
         'SDR Signal Classifier': ['IQ captures', 'feature extraction', 'model test'],
         'AI Lab Bench Assistant': ['SCPI control', 'PyVISA', 'test report'],
         'FPGA DDS Signal Generator': ['Verilog', 'DAC output', 'spectrum check'],
