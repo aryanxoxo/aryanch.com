@@ -1,0 +1,610 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MRI RF Pulse Interactive Model | Aryan Chahardovalee</title>
+  <style>
+    :root {
+      --ink: #111827;
+      --muted: #5f6876;
+      --line: #d8dee8;
+      --soft: #f4f7fb;
+      --panel: #ffffff;
+      --teal: #087f8c;
+      --violet: #6741d9;
+      --orange: #d9480f;
+      --green: #2b8a3e;
+      --gold: #f08c00;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+      color: var(--ink);
+      background: linear-gradient(180deg, #f8fafc 0%, #eef3f8 54%, #ffffff 100%);
+      line-height: 1.55;
+    }
+    a { color: inherit; }
+    main {
+      width: min(1220px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 28px 0 46px;
+    }
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 18px;
+      font-size: 0.86rem;
+      color: var(--muted);
+    }
+    .topbar a {
+      text-decoration: none;
+      border-bottom: 1px solid rgba(8, 127, 140, 0.32);
+    }
+    .hero {
+      border: 1px solid rgba(17, 24, 39, 0.12);
+      border-radius: 8px;
+      padding: 28px;
+      background:
+        radial-gradient(circle at 12% 16%, rgba(8, 127, 140, 0.12), transparent 30%),
+        radial-gradient(circle at 88% 10%, rgba(240, 140, 0, 0.16), transparent 24%),
+        linear-gradient(135deg, #ffffff 0%, #eef6f8 58%, #f9fbfd 100%);
+      box-shadow: 0 18px 48px rgba(17, 24, 39, 0.08);
+    }
+    .badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+    .badge {
+      border: 1px solid rgba(8, 127, 140, 0.24);
+      background: rgba(255, 255, 255, 0.72);
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 4.8vw, 4rem);
+      line-height: 1;
+      letter-spacing: 0;
+    }
+    .lead {
+      max-width: 820px;
+      margin: 16px 0 0;
+      color: var(--muted);
+      font-size: 1.03rem;
+    }
+    .shell {
+      display: grid;
+      grid-template-columns: 330px minmax(0, 1fr);
+      gap: 16px;
+      margin-top: 16px;
+      align-items: start;
+    }
+    .panel {
+      border: 1px solid rgba(17, 24, 39, 0.12);
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: 0 10px 32px rgba(17, 24, 39, 0.06);
+    }
+    .controls { padding: 16px; position: sticky; top: 12px; }
+    .controls h2, .panel h2 {
+      margin: 0 0 12px;
+      font-size: 1rem;
+    }
+    .field { margin-bottom: 14px; }
+    label {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 0.84rem;
+      font-weight: 750;
+      margin-bottom: 6px;
+    }
+    label span { color: var(--teal); font-variant-numeric: tabular-nums; }
+    input[type="range"], select {
+      width: 100%;
+      accent-color: var(--teal);
+    }
+    select {
+      min-height: 38px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fff;
+      color: var(--ink);
+      padding: 0 10px;
+      font: inherit;
+    }
+    .hint {
+      color: var(--muted);
+      font-size: 0.8rem;
+      margin: 5px 0 0;
+    }
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 12px;
+      border-bottom: 1px solid var(--line);
+    }
+    .tab {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+      color: var(--ink);
+      padding: 8px 12px;
+      font-weight: 760;
+      cursor: pointer;
+    }
+    .tab.active { border-color: var(--teal); color: var(--teal); background: rgba(8,127,140,0.08); }
+    .view { display: none; padding: 16px; }
+    .view.active { display: block; }
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .metric {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfcfe;
+      padding: 12px;
+      min-height: 86px;
+    }
+    .metric small {
+      color: var(--muted);
+      text-transform: uppercase;
+      font-weight: 800;
+      font-size: 0.7rem;
+    }
+    .metric strong {
+      display: block;
+      margin-top: 5px;
+      font-size: 1.28rem;
+      color: var(--ink);
+      font-variant-numeric: tabular-nums;
+    }
+    .plot-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .plot-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      background: #fff;
+      min-width: 0;
+    }
+    .plot-title {
+      font-weight: 800;
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+    }
+    canvas {
+      width: 100%;
+      height: 260px;
+      display: block;
+      background: #fbfcfe;
+      border-radius: 6px;
+    }
+    .equation {
+      border-left: 4px solid var(--teal);
+      background: var(--soft);
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin: 0 0 12px;
+      font-family: Consolas, "Courier New", monospace;
+      overflow-x: auto;
+    }
+    .preset-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .preset-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      padding: 12px;
+    }
+    .preset-card strong { display: block; margin-bottom: 5px; }
+    .preset-card p { margin: 0; color: var(--muted); font-size: 0.84rem; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.86rem;
+    }
+    th, td {
+      text-align: left;
+      border-bottom: 1px solid var(--line);
+      padding: 9px 8px;
+      vertical-align: top;
+    }
+    th { background: var(--soft); }
+    @media (max-width: 900px) {
+      main { width: min(100% - 18px, 1220px); padding-top: 18px; }
+      .hero { padding: 20px; text-align: center; }
+      .badges { justify-content: center; }
+      .shell { grid-template-columns: 1fr; }
+      .controls { position: static; }
+      .metrics, .plot-grid, .preset-list { grid-template-columns: 1fr; }
+      canvas { height: 230px; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="topbar">
+      <a href="/projects/mri-rf-pulse-designer/">Back to MRI project</a>
+      <a href="/">aryanch.com</a>
+    </div>
+
+    <section class="hero">
+      <div class="badges">
+        <span class="badge">Interactive Bloch model</span>
+        <span class="badge">Slice presets</span>
+        <span class="badge">RF pulse parameters</span>
+        <span class="badge">Client-side dashboard</span>
+      </div>
+      <h1>MRI RF Pulse Interactive Model</h1>
+      <p class="lead">
+        Explore how flip angle, pulse duration, gradient strength, slice thickness,
+        and time-bandwidth product change the Bloch-equation slice profile in real time.
+      </p>
+    </section>
+
+    <section class="shell">
+      <aside class="panel controls">
+        <h2>Pulse Console</h2>
+        <div class="field">
+          <label for="preset">Preset</label>
+          <select id="preset"></select>
+          <p class="hint" id="presetHelp"></p>
+        </div>
+        <div class="field">
+          <label for="flip">Flip angle <span id="flipVal"></span></label>
+          <input id="flip" type="range" min="10" max="180" step="5" />
+        </div>
+        <div class="field">
+          <label for="duration">RF duration <span id="durationVal"></span></label>
+          <input id="duration" type="range" min="1" max="10" step="0.25" />
+        </div>
+        <div class="field">
+          <label for="gradient">Gz gradient <span id="gradientVal"></span></label>
+          <input id="gradient" type="range" min="5" max="50" step="1" />
+        </div>
+        <div class="field">
+          <label for="slice">Slice thickness <span id="sliceVal"></span></label>
+          <input id="slice" type="range" min="1" max="12" step="0.5" />
+        </div>
+        <div class="field">
+          <label for="tbw">Time-bandwidth product <span id="tbwVal"></span></label>
+          <input id="tbw" type="range" min="2" max="24" step="0.5" />
+        </div>
+        <div class="field">
+          <label for="samples">Spatial samples <span id="samplesVal"></span></label>
+          <input id="samples" type="range" min="81" max="321" step="20" />
+        </div>
+      </aside>
+
+      <section class="panel">
+        <div class="tabs">
+          <button class="tab active" data-view="console">Pulse Console</button>
+          <button class="tab" data-view="presets">Slice Presets</button>
+          <button class="tab" data-view="equations">Equations</button>
+          <button class="tab" data-view="table">Profile Table</button>
+        </div>
+
+        <div class="view active" id="console">
+          <div class="metrics">
+            <div class="metric"><small>Peak B1</small><strong id="peakB1">0 uT</strong></div>
+            <div class="metric"><small>RF bandwidth</small><strong id="bandwidth">0 kHz</strong></div>
+            <div class="metric"><small>Estimated slice</small><strong id="estimatedSlice">0 mm</strong></div>
+            <div class="metric"><small>Center flip</small><strong id="centerFlip">0 deg</strong></div>
+          </div>
+          <div class="plot-grid">
+            <div class="plot-card"><div class="plot-title">RF pulse amplitude, B1(t)</div><canvas id="pulseCanvas"></canvas></div>
+            <div class="plot-card"><div class="plot-title">RF spectrum</div><canvas id="spectrumCanvas"></canvas></div>
+            <div class="plot-card"><div class="plot-title">Final magnetization</div><canvas id="magCanvas"></canvas></div>
+            <div class="plot-card"><div class="plot-title">Flip angle profile</div><canvas id="flipCanvas"></canvas></div>
+          </div>
+        </div>
+
+        <div class="view" id="presets">
+          <h2>Bloch Slice Preset Comparison</h2>
+          <p class="hint">
+            The comparison reruns the model for scanner-style prescriptions and overlays the final
+            slice response. Thin slices, scout/localizer slices, sharp-edge pulses, low-gradient
+            settings, and inversion pulses behave differently.
+          </p>
+          <div class="plot-grid">
+            <div class="plot-card"><div class="plot-title">Flip angle by preset</div><canvas id="presetFlipCanvas"></canvas></div>
+            <div class="plot-card"><div class="plot-title">Final Mz by preset</div><canvas id="presetMzCanvas"></canvas></div>
+          </div>
+          <div class="preset-list" id="presetCards"></div>
+        </div>
+
+        <div class="view" id="equations">
+          <h2>Equation Explorer</h2>
+          <div class="equation">dM/dt = gamma * M x Beff</div>
+          <div class="equation">Beff(z,t) = [B1(t), 0, Gz * z]</div>
+          <div class="equation">slice_width ~= RF_bandwidth / (gamma_bar * Gz)</div>
+          <div class="equation">flip_angle_center ~= gamma * integral(B1(t) dt)</div>
+          <table>
+            <tbody>
+              <tr><th>Flip angle</th><td>Scales RF pulse area. A 90 degree pulse creates transverse signal; a 180 degree pulse inverts Mz.</td></tr>
+              <tr><th>RF duration</th><td>Controls pulse length and peak B1. Longer pulses usually need lower B1 for the same flip angle.</td></tr>
+              <tr><th>Gz gradient</th><td>Maps position to resonance frequency. Stronger Gz makes the same RF bandwidth select a thinner slice.</td></tr>
+              <tr><th>Slice thickness</th><td>Sets the target slab width. The model computes bandwidth from thickness when the preset uses automatic TBW.</td></tr>
+              <tr><th>TBW</th><td>Time-bandwidth product. Higher values sharpen edges, but add structure to the pulse and profile.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="view" id="table">
+          <h2>Profile Samples</h2>
+          <table>
+            <thead><tr><th>z mm</th><th>Flip angle deg</th><th>Mx</th><th>My</th><th>Mz</th></tr></thead>
+            <tbody id="profileRows"></tbody>
+          </table>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script>
+    const gamma = 2 * Math.PI * 42.577e6;
+    const gammaHz = 42.577e6;
+    const presets = {
+      "Balanced 5 mm excitation": [90, 4.0, 20.0, 5.0, 8.0, "General-purpose 90 degree excitation for a moderate 5 mm slice."],
+      "Thin 2 mm high-resolution slice": [90, 6.0, 28.0, 2.0, 12.0, "Higher-resolution slice with stronger gradient and longer pulse."],
+      "Thick 10 mm localizer slice": [70, 2.4, 16.0, 10.0, 4.0, "Fast scout/localizer-style slice where coverage matters more than edge sharpness."],
+      "Sharp 3 mm TBW-optimized slice": [90, 7.0, 32.0, 3.0, 14.0, "Sharper slice profile using a higher time-bandwidth product."],
+      "Low-gradient 8 mm body coil scenario": [90, 5.5, 10.0, 8.0, 6.0, "Lower-gradient prescription for wider anatomical coverage."],
+      "Broad 180-degree inversion": [180, 5.0, 12.0, 10.0, 8.0, "Inversion-style pulse that drives the center spin toward -Mz."],
+      "Manual": [90, 4.0, 20.0, 5.0, 8.0, "Neutral starting point for custom parameter exploration."]
+    };
+    const compareNames = [
+      "Thin 2 mm high-resolution slice",
+      "Balanced 5 mm excitation",
+      "Thick 10 mm localizer slice",
+      "Sharp 3 mm TBW-optimized slice",
+      "Broad 180-degree inversion"
+    ];
+    const colors = ["#087f8c", "#6741d9", "#d9480f", "#2b8a3e", "#f08c00"];
+    const el = id => document.getElementById(id);
+    const controls = ["flip", "duration", "gradient", "slice", "tbw", "samples"];
+
+    function sinc(x) { return Math.abs(x) < 1e-9 ? 1 : Math.sin(Math.PI * x) / (Math.PI * x); }
+    function hamming(i, n) { return 0.54 - 0.46 * Math.cos(2 * Math.PI * i / Math.max(1, n - 1)); }
+    function rotate(m, b, angle) {
+      const norm = Math.hypot(b[0], b[1], b[2]);
+      if (norm < 1e-20) return m;
+      const ux = b[0] / norm, uy = b[1] / norm, uz = b[2] / norm;
+      const c = Math.cos(angle), s = Math.sin(angle);
+      const dot = ux * m[0] + uy * m[1] + uz * m[2];
+      const cross = [uy * m[2] - uz * m[1], uz * m[0] - ux * m[2], ux * m[1] - uy * m[0]];
+      return [
+        m[0] * c + cross[0] * s + ux * dot * (1 - c),
+        m[1] * c + cross[1] * s + uy * dot * (1 - c),
+        m[2] * c + cross[2] * s + uz * dot * (1 - c)
+      ];
+    }
+    function makePulse(p) {
+      const duration = p.durationMs * 1e-3;
+      const dt = 4e-6;
+      const n = Math.max(24, Math.round(duration / dt));
+      const t = [], raw = [];
+      for (let i = 0; i < n; i++) {
+        const ti = -duration / 2 + i * duration / (n - 1);
+        t.push(ti);
+        raw.push(sinc(p.tbw * ti / duration) * hamming(i, n));
+      }
+      const area = raw.reduce((a, v) => a + v, 0) * dt;
+      const target = p.flipDeg * Math.PI / 180;
+      const scale = area === 0 ? 0 : target / (gamma * area);
+      return { t, b1: raw.map(v => v * scale), dt };
+    }
+    function simulate(p) {
+      const pulse = makePulse(p);
+      const nZ = p.samples;
+      const zMin = -12e-3, zMax = 12e-3;
+      const z = [], mx = [], my = [], mz = [], flip = [];
+      for (let zi = 0; zi < nZ; zi++) {
+        const pos = zMin + (zMax - zMin) * zi / (nZ - 1);
+        let m = [0, 0, 1];
+        for (let i = 0; i < pulse.b1.length; i++) {
+          const b = [pulse.b1[i], 0, p.gradientMt * 1e-3 * pos];
+          const angle = gamma * Math.hypot(b[0], b[1], b[2]) * pulse.dt;
+          m = rotate(m, b, angle);
+        }
+        z.push(pos * 1e3);
+        mx.push(m[0]); my.push(m[1]); mz.push(m[2]);
+        flip.push(Math.acos(Math.max(-1, Math.min(1, m[2]))) * 180 / Math.PI);
+      }
+      const bandwidthHz = p.tbw / (p.durationMs * 1e-3);
+      const estimatedSlice = bandwidthHz / (gammaHz * p.gradientMt * 1e-3) * 1e3;
+      const peakB1 = Math.max(...pulse.b1.map(v => Math.abs(v))) * 1e6;
+      return { z, mx, my, mz, flip, pulse, bandwidthHz, estimatedSlice, peakB1 };
+    }
+    function currentParams() {
+      return {
+        flipDeg: Number(el("flip").value),
+        durationMs: Number(el("duration").value),
+        gradientMt: Number(el("gradient").value),
+        sliceMm: Number(el("slice").value),
+        tbw: Number(el("tbw").value),
+        samples: Number(el("samples").value)
+      };
+    }
+    function setPreset(name) {
+      const p = presets[name];
+      el("flip").value = p[0]; el("duration").value = p[1]; el("gradient").value = p[2];
+      el("slice").value = p[3]; el("tbw").value = p[4]; el("samples").value = 181;
+      el("presetHelp").textContent = p[5];
+      update();
+    }
+    function drawAxes(ctx, w, h, title) {
+      ctx.clearRect(0, 0, w, h);
+      ctx.fillStyle = "#fbfcfe";
+      ctx.fillRect(0, 0, w, h);
+      ctx.strokeStyle = "#e1e7ef";
+      ctx.lineWidth = 1;
+      for (let i = 1; i < 5; i++) {
+        const x = 44 + (w - 62) * i / 5;
+        const y = 16 + (h - 48) * i / 5;
+        ctx.beginPath(); ctx.moveTo(x, 16); ctx.lineTo(x, h - 32); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(44, y); ctx.lineTo(w - 18, y); ctx.stroke();
+      }
+      ctx.fillStyle = "#5f6876";
+      ctx.font = "12px Segoe UI, Arial";
+      ctx.fillText(title, 10, 14);
+    }
+    function plot(canvas, series, opts = {}) {
+      const ctx = canvas.getContext("2d");
+      const dpr = window.devicePixelRatio || 1;
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = Math.round(rect.width * dpr);
+      canvas.height = Math.round(rect.height * dpr);
+      ctx.scale(dpr, dpr);
+      const w = rect.width, h = rect.height;
+      drawAxes(ctx, w, h, opts.title || "");
+      const left = 44, right = w - 18, top = 18, bottom = h - 32;
+      let xMin = opts.xMin, xMax = opts.xMax, yMin = opts.yMin, yMax = opts.yMax;
+      if (xMin === undefined) xMin = Math.min(...series.flatMap(s => s.x));
+      if (xMax === undefined) xMax = Math.max(...series.flatMap(s => s.x));
+      if (yMin === undefined) yMin = Math.min(...series.flatMap(s => s.y));
+      if (yMax === undefined) yMax = Math.max(...series.flatMap(s => s.y));
+      if (Math.abs(yMax - yMin) < 1e-9) { yMax += 1; yMin -= 1; }
+      const px = x => left + (x - xMin) / (xMax - xMin) * (right - left);
+      const py = y => bottom - (y - yMin) / (yMax - yMin) * (bottom - top);
+      ctx.fillStyle = "#5f6876";
+      ctx.font = "11px Segoe UI, Arial";
+      ctx.fillText(xMin.toFixed(opts.xDigits || 0), left, h - 10);
+      ctx.fillText(xMax.toFixed(opts.xDigits || 0), right - 28, h - 10);
+      ctx.fillText(yMax.toFixed(opts.yDigits || 0), 6, top + 5);
+      ctx.fillText(yMin.toFixed(opts.yDigits || 0), 6, bottom);
+      series.forEach((s, si) => {
+        ctx.strokeStyle = s.color || colors[si % colors.length];
+        ctx.lineWidth = s.width || 2.4;
+        ctx.beginPath();
+        s.x.forEach((x, i) => {
+          const xp = px(x), yp = py(s.y[i]);
+          if (i === 0) ctx.moveTo(xp, yp); else ctx.lineTo(xp, yp);
+        });
+        ctx.stroke();
+      });
+      if (opts.legend) {
+        let y = 26;
+        series.forEach((s, i) => {
+          ctx.strokeStyle = s.color || colors[i % colors.length];
+          ctx.beginPath(); ctx.moveTo(w - 210, y - 4); ctx.lineTo(w - 178, y - 4); ctx.stroke();
+          ctx.fillStyle = "#111827"; ctx.fillText(s.name || "", w - 172, y);
+          y += 16;
+        });
+      }
+    }
+    function spectrumFromPulse(pulse) {
+      const n = 160;
+      const x = [], y = [];
+      for (let k = 0; k < n; k++) {
+        const f = -12e3 + 24e3 * k / (n - 1);
+        let re = 0, im = 0;
+        pulse.b1.forEach((b, i) => {
+          const phase = -2 * Math.PI * f * pulse.t[i];
+          re += b * Math.cos(phase);
+          im += b * Math.sin(phase);
+        });
+        x.push(f / 1e3); y.push(Math.hypot(re, im));
+      }
+      const maxY = Math.max(...y) || 1;
+      return { x, y: y.map(v => v / maxY) };
+    }
+    function updateLabels(p) {
+      el("flipVal").textContent = p.flipDeg.toFixed(0) + " deg";
+      el("durationVal").textContent = p.durationMs.toFixed(2) + " ms";
+      el("gradientVal").textContent = p.gradientMt.toFixed(0) + " mT/m";
+      el("sliceVal").textContent = p.sliceMm.toFixed(1) + " mm";
+      el("tbwVal").textContent = p.tbw.toFixed(1);
+      el("samplesVal").textContent = p.samples.toFixed(0);
+    }
+    function update() {
+      const p = currentParams();
+      updateLabels(p);
+      const r = simulate(p);
+      el("peakB1").textContent = r.peakB1.toFixed(2) + " uT";
+      el("bandwidth").textContent = (r.bandwidthHz / 1e3).toFixed(2) + " kHz";
+      el("estimatedSlice").textContent = r.estimatedSlice.toFixed(2) + " mm";
+      el("centerFlip").textContent = r.flip[Math.floor(r.flip.length / 2)].toFixed(1) + " deg";
+      const tMs = r.pulse.t.map(v => v * 1e3);
+      plot(el("pulseCanvas"), [{ x: tMs, y: r.pulse.b1.map(v => v * 1e6), color: "#087f8c" }], { title: "time ms vs B1 uT", yDigits: 1, xDigits: 1 });
+      const spec = spectrumFromPulse(r.pulse);
+      plot(el("spectrumCanvas"), [{ x: spec.x, y: spec.y, color: "#6741d9" }], { title: "frequency kHz vs normalized magnitude", xMin: -12, xMax: 12, yMin: 0, yMax: 1, yDigits: 1 });
+      plot(el("magCanvas"), [
+        { x: r.z, y: r.mx, color: "#087f8c" },
+        { x: r.z, y: r.my, color: "#6741d9" },
+        { x: r.z, y: r.mz, color: "#2b8a3e" }
+      ], { title: "z mm vs Mx, My, Mz", xMin: -12, xMax: 12, yMin: -1.1, yMax: 1.1, yDigits: 1 });
+      plot(el("flipCanvas"), [{ x: r.z, y: r.flip, color: "#d9480f" }], { title: "z mm vs flip angle", xMin: -12, xMax: 12, yMin: 0, yMax: Math.max(110, p.flipDeg * 1.15) });
+      updatePresetPlots();
+      updateRows(r);
+    }
+    function paramsForPreset(name) {
+      const p = presets[name];
+      return { flipDeg: p[0], durationMs: p[1], gradientMt: p[2], sliceMm: p[3], tbw: p[4], samples: 181 };
+    }
+    function updatePresetPlots() {
+      const flipSeries = [], mzSeries = [];
+      compareNames.forEach((name, i) => {
+        const r = simulate(paramsForPreset(name));
+        flipSeries.push({ name, x: r.z, y: r.flip, color: colors[i] });
+        mzSeries.push({ name, x: r.z, y: r.mz, color: colors[i] });
+      });
+      plot(el("presetFlipCanvas"), flipSeries, { title: "z mm vs flip angle by preset", xMin: -12, xMax: 12, yMin: 0, yMax: 190, legend: true });
+      plot(el("presetMzCanvas"), mzSeries, { title: "z mm vs final Mz by preset", xMin: -12, xMax: 12, yMin: -1.1, yMax: 1.1, yDigits: 1, legend: true });
+    }
+    function updateRows(r) {
+      const tbody = el("profileRows");
+      tbody.innerHTML = "";
+      const step = Math.max(1, Math.floor(r.z.length / 18));
+      for (let i = 0; i < r.z.length; i += step) {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `<td>${r.z[i].toFixed(2)}</td><td>${r.flip[i].toFixed(2)}</td><td>${r.mx[i].toFixed(4)}</td><td>${r.my[i].toFixed(4)}</td><td>${r.mz[i].toFixed(4)}</td>`;
+        tbody.appendChild(tr);
+      }
+    }
+    function init() {
+      const preset = el("preset");
+      Object.keys(presets).forEach(name => {
+        const option = document.createElement("option");
+        option.value = name; option.textContent = name; preset.appendChild(option);
+      });
+      preset.addEventListener("change", () => setPreset(preset.value));
+      controls.forEach(id => el(id).addEventListener("input", () => { el("preset").value = "Manual"; el("presetHelp").textContent = presets.Manual[5]; update(); }));
+      document.querySelectorAll(".tab").forEach(btn => btn.addEventListener("click", () => {
+        document.querySelectorAll(".tab").forEach(b => b.classList.remove("active"));
+        document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
+        btn.classList.add("active");
+        el(btn.dataset.view).classList.add("active");
+        update();
+      }));
+      const cards = el("presetCards");
+      compareNames.forEach((name, i) => {
+        const p = presets[name];
+        const card = document.createElement("div");
+        card.className = "preset-card";
+        card.innerHTML = `<strong style="color:${colors[i]}">${name}</strong><p>${p[5]}</p>`;
+        cards.appendChild(card);
+      });
+      setPreset("Balanced 5 mm excitation");
+      window.addEventListener("resize", update);
+    }
+    init();
+  </script>
+</body>
+</html>
