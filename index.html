@@ -833,7 +833,7 @@
         </div>
         <div class="status-pill"><span class="dot"></span>Open to opportunities</div>
         <div class="stat-row">
-          <div class="stat"><span class="stat-num">29</span><span class="stat-label">Builds</span></div>
+          <div class="stat"><span class="stat-num">30</span><span class="stat-label">Builds</span></div>
           <div class="stat"><span class="stat-num">4</span><span class="stat-label">Orgs</span></div>
           <div class="stat"><span class="stat-num">EIT</span><span class="stat-label">EGBC</span></div>
         </div>
@@ -911,7 +911,7 @@
             <h3 class="impact-title">Reports, boards, code, and test notes.</h3>
             <p class="impact-copy">The strongest projects are tied to concrete artifacts: lab measurements, schematics, dashboards, reports, simulations, and build notes.</p>
           </div>
-          <div class="impact-metric">29 builds</div>
+          <div class="impact-metric">30 builds</div>
         </article>
       </div>
     </div>
@@ -1493,6 +1493,14 @@
           outcome: 'Decoded WSPR spots from 43 countries across multiple bands. FT8 contacts confirmed reliable copy at SNR as low as -18 dB.',
           demo: ''
         },
+        { cats: ['RF','AI'], domain: 'Medical Imaging · Simulation', title: 'MRI Simulation',
+          tags: ['Bloch Equations','K-space','Python','Reconstruction'],
+          overview: 'Built an MRI simulation workflow that models spin relaxation, k-space sampling, and image reconstruction from a digital phantom. The project connects RF pulse physics with signal processing and medical imaging reconstruction.',
+          features: ['Digital phantom with configurable tissue T1 and T2 parameters','Bloch-equation style relaxation model for spin response','Cartesian k-space sampling and undersampling experiments','Reconstruction screenshots with SNR and RMSE comparison metrics'],
+          challenges: 'The hardest part was keeping the simulation physically meaningful while still simple enough to debug. Aliasing, noise, and relaxation timing all interact, so the reconstruction pipeline needed small test cases before the full phantom simulation.',
+          outcome: 'Produced repeatable phantom reconstructions and screenshot outputs showing how sampling density, echo time, and noise affect image quality.',
+          demo: ''
+        },
       ];
 
       var phIcons = {
@@ -1530,6 +1538,7 @@
         'EMI / EMC Debug Case Study': ['spectrum data', 'LTspice', 'filter fix'],
         'Custom RF PCB': ['KiCad', 'VNA data', 'SMA launch'],
         'OFDM Modem Simulation': ['MATLAB', 'BER curves', 'channel model'],
+        'MRI Simulation': ['k-space model', 'phantom screenshots', 'reconstruction metrics'],
         'SDR Signal Classifier': ['IQ captures', 'feature extraction', 'model test'],
         'AI Lab Bench Assistant': ['SCPI control', 'PyVISA', 'test report'],
         'FPGA DDS Signal Generator': ['Verilog', 'DAC output', 'spectrum check'],
@@ -1567,28 +1576,13 @@
         'FPGA Snake Game': 'assets/img/shnake.jpg',
         'LOTTOCRACK': 'assets/img/LOTTOMAX.jpg',
         'SatNOGS Ground Station': 'assets/img/project-thumbnails/satnogs.jpg',
-        '433 MHz CubeSat Radio Link': 'assets/img/project-thumbnails/cubesat-radio-link.jpg',
-        'SDR ADS-B Receiver': 'assets/img/project-thumbnails/ads-b-dashboard.jpg',
-        'AIS Marine Receiver': 'assets/img/project-thumbnails/ais-receiver-dashboard.jpg',
-        'Antenna Radiation Pattern Visualizer': 'assets/img/project-thumbnails/antenna-pattern.jpg',
         'EMI / EMC Debug Case Study': 'assets/img/project-thumbnails/emi-case-study.jpg',
-        'Custom RF PCB': 'assets/img/project-thumbnails/custom-rf-pcb.jpg',
-        'OFDM Modem Simulation': 'assets/img/project-thumbnails/ofdm-simulation.jpg',
-        'SDR Signal Classifier': 'assets/img/project-thumbnails/sdr-classifier.jpg',
-        '5G Lab with srsRAN': 'assets/img/project-thumbnails/5g-lab.jpg',
+        'MRI Simulation': 'assets/img/project-thumbnails/mri-simulation.jpg',
         'LoRa Mesh Coverage Mapper': 'assets/img/project-thumbnails/lora-mesh.jpg',
-        'Spectrum Anomaly Detector': 'assets/img/project-thumbnails/spectrum-anomaly.jpg',
         'CAN Bus Vehicle Logger': 'assets/img/project-thumbnails/can-logger.jpg',
         'Buck Converter EMI Fix': 'assets/img/project-thumbnails/buck-emi.jpg',
-        'Zephyr RTOS Sensor Node': 'assets/img/project-thumbnails/zephyr-node.jpg',
-        'Drone Telemetry Link Monitor': 'assets/img/project-thumbnails/drone-telemetry.jpg',
-        'FPGA DDS Signal Generator': 'assets/img/project-thumbnails/fpga-dds.jpg',
-        'FPGA DSP Filter': 'assets/img/project-thumbnails/fpga-dsp-filter.jpg',
-        'AI Lab Bench Assistant': 'assets/img/project-thumbnails/ai-lab-bench.jpg',
-        'Wi-Fi Coverage Heatmap': 'assets/img/project-thumbnails/wifi-heatmap.jpg',
         'Ham Radio Digital Modes Decoder': 'assets/img/project-thumbnails/ham-radio.jpg',
-        'Marine Power System Design': 'assets/img/MPV.png',
-        'UPS Integration & Load Analysis': 'assets/img/project-thumbnails/ups-integration.jpg'
+        'Marine Power System Design': 'assets/img/MPV.png'
       };
 
       PROJECTS.forEach(function(p, i) {
