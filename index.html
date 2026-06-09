@@ -421,6 +421,94 @@
     .exp-year { font-size: 0.62rem; letter-spacing: 0.08em; color: var(--gold); white-space: nowrap; display: inline-flex; align-items: center; gap: 0.45rem; }
     .exp-year::after { content: '\2197'; font-size: 0.72rem; transition: transform 0.2s var(--ease); }
     .exp:hover .exp-year::after, .exp:focus-visible .exp-year::after { transform: translate(2px,-2px); }
+    .experience-map {
+      position: relative; min-height: 760px; border: 1px solid var(--fg-faint);
+      background:
+        linear-gradient(90deg, rgba(200,185,122,0.04) 0 1px, transparent 1px 50%),
+        radial-gradient(circle at 50% 16%, rgba(200,185,122,0.08), transparent 24rem),
+        var(--bg);
+      overflow: hidden;
+    }
+    .experience-map::before {
+      content: ''; position: absolute; top: 2.2rem; bottom: 2.2rem; left: 50%; width: 1px;
+      background: linear-gradient(180deg, rgba(200,185,122,0.78), rgba(200,185,122,0.18));
+    }
+    .experience-axis-label {
+      position: absolute; left: calc(50% + 0.7rem); transform: translateY(-50%);
+      font-family: var(--mono); font-size: 0.52rem; letter-spacing: 0.14em; color: var(--gold);
+    }
+    .experience-lane-label {
+      position: absolute; top: 1.2rem; font-family: var(--mono); font-size: 0.52rem;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--fg-dim);
+    }
+    .experience-lane-label.work { left: 1.25rem; }
+    .experience-lane-label.learning { right: 1.25rem; text-align: right; }
+    .exp-node {
+      position: absolute; width: min(17rem, 38%); padding: 0.8rem 0.85rem;
+      border: 1px solid rgba(232,228,217,0.11); background: rgba(10,10,9,0.86);
+      color: inherit; cursor: pointer; text-align: left; font: inherit;
+      display: grid; grid-template-columns: 2rem 1fr; gap: 0.75rem; align-items: start;
+      outline: 1px solid rgba(200,185,122,0.08); animation: clickable-glow 7s ease-in-out infinite;
+      transition: transform 0.22s var(--ease), border-color 0.22s, background 0.22s, box-shadow 0.22s;
+    }
+    .exp-node::after {
+      content: ''; position: absolute; top: 50%; width: 34px; height: 1px;
+      background: rgba(200,185,122,0.34);
+    }
+    .exp-node.work { left: 1.2rem; }
+    .exp-node.work::after { right: -34px; }
+    .exp-node.learning { right: 1.2rem; }
+    .exp-node.learning::after { left: -34px; }
+    .exp-node.center {
+      left: 50%; width: min(18rem, 46%); transform: translateX(-50%);
+      grid-template-columns: 2rem 1fr; border-color: rgba(200,185,122,0.26);
+    }
+    .exp-node.center::after { display: none; }
+    .exp-node:hover, .exp-node:focus-visible, .exp-node.active {
+      border-color: rgba(200,185,122,0.64); background: rgba(18,17,14,0.96);
+      box-shadow: 0 0 28px rgba(200,185,122,0.16); transform: translateY(-2px);
+    }
+    .exp-node.center:hover, .exp-node.center:focus-visible, .exp-node.center.active { transform: translateX(-50%) translateY(-2px); }
+    .exp-dot {
+      position: absolute; top: 50%; width: 0.72rem; height: 0.72rem; border-radius: 50%;
+      background: var(--gold); box-shadow: 0 0 0 6px rgba(200,185,122,0.10), 0 0 20px rgba(200,185,122,0.28);
+    }
+    .exp-node.work .exp-dot { right: calc(-34px - 0.36rem); }
+    .exp-node.learning .exp-dot { left: calc(-34px - 0.36rem); }
+    .exp-node.center .exp-dot { left: 50%; top: -0.45rem; transform: translateX(-50%); }
+    .exp-node-logo {
+      width: 2rem; height: 2rem; border: 1px solid rgba(200,185,122,0.35);
+      display: grid; place-items: center; color: var(--gold); background: rgba(232,228,217,0.94);
+      overflow: hidden; padding: 0.3rem;
+    }
+    .exp-node-logo img { width: 100%; height: 100%; object-fit: contain; display: block; }
+    .exp-node-logo svg { width: 1.25rem; height: 1.25rem; stroke: currentColor; fill: none; stroke-width: 1.5; }
+    .exp-node-role { display: block; color: var(--fg); font-size: 0.74rem; line-height: 1.25; }
+    .exp-node-place { display: block; color: var(--fg-dim); font-size: 0.58rem; margin-top: 0.25rem; letter-spacing: 0.03em; }
+    .exp-node-year { display: block; color: var(--gold); font-family: var(--mono); font-size: 0.52rem; letter-spacing: 0.12em; margin-top: 0.42rem; text-transform: uppercase; }
+    .experience-bubble {
+      position: absolute; z-index: 4; left: 50%; top: 50%; width: min(25rem, calc(100% - 2rem));
+      transform: translate(-50%, -50%) scale(0.98); opacity: 0; pointer-events: none;
+      border: 1px solid rgba(200,185,122,0.42); background: rgba(12,12,10,0.98);
+      box-shadow: 0 22px 60px rgba(0,0,0,0.45), 0 0 42px rgba(200,185,122,0.12);
+      padding: 1rem; transition: opacity 0.18s, transform 0.18s var(--ease);
+    }
+    .experience-bubble.open { opacity: 1; pointer-events: auto; transform: translate(-50%, -50%) scale(1); }
+    .experience-bubble-head { display: grid; grid-template-columns: 2.6rem 1fr auto; gap: 0.8rem; align-items: start; margin-bottom: 0.85rem; }
+    .experience-bubble .modal-logo { width: 2.6rem; height: 2.6rem; margin: 0; }
+    .experience-bubble-title { font-family: var(--serif); font-size: 1.25rem; line-height: 1.1; }
+    .experience-bubble-meta { color: var(--gold); font-family: var(--mono); font-size: 0.54rem; letter-spacing: 0.14em; text-transform: uppercase; margin-top: 0.35rem; }
+    .experience-bubble-close {
+      width: 2rem; height: 2rem; border: 1px solid var(--fg-faint); background: transparent;
+      color: var(--fg-dim); cursor: pointer; font-family: var(--mono);
+    }
+    .experience-bubble-close:hover { color: var(--gold); border-color: var(--gold); }
+    .experience-bubble-text { color: var(--fg-mid); font-size: 0.68rem; line-height: 1.7; margin-bottom: 0.8rem; }
+    .experience-bubble-list { list-style: none; display: flex; flex-direction: column; gap: 0.35rem; margin: 0; padding: 0; }
+    .experience-bubble-list li { color: var(--fg-mid); font-size: 0.64rem; line-height: 1.55; padding-left: 0.95rem; position: relative; }
+    .experience-bubble-list li::before { content: '*'; position: absolute; left: 0; color: var(--gold); }
+    .experience-bubble-projects { margin-top: 0.85rem; display: flex; flex-direction: column; gap: 0.45rem; }
+    .experience-bubble-section { color: var(--gold); font-family: var(--mono); font-size: 0.52rem; letter-spacing: 0.16em; text-transform: uppercase; margin: 0.85rem 0 0.42rem; }
     .modal-logo {
       width: 3rem; height: 3rem; border: 1px solid rgba(200,185,122,0.35);
       display: grid; place-items: center; color: var(--gold); background: rgba(232,228,217,0.94);
@@ -630,6 +718,24 @@
       .term-row { grid-template-columns: 2.5rem 1fr; gap: 0.9rem; }
       .term-domain, .term-tags { grid-column: 2; }
       .term-tags { margin-top: -0.2rem; }
+      .experience-map { min-height: auto; padding: 4rem 1rem 1rem 2.4rem; }
+      .experience-map::before { left: 1.25rem; }
+      .experience-lane-label { top: 1rem; }
+      .experience-lane-label.work { left: 2.4rem; }
+      .experience-lane-label.learning { display: none; }
+      .experience-axis-label { left: 0.42rem; transform: translateY(-50%) rotate(-90deg); transform-origin: center; }
+      .exp-node, .exp-node.work, .exp-node.learning, .exp-node.center {
+        position: relative; left: auto; right: auto; top: auto !important; width: 100%;
+        transform: none; margin-bottom: 0.75rem;
+      }
+      .exp-node:hover, .exp-node:focus-visible, .exp-node.active,
+      .exp-node.center:hover, .exp-node.center:focus-visible, .exp-node.center.active { transform: translateY(-2px); }
+      .exp-node::after { left: -1.2rem !important; right: auto !important; width: 1.2rem; }
+      .exp-node .exp-dot, .exp-node.work .exp-dot, .exp-node.learning .exp-dot, .exp-node.center .exp-dot {
+        left: -1.55rem; right: auto; top: 50%; transform: translateY(-50%);
+      }
+      .experience-bubble { position: fixed; left: 1rem; right: 1rem; bottom: 1rem; top: auto !important; width: auto; transform: translateY(0.75rem) scale(0.98); max-height: 78vh; overflow-y: auto; }
+      .experience-bubble.open { transform: translateY(0) scale(1); }
     }
     @media (max-width: 600px) {
       body { font-size: 15px; }
@@ -1157,14 +1263,38 @@
       </div>
       <div class="about-right reveal">
         <div class="section-num" style="margin-bottom:1.5rem;">/ 03 Experience</div>
-        <div class="timeline">
-          <div class="exp" data-exp-key="zipline"><div class="exp-main"><div class="exp-logo"></div><div><div class="exp-role">Flight Test Ops Engineer</div><div class="exp-place">Zipline International</div><div class="exp-note">Working close to live aircraft operations, where the job is part systems thinking, part calm execution. I care a lot about test discipline, clean handoffs, and making sure the real-world details do not get lost between the aircraft, the team, and the procedure.</div></div></div><div class="exp-year">2024 to Present</div></div>
-          <div class="exp" data-exp-key="telus"><div class="exp-main"><div class="exp-logo"></div><div><div class="exp-role">Exclusive Partner Program Member</div><div class="exp-place">TELUS</div><div class="exp-note">Part of the TELUS Exclusive Partner Program. A different kind of technical work: more people-facing, more direct, and a good reminder that systems only matter if people can actually use them.</div></div></div><div class="exp-year">2024</div></div>
-          <div class="exp" data-exp-key="huawei"><div class="exp-main"><div class="exp-logo"></div><div><div class="exp-role">Capstone Engineer</div><div class="exp-place">Huawei Canada</div><div class="exp-note">Worked on a drone communications capstone, looking at link behavior, RF reliability, and how a control system holds up when the environment is not polite. A lot of the value came from turning tests into decisions, not just plots.</div></div></div><div class="exp-year">2023 to 2024</div></div>
-          <div class="exp" data-exp-key="bcit"><div class="exp-main"><div class="exp-logo"></div><div><div class="exp-role">Airline and Flight Operations Coursework</div><div class="exp-place">BCIT</div><div class="exp-note">Completed two terms of the <a href="https://www.bcit.ca/programs/airline-and-flight-operations-commercial-pilot-fixed-wing-diploma-full-time-100adipma/" target="_blank" rel="noopener">Airline and Flight Operations</a> program. I did not finish the diploma, but I still took a lot from the aviation operations, safety, and cockpit-discipline side of it.</div></div></div><div class="exp-year">2024, two terms</div></div>
-          <div class="exp" data-exp-key="seaspan"><div class="exp-main"><div class="exp-logo"></div><div><div class="exp-role">Engineering Intern</div><div class="exp-place">Seaspan</div><div class="exp-note">Got a very practical and valuable experience in marine electrical systems: power distribution, UPS loads, shipboard constraints, and the kind of engineering where drawings eventually have to survive a vessel.</div></div></div><div class="exp-year">2022</div></div>
-          <div class="exp" data-exp-key="orbit"><div class="exp-main"><div class="exp-logo"></div><div><div class="exp-role">RF &amp; Hardware, Satellite Team</div><div class="exp-place">UBC ORBIT</div><div class="exp-note">Worked on CubeSat hardware and RF systems with a team that made space feel less abstract. Antennas, deployment hardware, link budgets, testing, and the constant reminder that small hardware decisions can become mission-level problems.</div></div></div><div class="exp-year">2021 to 2023</div></div>
-          <div class="exp" data-exp-key="ubc"><div class="exp-main"><div class="exp-logo"></div><div><div class="exp-role">B.A.Sc. Electrical Engineering</div><div class="exp-place">University of British Columbia</div><div class="exp-note">Studied electrical engineering at UBC, with the useful mix of theory, lab work, late nights, and projects that slowly pushed me toward RF, embedded systems, photonics, and flight.</div></div></div><div class="exp-year">2018 to 2023</div></div>
+        <div class="experience-map" id="experienceMap">
+          <div class="experience-lane-label work">Jobs</div>
+          <div class="experience-lane-label learning">Education / internships</div>
+          <span class="experience-axis-label" style="top:6%;">2026</span>
+          <span class="experience-axis-label" style="top:20%;">2024</span>
+          <span class="experience-axis-label" style="top:38%;">2023</span>
+          <span class="experience-axis-label" style="top:53%;">2022</span>
+          <span class="experience-axis-label" style="top:67%;">2021</span>
+          <span class="experience-axis-label" style="top:92%;">2018</span>
+
+          <button class="exp-node work" style="top:11%;" data-exp-key="zipline" data-lane="work"><span class="exp-dot"></span><span class="exp-node-logo"></span><span><span class="exp-node-role">Flight Test Ops Engineer</span><span class="exp-node-place">Zipline International</span><span class="exp-node-year">2024 to Present</span></span></button>
+          <button class="exp-node work" style="top:26%;" data-exp-key="telus" data-lane="work"><span class="exp-dot"></span><span class="exp-node-logo"></span><span><span class="exp-node-role">Exclusive Partner Program Member</span><span class="exp-node-place">TELUS</span><span class="exp-node-year">2024</span></span></button>
+          <button class="exp-node center" style="top:34%;" data-exp-key="huawei" data-lane="center"><span class="exp-dot"></span><span class="exp-node-logo"></span><span><span class="exp-node-role">Capstone Engineer</span><span class="exp-node-place">Huawei Canada</span><span class="exp-node-year">2023 to 2024</span></span></button>
+          <button class="exp-node learning" style="top:24%;" data-exp-key="bcit" data-lane="learning"><span class="exp-dot"></span><span class="exp-node-logo"></span><span><span class="exp-node-role">Airline and Flight Operations Coursework</span><span class="exp-node-place">BCIT</span><span class="exp-node-year">2024, two terms</span></span></button>
+          <button class="exp-node learning" style="top:52%;" data-exp-key="seaspan" data-lane="learning"><span class="exp-dot"></span><span class="exp-node-logo"></span><span><span class="exp-node-role">Engineering Intern</span><span class="exp-node-place">Seaspan</span><span class="exp-node-year">2022</span></span></button>
+          <button class="exp-node work" style="top:67%;" data-exp-key="orbit" data-lane="work"><span class="exp-dot"></span><span class="exp-node-logo"></span><span><span class="exp-node-role">RF &amp; Hardware, Satellite Team</span><span class="exp-node-place">UBC ORBIT</span><span class="exp-node-year">2021 to 2023</span></span></button>
+          <button class="exp-node learning" style="top:84%;" data-exp-key="ubc" data-lane="learning"><span class="exp-dot"></span><span class="exp-node-logo"></span><span><span class="exp-node-role">B.A.Sc. Electrical Engineering</span><span class="exp-node-place">University of British Columbia</span><span class="exp-node-year">2018 to 2023</span></span></button>
+
+          <div class="experience-bubble" id="experienceBubble" aria-live="polite">
+            <div class="experience-bubble-head">
+              <div class="modal-logo" id="bubbleLogo"></div>
+              <div>
+                <div class="experience-bubble-title" id="bubbleTitle"></div>
+                <div class="experience-bubble-meta" id="bubbleMeta"></div>
+              </div>
+              <button class="experience-bubble-close" id="bubbleClose" type="button" aria-label="Close">×</button>
+            </div>
+            <div class="experience-bubble-text" id="bubbleText"></div>
+            <div class="experience-bubble-section">Responsibilities</div>
+            <ul class="experience-bubble-list" id="bubbleResponsibilities"></ul>
+            <div class="experience-bubble-projects" id="bubbleProjects"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -2144,18 +2274,13 @@
         }
       };
 
-      document.querySelectorAll('.exp[data-exp-key]').forEach(function(row) {
-        var key = row.dataset.expKey;
-        var logo = row.querySelector('.exp-logo');
+      document.querySelectorAll('.exp-node[data-exp-key]').forEach(function(node) {
+        var key = node.dataset.expKey;
+        var logo = node.querySelector('.exp-node-logo');
         if (logo) logo.innerHTML = experienceLogoHtml(key);
-        row.setAttribute('role', 'button');
-        row.setAttribute('tabindex', '0');
-        row.addEventListener('click', function(e) {
-          if (e.target.closest('a')) return;
-          openExperienceModal(key);
-        });
-        row.addEventListener('keydown', function(e) {
-          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openExperienceModal(key); }
+        node.addEventListener('click', function() { openExperienceBubble(key, node); });
+        node.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openExperienceBubble(key, node); }
         });
       });
 
@@ -2163,6 +2288,67 @@
         for (var i = 0; i < PROJECTS.length; i++) if (PROJECTS[i].title === title) return i;
         return -1;
       }
+
+      function openExperienceBubble(key, node) {
+        var exp = EXPERIENCES[key];
+        if (!exp) return;
+        document.querySelectorAll('.exp-node.active').forEach(function(el) { el.classList.remove('active'); });
+        node.classList.add('active');
+        document.getElementById('bubbleLogo').innerHTML = experienceLogoHtml(key);
+        document.getElementById('bubbleTitle').textContent = exp.role;
+        document.getElementById('bubbleMeta').textContent = exp.year + ' · ' + exp.place;
+        document.getElementById('bubbleText').textContent = exp.frame[0] || '';
+        document.getElementById('bubbleResponsibilities').innerHTML = exp.responsibilities.map(function(item) { return '<li>' + item + '</li>'; }).join('');
+        var projectList = document.getElementById('bubbleProjects');
+        projectList.innerHTML = '';
+        var projects = exp.projects || [];
+        if (projects.length) {
+          var label = document.createElement('div');
+          label.className = 'experience-bubble-section';
+          label.textContent = 'Relevant Projects';
+          projectList.appendChild(label);
+          projects.slice(0, 3).forEach(function(title) {
+            var idx = projectIndexByTitle(title);
+            if (idx < 0) return;
+            var p = PROJECTS[idx];
+            var el = document.createElement('div');
+            el.className = 'dom-proj-link';
+            el.innerHTML = '<div><div class="dom-proj-link-title">' + p.title + '</div>' +
+              '<div class="dom-proj-link-cat">' + p.domain + '</div></div>' +
+              '<span class="dom-proj-link-arrow" aria-hidden="true">&nearr;</span>';
+            el.addEventListener('click', function(e) {
+              e.stopPropagation();
+              closeExperienceBubble();
+              openModal(p, String(idx + 1).padStart(2,'0'));
+            });
+            projectList.appendChild(el);
+          });
+        }
+        var bubble = document.getElementById('experienceBubble');
+        var map = document.getElementById('experienceMap');
+        if (window.matchMedia('(min-width: 901px)').matches) {
+          var nodeRect = node.getBoundingClientRect();
+          var mapRect = map.getBoundingClientRect();
+          var lane = node.dataset.lane || 'center';
+          var top = nodeRect.top - mapRect.top + nodeRect.height / 2;
+          bubble.style.top = Math.max(120, Math.min(mapRect.height - 120, top)) + 'px';
+          bubble.style.left = lane === 'work' ? '68%' : lane === 'learning' ? '32%' : '50%';
+        } else {
+          bubble.style.top = '';
+          bubble.style.left = '';
+        }
+        bubble.classList.add('open');
+      }
+
+      function closeExperienceBubble() {
+        document.getElementById('experienceBubble').classList.remove('open');
+        document.querySelectorAll('.exp-node.active').forEach(function(el) { el.classList.remove('active'); });
+      }
+
+      document.getElementById('bubbleClose').addEventListener('click', closeExperienceBubble);
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeExperienceBubble();
+      });
 
       function openExperienceModal(key) {
         var exp = EXPERIENCES[key];
