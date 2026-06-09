@@ -331,7 +331,7 @@
       animation: clickable-glow 6.4s ease-in-out infinite;
     }
     .project:hover, .project:focus-visible { background: var(--bg-soft); outline-color: rgba(200,185,122,0.55); box-shadow: 0 0 0 1px rgba(200,185,122,0.22), 0 0 32px rgba(200,185,122,0.16); }
-    .project-media { position: relative; aspect-ratio: 3/2; overflow: hidden; background: var(--bg-soft); }
+    .project-media { position: relative; aspect-ratio: 16/9; overflow: hidden; background: var(--bg-soft); }
     .project-media img {
       width: 100%; height: 100%; object-fit: cover; object-position: center;
       filter: grayscale(0.45) brightness(0.82) contrast(1.05);
@@ -360,16 +360,29 @@
     }
     .project-arrow::before { content: '\2197'; }
     .project:hover .project-arrow { background: var(--gold); color: var(--bg); border-color: var(--gold); transform: translate(2px,-2px); }
-    .project-body { padding: 1.5rem 1.6rem 1.75rem; }
-    .project-cat { font-size: 0.56rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--fg-dim); margin-bottom: 0.75rem; }
-    .project-title { font-family: var(--serif); font-size: 1.4rem; line-height: 1.1; margin-bottom: 0.85rem; }
-    .project-desc { font-size: 0.68rem; line-height: 1.75; color: var(--fg-mid); margin: -0.25rem 0 1rem; }
+    .project-body { padding: 1.1rem 1.2rem 1.25rem; }
+    .project-cat { font-size: 0.52rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--fg-dim); margin-bottom: 0.55rem; }
+    .project-title { font-family: var(--serif); font-size: 1.12rem; line-height: 1.15; margin-bottom: 0.65rem; }
+    .project-desc { font-size: 0.64rem; line-height: 1.6; color: var(--fg-mid); margin: -0.15rem 0 0.75rem; }
     .project-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; }
     .ptag { font-size: 0.54rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(232,228,217,0.4); border: 1px solid rgba(232,228,217,0.1); padding: 0.18rem 0.5rem; }
     .project-proof {
-      margin-top: 0.85rem; padding-top: 0.85rem; border-top: 1px solid var(--fg-faint);
+      margin-top: 0.65rem; padding-top: 0.65rem; border-top: 1px solid var(--fg-faint);
       display: flex; gap: 0.4rem; flex-wrap: wrap;
     }
+    .project.load-hidden, .term-row.load-hidden { display: none !important; }
+    .load-more-wrap { display: flex; justify-content: center; margin-top: 1.2rem; }
+    .load-more-btn {
+      font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--gold); border: 1px solid rgba(200,185,122,0.28); background: rgba(200,185,122,0.055);
+      padding: 0.72rem 1.15rem; cursor: pointer;
+      transition: border-color 0.2s, background 0.2s, color 0.2s, box-shadow 0.2s;
+    }
+    .load-more-btn:hover, .load-more-btn:focus-visible {
+      border-color: var(--gold); background: rgba(200,185,122,0.12); color: var(--fg);
+      box-shadow: 0 0 22px rgba(200,185,122,0.12);
+    }
+    .load-more-btn.hidden { display: none; }
     .proof-chip {
       font-size: 0.5rem; letter-spacing: 0.1em; text-transform: uppercase;
       color: var(--gold); border: 1px solid rgba(200,185,122,0.22);
@@ -723,6 +736,16 @@
     }
     .modal-close:hover { border-color: var(--gold); color: var(--gold); }
     .modal-body { padding: 1.5rem 2rem 2rem; display: flex; flex-direction: column; gap: 1.4rem; }
+    .project-modal-hero {
+      position: relative; width: 100%; aspect-ratio: 16 / 9;
+      overflow: hidden; border: 1px solid rgba(200,185,122,0.22);
+      background: var(--bg);
+    }
+    .project-modal-hero img {
+      width: 100%; height: 100%; object-fit: cover; object-position: center;
+      display: block; filter: saturate(0.92) contrast(1.05) brightness(0.92);
+    }
+    .project-modal-hero.hidden { display: none; }
     .modal-demo {
       display: inline-flex; align-items: center; gap: 0.5rem;
       font-size: 0.64rem; letter-spacing: 0.15em; text-transform: uppercase;
@@ -850,6 +873,9 @@
         <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
       </div>
       <div class="modal-body">
+        <div class="project-modal-hero hidden" id="projectModalHero">
+          <img id="projectModalImage" src="" alt="">
+        </div>
         <a class="modal-demo" id="modalDemo" href="#" target="_blank" rel="noopener">View Demo →</a>
         <a class="modal-demo hidden" id="modalDocs" href="#" target="_blank" rel="noopener">Setup Guide →</a>
         <div class="modal-section">
@@ -1083,7 +1109,7 @@
         <div>
           <div class="eyebrow">Selected work</div>
           <h2 class="section-title">Projects</h2>
-          <p class="section-note">Each card includes a proof trail so the work reads as build history, not just portfolio copy.</p>
+          <p class="section-note">A focused set of engineering builds, field work, reports, code, and measured results.</p>
         </div>
         <span class="section-num">/ 02</span>
       </div>
@@ -1111,6 +1137,9 @@
           <span>#</span><span>Project</span><span>Domain</span><span>Stack</span>
         </div>
         <div id="termList"></div>
+      </div>
+      <div class="load-more-wrap">
+        <button class="load-more-btn" id="loadMoreProjects" type="button">Load More</button>
       </div>
     </div>
   </section>
@@ -1291,6 +1320,18 @@
         document.getElementById('modalNum').textContent = num;
         document.getElementById('modalTitle').textContent = p.title;
         document.getElementById('modalDomain').textContent = p.domain;
+        var modalImgSrc = projectImages[p.title];
+        var modalHero = document.getElementById('projectModalHero');
+        var modalImg = document.getElementById('projectModalImage');
+        if (modalImgSrc) {
+          modalImg.src = modalImgSrc;
+          modalImg.alt = p.title + ' project image';
+          modalHero.classList.remove('hidden');
+        } else {
+          modalImg.removeAttribute('src');
+          modalImg.alt = '';
+          modalHero.classList.add('hidden');
+        }
         document.getElementById('modalOverview').textContent = p.overview || '';
         var ul = document.getElementById('modalFeatures');
         ul.innerHTML = (p.features || []).map(function(f) { return '<li>' + f + '</li>'; }).join('');
@@ -2170,6 +2211,31 @@
 
       /* ---- Multi-select filter chips ---- */
       var activeFilters = new Set(['All']);
+      var PROJECT_INITIAL_VISIBLE = 8;
+      var PROJECT_LOAD_BATCH = 8;
+      var projectVisibleCount = PROJECT_INITIAL_VISIBLE;
+      var loadMoreProjects = document.getElementById('loadMoreProjects');
+
+      function isDesktopProjectLimit() {
+        return window.matchMedia('(min-width: 760px)').matches;
+      }
+
+      function updateProjectLimit() {
+        var limitEnabled = isDesktopProjectLimit();
+        var visibleMatches = [];
+        document.querySelectorAll('#projectGrid .project, #termList .term-row').forEach(function(el) {
+          var idx = Number(el.dataset.projectIndex);
+          if (el.classList.contains('hidden')) {
+            el.classList.remove('load-hidden');
+            return;
+          }
+          if (visibleMatches.indexOf(idx) === -1) visibleMatches.push(idx);
+          el.classList.toggle('load-hidden', limitEnabled && visibleMatches.indexOf(idx) >= projectVisibleCount);
+        });
+        var remaining = Math.max(0, visibleMatches.length - projectVisibleCount);
+        loadMoreProjects.classList.toggle('hidden', !limitEnabled || remaining === 0);
+        loadMoreProjects.textContent = remaining ? 'Load More (' + remaining + ')' : 'Load More';
+      }
 
       function applyFilters() {
         var isAll = activeFilters.has('All');
@@ -2178,14 +2244,21 @@
           var match = isAll || cats.some(function(c) { return activeFilters.has(c); });
           el.classList.toggle('hidden', !match);
         });
+        updateProjectLimit();
         /* wave preset: single selection or default */
         if (!isAll && activeFilters.size === 1) setWavePreset([...activeFilters][0]);
         else setWavePreset('All');
       }
 
+      loadMoreProjects.addEventListener('click', function() {
+        projectVisibleCount += PROJECT_LOAD_BATCH;
+        updateProjectLimit();
+      });
+
       document.getElementById('filterChips').addEventListener('click', function(e) {
         var btn = e.target.closest('.chip');
         if (!btn) return;
+        projectVisibleCount = PROJECT_INITIAL_VISIBLE;
         var f = btn.dataset.filter;
         if (f === 'All') {
           activeFilters.clear(); activeFilters.add('All');
@@ -2216,6 +2289,7 @@
         tag.addEventListener('click', function() {
           var f = tag.dataset.filter;
           /* activate just this filter */
+          projectVisibleCount = PROJECT_INITIAL_VISIBLE;
           activeFilters.clear(); activeFilters.add(f);
           document.querySelectorAll('.chip').forEach(function(c) {
             c.classList.remove('active','multi-active');
@@ -2232,12 +2306,14 @@
         document.getElementById('btnTerm').classList.remove('active');
         document.getElementById('projectGrid').classList.remove('hidden-view');
         document.getElementById('termView').classList.remove('visible');
+        updateProjectLimit();
       });
       document.getElementById('btnTerm').addEventListener('click', function() {
         document.getElementById('btnTerm').classList.add('active');
         document.getElementById('btnGrid').classList.remove('active');
         document.getElementById('projectGrid').classList.add('hidden-view');
         document.getElementById('termView').classList.add('visible');
+        updateProjectLimit();
       });
 
       /* ---- Oscilloscope: per-category wave presets ---- */
@@ -2291,6 +2367,8 @@
         var src = WP[key] || WP.All;
         targetWaves = src.map(function(p) { return Object.assign({}, p); });
       }
+      applyFilters();
+      window.addEventListener('resize', updateProjectLimit);
 
       function lerpWaves() {
         waves.forEach(function(wv, i) {
