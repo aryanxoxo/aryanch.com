@@ -6,7 +6,7 @@
   <meta name="description" content="Aryan Chahardovalee, Electrical Engineer working across flight test, RF systems, satellites, maritime EMC, photonics, and telecommunications." />
   <meta name="author" content="Aryan Chahardovalee" />
   <meta name="view-transition" content="same-origin" />
-  <meta property="og:title" content="Aryan Chahardovalee, Electrical Engineer" />
+  <meta property="og:title" content="Aryan Chahardovalhee, Electrical Ehngineer" />
   <meta property="og:description" content="From small systems to bigger ones: flight test, RF, satellites, maritime EMC, photonics, and signal integrity." />
   <meta property="og:type" content="website" />
   <title>Aryan Chahardovalee | Electrical Engineer</title>
@@ -761,6 +761,7 @@
       </div>
       <div class="modal-body">
         <a class="modal-demo" id="modalDemo" href="#" target="_blank" rel="noopener">View Demo →</a>
+        <a class="modal-demo hidden" id="modalDocs" href="#" target="_blank" rel="noopener">Setup Guide →</a>
         <div class="modal-section">
           <div class="modal-section-label">Overview</div>
           <div class="modal-section-text" id="modalOverview"></div>
@@ -1209,6 +1210,9 @@
         var demo = document.getElementById('modalDemo');
         if (p.demo) { demo.href = p.demo; demo.classList.remove('hidden'); }
         else { demo.classList.add('hidden'); }
+        var docs = document.getElementById('modalDocs');
+        if (p['docs']) { docs.href = p['docs']; docs.classList.remove('hidden'); }
+        else { docs.classList.add('hidden'); }
         document.getElementById('modalOverlay').classList.add('open');
         document.body.style.overflow = 'hidden';
       }
@@ -1314,7 +1318,8 @@
           features: ['RTL-SDR tuned to 1090 MHz with custom bandpass filter','GNU Radio flowgraph for PPM demodulation and frame sync','Python decoder for ICAO address, altitude, lat/lon extraction','Live aircraft map with range > 200 km from rooftop antenna'],
           challenges: 'The RTL-SDR\'s phase noise and frequency drift introduced preamble detection errors at the edges of the RF range. Implementing a drift-compensated AGC loop in GNU Radio significantly improved frame sync reliability.',
           outcome: 'Receiver reliably decoded ADS-B messages from 60 to 80 simultaneous aircraft. The work connects directly to my pilot training because the same data feeds commercial TCAS and ATC systems.',
-          demo: 'https://aryanxoxo.github.io/ads-b-aircraft-receiver-dashboard/'
+          demo: 'https://aryanxoxo.github.io/ads-b-aircraft-receiver-dashboard/',
+          docs: 'https://aryanxoxo.github.io/ads-b-aircraft-receiver-dashboard/ADS-B_Setup_Guide.html'
         },
         {
           cats: ['Maritime','RF'], domain: 'Maritime · Telecom', title: 'AIS Marine Receiver',
