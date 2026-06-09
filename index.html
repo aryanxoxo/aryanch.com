@@ -383,13 +383,30 @@
       display: grid; grid-template-columns: 1fr auto; gap: 1rem; align-items: baseline;
       padding: 1.3rem 0; border-bottom: 1px solid var(--fg-faint);
       transition: padding-left 0.3s var(--ease);
+      cursor: pointer;
     }
     .exp:hover { padding-left: 0.75rem; }
+    .exp-main { display: grid; grid-template-columns: 2.2rem 1fr; gap: 0.85rem; align-items: start; }
+    .exp-logo {
+      width: 2.2rem; height: 2.2rem; border: 1px solid rgba(200,185,122,0.35);
+      display: grid; place-items: center; color: var(--gold); background: rgba(200,185,122,0.06);
+    }
+    .exp-logo svg { width: 1.35rem; height: 1.35rem; stroke: currentColor; fill: none; stroke-width: 1.5; }
     .exp-role { font-size: 0.82rem; color: var(--fg); }
     .exp-place { font-size: 0.66rem; color: var(--fg-dim); margin-top: 0.25rem; }
     .exp-note { font-size: 0.64rem; line-height: 1.65; color: var(--fg-mid); margin-top: 0.55rem; max-width: 48ch; }
     .exp-note a { color: var(--gold); border-bottom: 1px solid rgba(200,185,122,0.35); }
     .exp-year { font-size: 0.62rem; letter-spacing: 0.08em; color: var(--gold); white-space: nowrap; }
+    .modal-logo {
+      width: 3rem; height: 3rem; border: 1px solid rgba(200,185,122,0.35);
+      display: grid; place-items: center; color: var(--gold); background: rgba(200,185,122,0.06);
+      margin-bottom: 0.85rem;
+    }
+    .modal-logo svg { width: 1.8rem; height: 1.8rem; stroke: currentColor; fill: none; stroke-width: 1.45; }
+    .modal-link {
+      display: inline-flex; width: fit-content; border-bottom: 1px solid rgba(200,185,122,0.38);
+      color: var(--gold); font-size: 0.66rem;
+    }
 
     /* ───── CONTACT ───── */
     #contact .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
@@ -750,6 +767,39 @@
     </div>
   </div>
 
+  <!-- EXPERIENCE MODAL -->
+  <div class="modal-overlay" id="experienceOverlay" role="dialog" aria-modal="true">
+    <div class="modal">
+      <div class="modal-head">
+        <div>
+          <div class="modal-logo" id="expModalLogo"></div>
+          <div class="modal-num" id="expModalYear"></div>
+          <div class="modal-title" id="expModalTitle"></div>
+          <div class="modal-domain" id="expModalPlace"></div>
+        </div>
+        <button class="modal-close" id="expModalClose" aria-label="Close">âœ•</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-section">
+          <div class="modal-section-label">Website</div>
+          <a class="modal-link" id="expModalWebsite" href="#" target="_blank" rel="noopener"></a>
+        </div>
+        <div class="modal-section">
+          <div class="modal-section-label">Recruiter Frame</div>
+          <ul class="modal-list" id="expModalFrame"></ul>
+        </div>
+        <div class="modal-section">
+          <div class="modal-section-label">Responsibilities</div>
+          <ul class="modal-list" id="expModalResponsibilities"></ul>
+        </div>
+        <div class="modal-section">
+          <div class="modal-section-label">Relevant Projects</div>
+          <div class="dom-proj-list" id="expModalProjects"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- PROJECT MODAL -->
   <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
     <div class="modal">
@@ -1042,13 +1092,13 @@
       <div class="about-right reveal">
         <div class="section-num" style="margin-bottom:1.5rem;">/ 03 Experience</div>
         <div class="timeline">
-          <div class="exp"><div><div class="exp-role">Flight Test Ops Engineer</div><div class="exp-place">Zipline International</div><div class="exp-note">Working close to live aircraft operations, where the job is part systems thinking, part calm execution. I care a lot about test discipline, clean handoffs, and making sure the real-world details do not get lost between the aircraft, the team, and the procedure.</div></div><div class="exp-year">2024 to Present</div></div>
-          <div class="exp"><div><div class="exp-role">Exclusive Partner Program Member</div><div class="exp-place">TELUS</div><div class="exp-note">Part of the TELUS Exclusive Partner Program. A different kind of technical work: more people-facing, more direct, and a good reminder that systems only matter if people can actually use them.</div></div><div class="exp-year">2024</div></div>
-          <div class="exp"><div><div class="exp-role">Capstone Engineer</div><div class="exp-place">Huawei Canada</div><div class="exp-note">Worked on a drone communications capstone, looking at link behavior, RF reliability, and how a control system holds up when the environment is not polite. A lot of the value came from turning tests into decisions, not just plots.</div></div><div class="exp-year">2023 to 2024</div></div>
-          <div class="exp"><div><div class="exp-role">Airline and Flight Operations Coursework</div><div class="exp-place">BCIT</div><div class="exp-note">Completed two terms of the <a href="https://www.bcit.ca/programs/airline-and-flight-operations-commercial-pilot-fixed-wing-diploma-full-time-100adipma/" target="_blank" rel="noopener">Airline and Flight Operations</a> program. I did not finish the diploma, but I still took a lot from the aviation operations, safety, and cockpit-discipline side of it.</div></div><div class="exp-year">2024</div></div>
-          <div class="exp"><div><div class="exp-role">Engineering Intern</div><div class="exp-place">Seaspan</div><div class="exp-note">Got a very practical education in marine electrical systems: power distribution, UPS loads, shipboard constraints, and the kind of engineering where drawings eventually have to survive a vessel.</div></div><div class="exp-year">2022</div></div>
-          <div class="exp"><div><div class="exp-role">RF &amp; Hardware, Satellite Team</div><div class="exp-place">UBC ORBIT</div><div class="exp-note">Worked on CubeSat hardware and RF systems with a team that made space feel less abstract. Antennas, deployment hardware, link budgets, testing, and the constant reminder that small hardware decisions can become mission-level problems.</div></div><div class="exp-year">2021 to 2023</div></div>
-          <div class="exp"><div><div class="exp-role">B.A.Sc. Electrical Engineering</div><div class="exp-place">University of British Columbia</div><div class="exp-note">Studied electrical engineering at UBC, with the useful mix of theory, lab work, late nights, and projects that slowly pushed me toward RF, embedded systems, photonics, and flight.</div></div><div class="exp-year">2018 to 2023</div></div>
+          <div class="exp" data-exp-key="telus"><div class="exp-main"><div class="exp-logo"></div><div><div class="exp-role">Exclusive Partner Program Member</div><div class="exp-place">TELUS</div><div class="exp-note">Part of the TELUS Exclusive Partner Program. A different kind of technical work: more people-facing, more direct, and a good reminder that systems only matter if people can actually use them.</div></div></div><div class="exp-year">2024</div></div>
+          <div class="exp" data-exp-key="zipline"><div class="exp-main"><div class="exp-logo"></div><div><div class="exp-role">Flight Test Ops Engineer</div><div class="exp-place">Zipline International</div><div class="exp-note">Working close to live aircraft operations, where the job is part systems thinking, part calm execution. I care a lot about test discipline, clean handoffs, and making sure the real-world details do not get lost between the aircraft, the team, and the procedure.</div></div></div><div class="exp-year">2024 to Present</div></div>
+          <div class="exp" data-exp-key="huawei"><div class="exp-main"><div class="exp-logo"></div><div><div class="exp-role">Capstone Engineer</div><div class="exp-place">Huawei Canada</div><div class="exp-note">Worked on a drone communications capstone, looking at link behavior, RF reliability, and how a control system holds up when the environment is not polite. A lot of the value came from turning tests into decisions, not just plots.</div></div></div><div class="exp-year">2023 to 2024</div></div>
+          <div class="exp" data-exp-key="bcit"><div class="exp-main"><div class="exp-logo"></div><div><div class="exp-role">Airline and Flight Operations Coursework</div><div class="exp-place">BCIT</div><div class="exp-note">Completed two terms of the <a href="https://www.bcit.ca/programs/airline-and-flight-operations-commercial-pilot-fixed-wing-diploma-full-time-100adipma/" target="_blank" rel="noopener">Airline and Flight Operations</a> program. I did not finish the diploma, but I still took a lot from the aviation operations, safety, and cockpit-discipline side of it.</div></div></div><div class="exp-year">2024, two terms</div></div>
+          <div class="exp" data-exp-key="seaspan"><div class="exp-main"><div class="exp-logo"></div><div><div class="exp-role">Engineering Intern</div><div class="exp-place">Seaspan</div><div class="exp-note">Got a very practical education in marine electrical systems: power distribution, UPS loads, shipboard constraints, and the kind of engineering where drawings eventually have to survive a vessel.</div></div></div><div class="exp-year">2022</div></div>
+          <div class="exp" data-exp-key="orbit"><div class="exp-main"><div class="exp-logo"></div><div><div class="exp-role">RF &amp; Hardware, Satellite Team</div><div class="exp-place">UBC ORBIT</div><div class="exp-note">Worked on CubeSat hardware and RF systems with a team that made space feel less abstract. Antennas, deployment hardware, link budgets, testing, and the constant reminder that small hardware decisions can become mission-level problems.</div></div></div><div class="exp-year">2021 to 2023</div></div>
+          <div class="exp" data-exp-key="ubc"><div class="exp-main"><div class="exp-logo"></div><div><div class="exp-role">B.A.Sc. Electrical Engineering</div><div class="exp-place">University of British Columbia</div><div class="exp-note">Studied electrical engineering at UBC, with the useful mix of theory, lab work, late nights, and projects that slowly pushed me toward RF, embedded systems, photonics, and flight.</div></div></div><div class="exp-year">2018 to 2023</div></div>
         </div>
       </div>
     </div>
@@ -1238,6 +1288,7 @@
       document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
           if (document.getElementById('modalOverlay').classList.contains('open')) closeModal();
+          else if (document.getElementById('experienceOverlay').classList.contains('open')) closeExperienceModal();
           else closeDomainModal();
         }
       });
@@ -1885,6 +1936,173 @@
       /* Satellites card has no data-domain-key yet, add it */
       var satCard = document.querySelector('.domain[data-domain-filter="Space"]');
       if (satCard) satCard.dataset.domainKey = 'Satellites';
+
+      var expLogos = {
+        telus: '<svg viewBox="0 0 32 32"><path d="M7 9h18M16 9v16"/><path d="M22 13l4-4M22 19l4 4"/></svg>',
+        zipline: '<svg viewBox="0 0 32 32"><path d="M5 22L25 8l-7 16"/><path d="M10 18l8 6"/><path d="M6 10h8"/></svg>',
+        huawei: '<svg viewBox="0 0 32 32"><path d="M16 17c-4-5-2-10 0-13 2 3 4 8 0 13Z"/><path d="M16 17c-6-1-8-6-8-10 4 1 8 4 8 10Z"/><path d="M16 17c6-1 8-6 8-10-4 1-8 4-8 10Z"/><path d="M10 23c3 3 9 3 12 0"/></svg>',
+        bcit: '<svg viewBox="0 0 32 32"><path d="M7 8h18v16H7z"/><path d="M11 13h10M11 18h7"/><path d="M7 8l9-4 9 4"/></svg>',
+        seaspan: '<svg viewBox="0 0 32 32"><path d="M5 21h22l-4 6H9z"/><path d="M16 21V7"/><path d="M16 8l8 4-8 4"/></svg>',
+        orbit: '<svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="4"/><ellipse cx="16" cy="16" rx="12" ry="5" transform="rotate(35 16 16)"/><path d="M16 4v4M16 24v4"/></svg>',
+        ubc: '<svg viewBox="0 0 32 32"><path d="M7 6h18v12c0 5-4 8-9 10-5-2-9-5-9-10z"/><path d="M12 12h8M12 17h8"/></svg>'
+      };
+
+      var EXPERIENCES = {
+        telus: {
+          role: 'Exclusive Partner Program Member',
+          place: 'TELUS',
+          year: '2024',
+          website: 'https://www.telus.com/',
+          frame: [
+            'Context: customer-facing technical work where clarity mattered as much as product knowledge.',
+            'Action: translated plans, devices, tradeoffs, and setup details into plain language for real people.',
+            'Result / signal: strengthened the communication side of my engineering brain: listen first, explain cleanly, and make the system feel usable.'
+          ],
+          responsibilities: ['Explain technical options without burying people in jargon','Match customer needs to practical device, service, and setup choices','Keep the interaction organized, useful, and calm'],
+          projects: ['Wi-Fi Coverage Heatmap','WLAN for Huawei Drone']
+        },
+        zipline: {
+          role: 'Flight Test Ops Engineer',
+          place: 'Zipline International',
+          year: '2024 to Present',
+          website: 'https://www.flyzipline.com/',
+          frame: [
+            'Context: autonomous aircraft operations where small process misses can become real-world risk.',
+            'Action: support flight test execution with disciplined procedures, clear handoffs, and close attention to aircraft/operator state.',
+            'Result / signal: bring an engineer\'s systems view into an operations environment: safety, timing, repeatability, and clean communication.'
+          ],
+          responsibilities: ['Support live flight-test workflows and operational readiness','Track procedural details that affect safety, timing, and aircraft state','Communicate clearly across operators, engineers, and test stakeholders'],
+          projects: ['Drone Telemetry Link Monitor','SDR ADS-B Receiver']
+        },
+        huawei: {
+          role: 'Capstone Engineer',
+          place: 'Huawei Canada',
+          year: '2023 to 2024',
+          website: 'https://www.huawei.com/ca/',
+          frame: [
+            'Context: a drone communications capstone where RF behavior, software control, and real hardware all had to line up.',
+            'Action: tested WLAN architecture, documented the start/stop module strategy, and connected drone/sensor communication to a working demo path.',
+            'Result / signal: turned capstone work into evidence: demo video, architecture diagrams, and a repo-backed proof trail.'
+          ],
+          responsibilities: ['Characterize WLAN command-and-control behavior under practical constraints','Document module communication between drone, sensor hardware, and Internet-connected Wi-Fi hardware','Translate test observations into architecture changes and sponsor-ready explanation'],
+          projects: ['WLAN for Huawei Drone','Drone Telemetry Link Monitor']
+        },
+        bcit: {
+          role: 'Airline and Flight Operations Coursework',
+          place: 'BCIT',
+          year: 'Two terms',
+          website: 'https://www.bcit.ca/programs/airline-and-flight-operations-commercial-pilot-fixed-wing-diploma-full-time-100adipma/',
+          frame: [
+            'Context: aviation operations training before I chose not to finish the diploma.',
+            'Action: completed two terms and took the useful parts seriously: cockpit discipline, procedures, weather, safety, and operational decision-making.',
+            'Result / signal: it still shows up in how I think about flight test: prepare well, communicate early, and respect procedures.'
+          ],
+          responsibilities: ['Built aviation fundamentals through structured coursework','Practiced procedure-first thinking in an aviation context','Carried the useful operational mindset into later flight-test work'],
+          projects: ['SDR ADS-B Receiver','Ham Radio Digital Modes Decoder']
+        },
+        seaspan: {
+          role: 'Engineering Intern',
+          place: 'Seaspan',
+          year: '2022',
+          website: 'https://www.seaspan.com/',
+          frame: [
+            'Context: shipboard electrical systems where drawings, standards, physical routing, and maintainability meet.',
+            'Action: supported power distribution, UPS/load analysis, and marine communications upgrade work.',
+            'Result / signal: learned to think in installed systems, not just schematics: space, safety, serviceability, and commissioning matter.'
+          ],
+          responsibilities: ['Support load analysis, cable routing, and electrical documentation','Think through shipboard constraints: vibration, corrosion, access, and standards','Connect design decisions to commissioning and user impact'],
+          projects: ['Marine Power System Design','UPS Integration & Load Analysis']
+        },
+        orbit: {
+          role: 'RF & Hardware, Satellite Team',
+          place: 'UBC ORBIT',
+          year: '2021 to 2023',
+          website: 'https://www.ubcorbit.com/',
+          frame: [
+            'Context: student CubeSat hardware where every gram, trace, antenna, and test has mission consequences.',
+            'Action: worked across antenna deployment, RF link thinking, PCB-level constraints, and ground-station style validation.',
+            'Result / signal: built the habit of treating hardware as a system: mechanical release, RF path, firmware, test evidence, and operations all connect.'
+          ],
+          responsibilities: ['Contribute to RF and hardware design for CubeSat communication systems','Support antenna deployment and link-budget thinking','Use test evidence to validate design assumptions before integration'],
+          projects: ['Antenna Deployer Module','433 MHz CubeSat Radio Link']
+        },
+        ubc: {
+          role: 'B.A.Sc. Electrical Engineering',
+          place: 'University of British Columbia',
+          year: '2018 to 2023',
+          website: 'https://ece.ubc.ca/',
+          frame: [
+            'Context: electrical engineering training across circuits, signals, embedded systems, RF, photonics, and digital design.',
+            'Action: kept choosing projects where the theory had to become a working artifact.',
+            'Result / signal: graduated with a portfolio that is unusually build-heavy: FPGA systems, photonics, RF, embedded firmware, and applied communications.'
+          ],
+          responsibilities: ['Build hardware and software projects from lab specs into working demos','Use measurement, simulation, and debugging to close the gap between expected and real behavior','Translate coursework into portfolio artifacts with proof trails'],
+          projects: ['Collaborative PIC Design','FPGA Signal Processing with Nios II, DDS, and Modulation Techniques']
+        }
+      };
+
+      document.querySelectorAll('.exp[data-exp-key]').forEach(function(row) {
+        var key = row.dataset.expKey;
+        var logo = row.querySelector('.exp-logo');
+        if (logo) logo.innerHTML = expLogos[key] || expLogos.ubc;
+        row.setAttribute('role', 'button');
+        row.setAttribute('tabindex', '0');
+        row.addEventListener('click', function(e) {
+          if (e.target.closest('a')) return;
+          openExperienceModal(key);
+        });
+        row.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openExperienceModal(key); }
+        });
+      });
+
+      function projectIndexByTitle(title) {
+        for (var i = 0; i < PROJECTS.length; i++) if (PROJECTS[i].title === title) return i;
+        return -1;
+      }
+
+      function openExperienceModal(key) {
+        var exp = EXPERIENCES[key];
+        if (!exp) return;
+        document.getElementById('expModalLogo').innerHTML = expLogos[key] || expLogos.ubc;
+        document.getElementById('expModalYear').textContent = exp.year;
+        document.getElementById('expModalTitle').textContent = exp.role;
+        document.getElementById('expModalPlace').textContent = exp.place;
+        var site = document.getElementById('expModalWebsite');
+        site.href = exp.website;
+        site.textContent = exp.website.replace(/^https?:\/\//, '').replace(/\/$/, '');
+        document.getElementById('expModalFrame').innerHTML = exp.frame.map(function(item) { return '<li>' + item + '</li>'; }).join('');
+        document.getElementById('expModalResponsibilities').innerHTML = exp.responsibilities.map(function(item) { return '<li>' + item + '</li>'; }).join('');
+        var list = document.getElementById('expModalProjects');
+        list.innerHTML = '';
+        exp.projects.forEach(function(title) {
+          var idx = projectIndexByTitle(title);
+          if (idx < 0) return;
+          var p = PROJECTS[idx];
+          var el = document.createElement('div');
+          el.className = 'dom-proj-link';
+          el.innerHTML = '<div><div class="dom-proj-link-title">' + p.title + '</div>' +
+            '<div class="dom-proj-link-cat">' + p.domain + '</div></div>' +
+            '<span class="dom-proj-link-arrow">â†—</span>';
+          el.addEventListener('click', function() {
+            closeExperienceModal(false);
+            openModal(p, String(idx + 1).padStart(2,'0'));
+          });
+          list.appendChild(el);
+        });
+        document.getElementById('experienceOverlay').classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeExperienceModal(restoreScroll) {
+        document.getElementById('experienceOverlay').classList.remove('open');
+        if (restoreScroll !== false) document.body.style.overflow = '';
+      }
+
+      document.getElementById('expModalClose').addEventListener('click', function() { closeExperienceModal(); });
+      document.getElementById('experienceOverlay').addEventListener('click', function(e) {
+        if (e.target === this) closeExperienceModal();
+      });
 
       /* ---- Multi-select filter chips ---- */
       var activeFilters = new Set(['All']);
