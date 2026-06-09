@@ -389,9 +389,11 @@
     .exp-main { display: grid; grid-template-columns: 2.2rem 1fr; gap: 0.85rem; align-items: start; }
     .exp-logo {
       width: 2.2rem; height: 2.2rem; border: 1px solid rgba(200,185,122,0.35);
-      display: grid; place-items: center; color: var(--gold); background: rgba(200,185,122,0.06);
+      display: grid; place-items: center; color: var(--gold); background: rgba(232,228,217,0.94);
+      overflow: hidden; padding: 0.32rem;
     }
     .exp-logo svg { width: 1.35rem; height: 1.35rem; stroke: currentColor; fill: none; stroke-width: 1.5; }
+    .exp-logo img { width: 100%; height: 100%; object-fit: contain; display: block; }
     .exp-role { font-size: 0.82rem; color: var(--fg); }
     .exp-place { font-size: 0.66rem; color: var(--fg-dim); margin-top: 0.25rem; }
     .exp-note { font-size: 0.64rem; line-height: 1.65; color: var(--fg-mid); margin-top: 0.55rem; max-width: 48ch; }
@@ -399,10 +401,11 @@
     .exp-year { font-size: 0.62rem; letter-spacing: 0.08em; color: var(--gold); white-space: nowrap; }
     .modal-logo {
       width: 3rem; height: 3rem; border: 1px solid rgba(200,185,122,0.35);
-      display: grid; place-items: center; color: var(--gold); background: rgba(200,185,122,0.06);
-      margin-bottom: 0.85rem;
+      display: grid; place-items: center; color: var(--gold); background: rgba(232,228,217,0.94);
+      margin-bottom: 0.85rem; overflow: hidden; padding: 0.42rem;
     }
     .modal-logo svg { width: 1.8rem; height: 1.8rem; stroke: currentColor; fill: none; stroke-width: 1.45; }
+    .modal-logo img { width: 100%; height: 100%; object-fit: contain; display: block; }
     .modal-link {
       display: inline-flex; width: fit-content; border-bottom: 1px solid rgba(200,185,122,0.38);
       color: var(--gold); font-size: 0.66rem;
@@ -502,12 +505,13 @@
     .modal-back {
       display: none; align-items: center; gap: 0.5rem;
       font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase;
-      color: var(--fg-dim); cursor: pointer; background: none; border: none;
-      font-family: var(--mono); padding: 0; margin-bottom: 0.25rem;
-      transition: color 0.2s;
+      color: var(--gold); cursor: pointer; background: rgba(200,185,122,0.07);
+      border: 1px solid rgba(200,185,122,0.28); font-family: var(--mono);
+      padding: 0.38rem 0.65rem; margin-bottom: 0.85rem;
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
     }
     .modal-back.visible { display: inline-flex; }
-    .modal-back:hover { color: var(--gold); }
+    .modal-back:hover { color: var(--fg); border-color: var(--gold); background: rgba(200,185,122,0.13); }
 
     /* ───── DOMAIN MODAL ───── */
     .dom-proj-list { display: flex; flex-direction: column; gap: 0.5rem; }
@@ -777,7 +781,7 @@
           <div class="modal-title" id="expModalTitle"></div>
           <div class="modal-domain" id="expModalPlace"></div>
         </div>
-        <button class="modal-close" id="expModalClose" aria-label="Close">âœ•</button>
+        <button class="modal-close" id="expModalClose" aria-label="Close">✕</button>
       </div>
       <div class="modal-body">
         <div class="modal-section">
@@ -1092,8 +1096,8 @@
       <div class="about-right reveal">
         <div class="section-num" style="margin-bottom:1.5rem;">/ 03 Experience</div>
         <div class="timeline">
-          <div class="exp" data-exp-key="telus"><div class="exp-main"><div class="exp-logo"></div><div><div class="exp-role">Exclusive Partner Program Member</div><div class="exp-place">TELUS</div><div class="exp-note">Part of the TELUS Exclusive Partner Program. A different kind of technical work: more people-facing, more direct, and a good reminder that systems only matter if people can actually use them.</div></div></div><div class="exp-year">2024</div></div>
           <div class="exp" data-exp-key="zipline"><div class="exp-main"><div class="exp-logo"></div><div><div class="exp-role">Flight Test Ops Engineer</div><div class="exp-place">Zipline International</div><div class="exp-note">Working close to live aircraft operations, where the job is part systems thinking, part calm execution. I care a lot about test discipline, clean handoffs, and making sure the real-world details do not get lost between the aircraft, the team, and the procedure.</div></div></div><div class="exp-year">2024 to Present</div></div>
+          <div class="exp" data-exp-key="telus"><div class="exp-main"><div class="exp-logo"></div><div><div class="exp-role">Exclusive Partner Program Member</div><div class="exp-place">TELUS</div><div class="exp-note">Part of the TELUS Exclusive Partner Program. A different kind of technical work: more people-facing, more direct, and a good reminder that systems only matter if people can actually use them.</div></div></div><div class="exp-year">2024</div></div>
           <div class="exp" data-exp-key="huawei"><div class="exp-main"><div class="exp-logo"></div><div><div class="exp-role">Capstone Engineer</div><div class="exp-place">Huawei Canada</div><div class="exp-note">Worked on a drone communications capstone, looking at link behavior, RF reliability, and how a control system holds up when the environment is not polite. A lot of the value came from turning tests into decisions, not just plots.</div></div></div><div class="exp-year">2023 to 2024</div></div>
           <div class="exp" data-exp-key="bcit"><div class="exp-main"><div class="exp-logo"></div><div><div class="exp-role">Airline and Flight Operations Coursework</div><div class="exp-place">BCIT</div><div class="exp-note">Completed two terms of the <a href="https://www.bcit.ca/programs/airline-and-flight-operations-commercial-pilot-fixed-wing-diploma-full-time-100adipma/" target="_blank" rel="noopener">Airline and Flight Operations</a> program. I did not finish the diploma, but I still took a lot from the aviation operations, safety, and cockpit-discipline side of it.</div></div></div><div class="exp-year">2024, two terms</div></div>
           <div class="exp" data-exp-key="seaspan"><div class="exp-main"><div class="exp-logo"></div><div><div class="exp-role">Engineering Intern</div><div class="exp-place">Seaspan</div><div class="exp-note">Got a very practical education in marine electrical systems: power distribution, UPS loads, shipboard constraints, and the kind of engineering where drawings eventually have to survive a vessel.</div></div></div><div class="exp-year">2022</div></div>
@@ -1947,6 +1951,23 @@
         ubc: '<svg viewBox="0 0 32 32"><path d="M7 6h18v12c0 5-4 8-9 10-5-2-9-5-9-10z"/><path d="M12 12h8M12 17h8"/></svg>'
       };
 
+      var expLogoImages = {
+        zipline: 'assets/img/logos/zipline.svg',
+        telus: 'assets/img/logos/telus.svg',
+        huawei: 'assets/img/logos/huawei.svg',
+        bcit: 'assets/img/logos/bcit.svg',
+        seaspan: 'assets/img/logos/seaspan.png',
+        orbit: 'assets/img/logos/ubc-orbit.png',
+        ubc: 'assets/img/logos/ubc.jpg'
+      };
+
+      function experienceLogoHtml(key) {
+        var src = expLogoImages[key];
+        var fallback = (expLogos[key] || expLogos.ubc).replace(/"/g, '&quot;');
+        if (!src) return expLogos[key] || expLogos.ubc;
+        return '<img src="' + src + '" alt="" loading="lazy" decoding="async" onerror="this.outerHTML=&quot;' + fallback + '&quot;" />';
+      }
+
       var EXPERIENCES = {
         telus: {
           role: 'Exclusive Partner Program Member',
@@ -1990,7 +2011,7 @@
         bcit: {
           role: 'Airline and Flight Operations Coursework',
           place: 'BCIT',
-          year: 'Two terms',
+          year: '2024, two terms',
           website: 'https://www.bcit.ca/programs/airline-and-flight-operations-commercial-pilot-fixed-wing-diploma-full-time-100adipma/',
           frame: [
             'Context: aviation operations training before I chose not to finish the diploma.',
@@ -2044,7 +2065,7 @@
       document.querySelectorAll('.exp[data-exp-key]').forEach(function(row) {
         var key = row.dataset.expKey;
         var logo = row.querySelector('.exp-logo');
-        if (logo) logo.innerHTML = expLogos[key] || expLogos.ubc;
+        if (logo) logo.innerHTML = experienceLogoHtml(key);
         row.setAttribute('role', 'button');
         row.setAttribute('tabindex', '0');
         row.addEventListener('click', function(e) {
@@ -2064,7 +2085,7 @@
       function openExperienceModal(key) {
         var exp = EXPERIENCES[key];
         if (!exp) return;
-        document.getElementById('expModalLogo').innerHTML = expLogos[key] || expLogos.ubc;
+        document.getElementById('expModalLogo').innerHTML = experienceLogoHtml(key);
         document.getElementById('expModalYear').textContent = exp.year;
         document.getElementById('expModalTitle').textContent = exp.role;
         document.getElementById('expModalPlace').textContent = exp.place;
