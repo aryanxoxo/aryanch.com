@@ -407,11 +407,13 @@
     }
     .exp:hover, .exp:focus-visible { padding-left: 0.75rem; background: rgba(200,185,122,0.035); outline-color: rgba(200,185,122,0.50); box-shadow: 0 0 26px rgba(200,185,122,0.13); }
     .exp-main { display: grid; grid-template-columns: 2.2rem 1fr; gap: 0.85rem; align-items: start; }
+    .exp-main.has-landscape-logo { grid-template-columns: 3rem 1fr; }
     .exp-logo {
       width: 2.2rem; height: 2.2rem; border: 1px solid rgba(200,185,122,0.35);
       display: grid; place-items: center; color: var(--gold); background: rgba(232,228,217,0.94);
       overflow: hidden; padding: 0.32rem;
     }
+    .exp-logo.landscape { width: 3rem; height: 1.9rem; padding: 0.2rem 0.24rem; }
     .exp-logo svg { width: 1.35rem; height: 1.35rem; stroke: currentColor; fill: none; stroke-width: 1.5; }
     .exp-logo img { width: 100%; height: 100%; object-fit: contain; display: block; }
     .exp-role { font-size: 0.82rem; color: var(--fg); }
@@ -486,6 +488,8 @@
       display: grid; place-items: center; color: var(--gold); background: rgba(232,228,217,0.94);
       overflow: hidden; padding: 0.3rem;
     }
+    .exp-node.landscape-logo { grid-template-columns: 2.65rem 1fr; }
+    .exp-node-logo.landscape { width: 2.65rem; height: 1.65rem; padding: 0.18rem 0.24rem; }
     .exp-node-logo img { width: 100%; height: 100%; object-fit: contain; display: block; }
     .exp-node-logo svg { width: 1.25rem; height: 1.25rem; stroke: currentColor; fill: none; stroke-width: 1.5; }
     .exp-node-role { display: block; color: var(--fg); font-size: 0.74rem; line-height: 1.25; }
@@ -500,7 +504,9 @@
     }
     .experience-bubble.open { opacity: 1; pointer-events: auto; transform: translate(-50%, -50%) scale(1); }
     .experience-bubble-head { display: grid; grid-template-columns: 2.6rem 1fr auto; gap: 0.8rem; align-items: start; margin-bottom: 0.85rem; }
+    .experience-bubble-head.has-landscape-logo { grid-template-columns: 4.3rem 1fr auto; }
     .experience-bubble .modal-logo { width: 2.6rem; height: 2.6rem; margin: 0; }
+    .experience-bubble .modal-logo.landscape { width: 4.3rem; height: 2rem; }
     .experience-bubble-title { font-family: var(--serif); font-size: 1.25rem; line-height: 1.1; }
     .experience-bubble-meta { color: var(--gold); font-family: var(--mono); font-size: 0.54rem; letter-spacing: 0.14em; text-transform: uppercase; margin-top: 0.35rem; }
     .experience-bubble-close {
@@ -519,6 +525,7 @@
       display: grid; place-items: center; color: var(--gold); background: rgba(232,228,217,0.94);
       margin-bottom: 0.85rem; overflow: hidden; padding: 0.42rem;
     }
+    .modal-logo.landscape { width: 4.8rem; height: 2.25rem; padding: 0.2rem 0.3rem; }
     .modal-logo svg { width: 1.8rem; height: 1.8rem; stroke: currentColor; fill: none; stroke-width: 1.45; }
     .modal-logo img { width: 100%; height: 100%; object-fit: contain; display: block; }
     .modal-link {
@@ -2168,15 +2175,29 @@
         huawei: 'assets/img/logos/huawei.svg',
         bcit: 'assets/img/logos/bcit.svg',
         seaspan: 'assets/img/logos/seaspan.png',
-        orbit: 'assets/img/logos/ubc-orbit.png',
-        ubc: 'assets/img/logos/ubc.jpg'
+        orbit: 'assets/img/logos/ubc-orbit.avif',
+        ubc: 'assets/img/logos/ubc-crest.jpg'
       };
+
+      var experienceLandscapeLogos = { orbit: true };
 
       function experienceLogoHtml(key) {
         var src = expLogoImages[key];
         var fallback = (expLogos[key] || expLogos.ubc).replace(/"/g, '&quot;');
         if (!src) return expLogos[key] || expLogos.ubc;
         return '<img src="' + src + '" alt="" loading="lazy" decoding="async" onerror="this.outerHTML=&quot;' + fallback + '&quot;" />';
+      }
+
+      function applyExperienceLogoClasses(el, key) {
+        if (!el) return;
+        var isLandscape = !!experienceLandscapeLogos[key];
+        el.classList.toggle('landscape', isLandscape);
+        var expMain = el.closest('.exp-main');
+        if (expMain) expMain.classList.toggle('has-landscape-logo', isLandscape);
+        var bubbleHead = el.closest('.experience-bubble-head');
+        if (bubbleHead) bubbleHead.classList.toggle('has-landscape-logo', isLandscape);
+        var node = el.closest('.exp-node');
+        if (node) node.classList.toggle('landscape-logo', isLandscape);
       }
 
       var EXPERIENCES = {
@@ -2276,7 +2297,10 @@
       document.querySelectorAll('.exp-node[data-exp-key]').forEach(function(node) {
         var key = node.dataset.expKey;
         var logo = node.querySelector('.exp-node-logo');
-        if (logo) logo.innerHTML = experienceLogoHtml(key);
+        if (logo) {
+          logo.innerHTML = experienceLogoHtml(key);
+          applyExperienceLogoClasses(logo, key);
+        }
         node.addEventListener('click', function() { openExperienceBubble(key, node); });
         node.addEventListener('keydown', function(e) {
           if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openExperienceBubble(key, node); }
@@ -2286,7 +2310,10 @@
       document.querySelectorAll('.mobile-experience .exp[data-exp-key]').forEach(function(row) {
         var key = row.dataset.expKey;
         var logo = row.querySelector('.exp-logo');
-        if (logo) logo.innerHTML = experienceLogoHtml(key);
+        if (logo) {
+          logo.innerHTML = experienceLogoHtml(key);
+          applyExperienceLogoClasses(logo, key);
+        }
         row.setAttribute('role', 'button');
         row.setAttribute('tabindex', '0');
         row.addEventListener('click', function(e) {
@@ -2308,7 +2335,9 @@
         if (!exp) return;
         document.querySelectorAll('.exp-node.active').forEach(function(el) { el.classList.remove('active'); });
         node.classList.add('active');
-        document.getElementById('bubbleLogo').innerHTML = experienceLogoHtml(key);
+        var bubbleLogo = document.getElementById('bubbleLogo');
+        bubbleLogo.innerHTML = experienceLogoHtml(key);
+        applyExperienceLogoClasses(bubbleLogo, key);
         document.getElementById('bubbleTitle').textContent = exp.role;
         document.getElementById('bubbleMeta').textContent = exp.year + ' · ' + exp.place;
         document.getElementById('bubbleText').textContent = exp.frame[0] || '';
@@ -2367,7 +2396,9 @@
       function openExperienceModal(key) {
         var exp = EXPERIENCES[key];
         if (!exp) return;
-        document.getElementById('expModalLogo').innerHTML = experienceLogoHtml(key);
+        var modalLogo = document.getElementById('expModalLogo');
+        modalLogo.innerHTML = experienceLogoHtml(key);
+        applyExperienceLogoClasses(modalLogo, key);
         document.getElementById('expModalYear').textContent = exp.year;
         document.getElementById('expModalTitle').textContent = exp.role;
         document.getElementById('expModalPlace').textContent = exp.place;
