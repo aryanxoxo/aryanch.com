@@ -297,10 +297,12 @@
     .domain-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--fg-faint); }
     .domain {
       background: var(--bg); padding: 2rem 1.5rem; position: relative; overflow: hidden;
-      transition: background 0.3s; min-height: 200px;
+      transition: background 0.3s, box-shadow 0.3s, outline-color 0.3s; min-height: 200px;
       display: flex; flex-direction: column; justify-content: space-between;
+      outline: 1px solid rgba(200,185,122,0.12);
+      animation: clickable-glow 5.8s ease-in-out infinite;
     }
-    .domain:hover { background: var(--bg-soft); }
+    .domain:hover, .domain:focus-visible { background: var(--bg-soft); outline-color: rgba(200,185,122,0.55); box-shadow: 0 0 0 1px rgba(200,185,122,0.24), 0 0 28px rgba(200,185,122,0.16); }
     .domain-svg { width: 34px; height: 34px; stroke: var(--gold); fill: none; stroke-width: 1.25; opacity: 0.85; margin-bottom: 0.5rem; }
     .domain-name { font-family: var(--serif); font-size: 1.5rem; }
     .domain-orgs { display: flex; gap: 0.35rem; flex-wrap: wrap; margin-top: 0.65rem; }
@@ -325,9 +327,11 @@
     .project-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--fg-faint); }
     .project {
       background: var(--bg); display: block; position: relative; overflow: hidden;
-      transition: background 0.3s;
+      transition: background 0.3s, box-shadow 0.3s, outline-color 0.3s;
+      outline: 1px solid rgba(200,185,122,0.10);
+      animation: clickable-glow 6.4s ease-in-out infinite;
     }
-    .project:hover { background: var(--bg-soft); }
+    .project:hover, .project:focus-visible { background: var(--bg-soft); outline-color: rgba(200,185,122,0.55); box-shadow: 0 0 0 1px rgba(200,185,122,0.22), 0 0 32px rgba(200,185,122,0.16); }
     .project-media { position: relative; aspect-ratio: 3/2; overflow: hidden; background: var(--bg-soft); }
     .project-media img {
       width: 100%; height: 100%; object-fit: cover; object-position: center;
@@ -355,6 +359,7 @@
       background: rgba(10,10,8,0.45); backdrop-filter: blur(4px);
       transition: background 0.3s, border-color 0.3s, transform 0.3s var(--ease);
     }
+    .project-arrow::before { content: '\2197'; }
     .project:hover .project-arrow { background: var(--gold); color: var(--bg); border-color: var(--gold); transform: translate(2px,-2px); }
     .project-body { padding: 1.5rem 1.6rem 1.75rem; }
     .project-cat { font-size: 0.56rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--fg-dim); margin-bottom: 0.75rem; }
@@ -382,10 +387,13 @@
     .exp {
       display: grid; grid-template-columns: 1fr auto; gap: 1rem; align-items: baseline;
       padding: 1.3rem 0; border-bottom: 1px solid var(--fg-faint);
-      transition: padding-left 0.3s var(--ease);
+      transition: padding-left 0.3s var(--ease), box-shadow 0.3s, outline-color 0.3s, background 0.3s;
       cursor: pointer;
+      outline: 1px solid rgba(200,185,122,0.10);
+      outline-offset: -1px;
+      animation: clickable-glow 6.8s ease-in-out infinite;
     }
-    .exp:hover { padding-left: 0.75rem; }
+    .exp:hover, .exp:focus-visible { padding-left: 0.75rem; background: rgba(200,185,122,0.035); outline-color: rgba(200,185,122,0.50); box-shadow: 0 0 26px rgba(200,185,122,0.13); }
     .exp-main { display: grid; grid-template-columns: 2.2rem 1fr; gap: 0.85rem; align-items: start; }
     .exp-logo {
       width: 2.2rem; height: 2.2rem; border: 1px solid rgba(200,185,122,0.35);
@@ -398,7 +406,9 @@
     .exp-place { font-size: 0.66rem; color: var(--fg-dim); margin-top: 0.25rem; }
     .exp-note { font-size: 0.64rem; line-height: 1.65; color: var(--fg-mid); margin-top: 0.55rem; max-width: 48ch; }
     .exp-note a { color: var(--gold); border-bottom: 1px solid rgba(200,185,122,0.35); }
-    .exp-year { font-size: 0.62rem; letter-spacing: 0.08em; color: var(--gold); white-space: nowrap; }
+    .exp-year { font-size: 0.62rem; letter-spacing: 0.08em; color: var(--gold); white-space: nowrap; display: inline-flex; align-items: center; gap: 0.45rem; }
+    .exp-year::after { content: '\2197'; font-size: 0.72rem; transition: transform 0.2s var(--ease); }
+    .exp:hover .exp-year::after, .exp:focus-visible .exp-year::after { transform: translate(2px,-2px); }
     .modal-logo {
       width: 3rem; height: 3rem; border: 1px solid rgba(200,185,122,0.35);
       display: grid; place-items: center; color: var(--gold); background: rgba(232,228,217,0.94);
@@ -409,6 +419,10 @@
     .modal-link {
       display: inline-flex; width: fit-content; border-bottom: 1px solid rgba(200,185,122,0.38);
       color: var(--gold); font-size: 0.66rem;
+    }
+    @keyframes clickable-glow {
+      0%, 100% { box-shadow: 0 0 0 rgba(200,185,122,0); }
+      50% { box-shadow: 0 0 18px rgba(200,185,122,0.075); }
     }
 
     /* ───── CONTACT ───── */
@@ -519,10 +533,10 @@
       display: flex; align-items: center; justify-content: space-between;
       padding: 0.75rem 1rem; border: 1px solid var(--fg-faint);
       background: transparent; cursor: pointer; text-decoration: none; color: inherit;
-      transition: border-color 0.2s, background 0.2s;
+      transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
       font-family: var(--mono);
     }
-    .dom-proj-link:hover { border-color: var(--gold); background: var(--gold-soft); }
+    .dom-proj-link:hover, .dom-proj-link:focus-visible { border-color: var(--gold); background: var(--gold-soft); box-shadow: 0 0 22px rgba(200,185,122,0.13); }
     .dom-proj-link-title { font-size: 0.76rem; }
     .dom-proj-link-cat { font-size: 0.54rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--fg-dim); margin-top: 0.2rem; }
     .dom-proj-link-arrow { color: var(--gold); font-size: 0.8rem; flex-shrink: 0; transition: transform 0.2s var(--ease); }
@@ -563,9 +577,11 @@
       display: grid; grid-template-columns: 2.5rem 1fr 13rem 15rem;
       gap: 1.5rem; padding: 0.8rem 0; border-bottom: 1px solid var(--fg-faint);
       align-items: center; text-decoration: none; color: inherit;
-      transition: background 0.15s, padding-left 0.22s var(--ease);
+      transition: background 0.15s, padding-left 0.22s var(--ease), box-shadow 0.2s, outline-color 0.2s;
+      outline: 1px solid rgba(200,185,122,0.08);
+      animation: clickable-glow 7s ease-in-out infinite;
     }
-    .term-row:hover { background: var(--bg-soft); padding-left: 0.6rem; }
+    .term-row:hover, .term-row:focus-visible { background: var(--bg-soft); padding-left: 0.6rem; outline-color: rgba(200,185,122,0.45); box-shadow: 0 0 24px rgba(200,185,122,0.12); }
     .term-row.hidden { display: none !important; }
     .term-idx { font-family: var(--serif); color: var(--gold); font-size: 0.8rem; }
     .term-title { font-size: 0.78rem; line-height: 1.3; }
@@ -789,14 +805,14 @@
           <a class="modal-link" id="expModalWebsite" href="#" target="_blank" rel="noopener"></a>
         </div>
         <div class="modal-section">
-          <div class="modal-section-label">Recruiter Frame</div>
+          <div class="modal-section-label">How I Explain It</div>
           <ul class="modal-list" id="expModalFrame"></ul>
         </div>
         <div class="modal-section">
           <div class="modal-section-label">Responsibilities</div>
           <ul class="modal-list" id="expModalResponsibilities"></ul>
         </div>
-        <div class="modal-section">
+        <div class="modal-section" id="expProjectsSection">
           <div class="modal-section-label">Relevant Projects</div>
           <div class="dom-proj-list" id="expModalProjects"></div>
         </div>
@@ -1792,7 +1808,7 @@
         card.innerHTML =
           '<div class="project-media">' +
             '<span class="project-index">' + num + '</span>' +
-            '<span class="project-arrow">↗</span>' +
+            '<span class="project-arrow" aria-hidden="true"></span>' +
             mediaHtml +
           '</div>' +
           '<div class="project-body">' +
@@ -1909,7 +1925,7 @@
           el.className = 'dom-proj-link';
           el.innerHTML = '<div><div class="dom-proj-link-title">' + p.title + '</div>' +
             '<div class="dom-proj-link-cat">' + p.domain + '</div></div>' +
-            '<span class="dom-proj-link-arrow">↗</span>';
+            '<span class="dom-proj-link-arrow" aria-hidden="true">&nearr;</span>';
           el.addEventListener('click', function() {
             closeDomainModal(false);
             openModal(p, String(idx + 1).padStart(2,'0'), key);
@@ -1975,12 +1991,12 @@
           year: '2024',
           website: 'https://www.telus.com/',
           frame: [
-            'Context: customer-facing technical work where clarity mattered as much as product knowledge.',
-            'Action: translated plans, devices, tradeoffs, and setup details into plain language for real people.',
-            'Result / signal: strengthened the communication side of my engineering brain: listen first, explain cleanly, and make the system feel usable.'
+            'Customer-facing technical work where clarity mattered as much as product knowledge.',
+            'Translated plans, devices, tradeoffs, and setup details into plain language for real people.',
+            'Strengthened the communication side of my engineering brain: listen first, explain cleanly, and make the system feel usable.'
           ],
           responsibilities: ['Explain technical options without burying people in jargon','Match customer needs to practical device, service, and setup choices','Keep the interaction organized, useful, and calm'],
-          projects: ['Wi-Fi Coverage Heatmap','WLAN for Huawei Drone']
+          projects: []
         },
         zipline: {
           role: 'Flight Test Ops Engineer',
@@ -1988,12 +2004,12 @@
           year: '2024 to Present',
           website: 'https://www.flyzipline.com/',
           frame: [
-            'Context: autonomous aircraft operations where small process misses can become real-world risk.',
-            'Action: support flight test execution with disciplined procedures, clear handoffs, and close attention to aircraft/operator state.',
-            'Result / signal: bring an engineer\'s systems view into an operations environment: safety, timing, repeatability, and clean communication.'
+            'Autonomous aircraft operations where small process misses can become real-world risk.',
+            'Supported flight test execution with disciplined procedures, clear handoffs, and close attention to aircraft/operator state.',
+            'Brought an engineer\'s systems view into an operations environment: safety, timing, repeatability, and clean communication.'
           ],
           responsibilities: ['Support live flight-test workflows and operational readiness','Track procedural details that affect safety, timing, and aircraft state','Communicate clearly across operators, engineers, and test stakeholders'],
-          projects: ['Drone Telemetry Link Monitor','SDR ADS-B Receiver']
+          projects: []
         },
         huawei: {
           role: 'Capstone Engineer',
@@ -2001,12 +2017,12 @@
           year: '2023 to 2024',
           website: 'https://www.huawei.com/ca/',
           frame: [
-            'Context: a drone communications capstone where RF behavior, software control, and real hardware all had to line up.',
-            'Action: tested WLAN architecture, documented the start/stop module strategy, and connected drone/sensor communication to a working demo path.',
-            'Result / signal: turned capstone work into evidence: demo video, architecture diagrams, and a repo-backed proof trail.'
+            'A drone communications capstone where RF behavior, software control, and real hardware all had to line up.',
+            'Tested WLAN architecture, documented the start/stop module strategy, and connected drone/sensor communication to a working demo path.',
+            'Turned capstone work into evidence: demo video, architecture diagrams, and a repo-backed proof trail.'
           ],
           responsibilities: ['Characterize WLAN command-and-control behavior under practical constraints','Document module communication between drone, sensor hardware, and Internet-connected Wi-Fi hardware','Translate test observations into architecture changes and sponsor-ready explanation'],
-          projects: ['WLAN for Huawei Drone','Drone Telemetry Link Monitor']
+          projects: ['WLAN for Huawei Drone']
         },
         bcit: {
           role: 'Airline and Flight Operations Coursework',
@@ -2014,12 +2030,12 @@
           year: '2024, two terms',
           website: 'https://www.bcit.ca/programs/airline-and-flight-operations-commercial-pilot-fixed-wing-diploma-full-time-100adipma/',
           frame: [
-            'Context: aviation operations training before I chose not to finish the diploma.',
-            'Action: completed two terms and took the useful parts seriously: cockpit discipline, procedures, weather, safety, and operational decision-making.',
-            'Result / signal: it still shows up in how I think about flight test: prepare well, communicate early, and respect procedures.'
+            'Aviation operations training before I chose not to finish the diploma.',
+            'Completed two terms and took the useful parts seriously: cockpit discipline, procedures, weather, safety, and operational decision-making.',
+            'It still shows up in how I think about flight test: prepare well, communicate early, and respect procedures.'
           ],
           responsibilities: ['Built aviation fundamentals through structured coursework','Practiced procedure-first thinking in an aviation context','Carried the useful operational mindset into later flight-test work'],
-          projects: ['SDR ADS-B Receiver','Ham Radio Digital Modes Decoder']
+          projects: []
         },
         seaspan: {
           role: 'Engineering Intern',
@@ -2027,12 +2043,12 @@
           year: '2022',
           website: 'https://www.seaspan.com/',
           frame: [
-            'Context: shipboard electrical systems where drawings, standards, physical routing, and maintainability meet.',
-            'Action: supported power distribution, UPS/load analysis, and marine communications upgrade work.',
-            'Result / signal: learned to think in installed systems, not just schematics: space, safety, serviceability, and commissioning matter.'
+            'Shipboard electrical systems where drawings, standards, physical routing, and maintainability meet.',
+            'Supported power distribution, UPS/load analysis, marine communications, and EMC-style engineering work.',
+            'Learned to think in installed systems, not just schematics: space, safety, serviceability, and commissioning matter.'
           ],
           responsibilities: ['Support load analysis, cable routing, and electrical documentation','Think through shipboard constraints: vibration, corrosion, access, and standards','Connect design decisions to commissioning and user impact'],
-          projects: ['Marine Power System Design','UPS Integration & Load Analysis']
+          projects: ['EMC / EMI Analysis of MPV','Marine Power System Design','UPS Integration & Load Analysis','Wi-Fi System Upgrade for Marine Support']
         },
         orbit: {
           role: 'RF & Hardware, Satellite Team',
@@ -2040,12 +2056,12 @@
           year: '2021 to 2023',
           website: 'https://www.ubcorbit.com/',
           frame: [
-            'Context: student CubeSat hardware where every gram, trace, antenna, and test has mission consequences.',
-            'Action: worked across antenna deployment, RF link thinking, PCB-level constraints, and ground-station style validation.',
-            'Result / signal: built the habit of treating hardware as a system: mechanical release, RF path, firmware, test evidence, and operations all connect.'
+            'Student CubeSat hardware where every gram, trace, antenna, and test has mission consequences.',
+            'Worked across antenna deployment, RF link thinking, PCB-level constraints, and ground-station style validation.',
+            'Built the habit of treating hardware as a system: mechanical release, RF path, firmware, test evidence, and operations all connect.'
           ],
           responsibilities: ['Contribute to RF and hardware design for CubeSat communication systems','Support antenna deployment and link-budget thinking','Use test evidence to validate design assumptions before integration'],
-          projects: ['Antenna Deployer Module','433 MHz CubeSat Radio Link']
+          projects: ['Antenna Deployer Module','SatNOGS Ground Station']
         },
         ubc: {
           role: 'B.A.Sc. Electrical Engineering',
@@ -2053,12 +2069,12 @@
           year: '2018 to 2023',
           website: 'https://ece.ubc.ca/',
           frame: [
-            'Context: electrical engineering training across circuits, signals, embedded systems, RF, photonics, and digital design.',
-            'Action: kept choosing projects where the theory had to become a working artifact.',
-            'Result / signal: graduated with a portfolio that is unusually build-heavy: FPGA systems, photonics, RF, embedded firmware, and applied communications.'
+            'Electrical engineering training across circuits, signals, embedded systems, RF, photonics, and digital design.',
+            'Kept choosing projects where the theory had to become a working artifact.',
+            'Graduated with a portfolio that is unusually build-heavy: FPGA systems, photonics, RF, embedded firmware, and applied communications.'
           ],
           responsibilities: ['Build hardware and software projects from lab specs into working demos','Use measurement, simulation, and debugging to close the gap between expected and real behavior','Translate coursework into portfolio artifacts with proof trails'],
-          projects: ['Collaborative PIC Design','FPGA Signal Processing with Nios II, DDS, and Modulation Techniques']
+          projects: ['Collaborative PIC Design','FPGA Signal Processing with Nios II, DDS, and Modulation Techniques','RC4 Decryption Circuit with Modular FSM Design','Capacitance Meter Development Using EFM8 Microcontroller','Simple RISC Machine using Verilog and the DE1-SoC','FPGA-Powered iPod']
         }
       };
 
@@ -2094,9 +2110,12 @@
         site.textContent = exp.website.replace(/^https?:\/\//, '').replace(/\/$/, '');
         document.getElementById('expModalFrame').innerHTML = exp.frame.map(function(item) { return '<li>' + item + '</li>'; }).join('');
         document.getElementById('expModalResponsibilities').innerHTML = exp.responsibilities.map(function(item) { return '<li>' + item + '</li>'; }).join('');
+        var projectSection = document.getElementById('expProjectsSection');
         var list = document.getElementById('expModalProjects');
         list.innerHTML = '';
-        exp.projects.forEach(function(title) {
+        var projects = exp.projects || [];
+        projectSection.style.display = projects.length ? '' : 'none';
+        projects.forEach(function(title) {
           var idx = projectIndexByTitle(title);
           if (idx < 0) return;
           var p = PROJECTS[idx];
@@ -2104,7 +2123,7 @@
           el.className = 'dom-proj-link';
           el.innerHTML = '<div><div class="dom-proj-link-title">' + p.title + '</div>' +
             '<div class="dom-proj-link-cat">' + p.domain + '</div></div>' +
-            '<span class="dom-proj-link-arrow">â†—</span>';
+            '<span class="dom-proj-link-arrow" aria-hidden="true">&nearr;</span>';
           el.addEventListener('click', function() {
             closeExperienceModal(false);
             openModal(p, String(idx + 1).padStart(2,'0'));
@@ -2277,6 +2296,7 @@
         window.addEventListener('resize', resize);
 
         var phase = 0;
+        var waveSpeedScale = 0.38;
         var clickImpact = 0;
         document.addEventListener('click', function () { clickImpact = 1.0; });
 
@@ -2298,8 +2318,8 @@
             ctx.lineWidth = wv.wdt + clickImpact * 1.2;
             for (var x = 0; x <= w; x += 2) {
               var y = h * wv.y
-                + Math.sin(x * wv.len + phase * wv.spd * 60 + i * 1.1) * wv.amp * boost
-                + Math.sin(x * wv.len * 0.5 + phase * wv.spd * 30 + i) * (wv.amp * 0.35) * boost;
+                + Math.sin(x * wv.len + phase * wv.spd * 60 * waveSpeedScale + i * 1.1) * wv.amp * boost
+                + Math.sin(x * wv.len * 0.5 + phase * wv.spd * 30 * waveSpeedScale + i) * (wv.amp * 0.35) * boost;
               if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
             }
             ctx.stroke();
