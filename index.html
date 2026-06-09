@@ -678,6 +678,7 @@
     }
     .modal-demo:hover { opacity: 0.82; }
     .modal-demo.hidden { display: none; }
+    .modal-body > .modal-demo { display: none !important; }
     .modal-section { display: flex; flex-direction: column; gap: 0.55rem; }
     .modal-section-label {
       font-size: 0.54rem; letter-spacing: 0.2em; text-transform: uppercase;
@@ -834,7 +835,7 @@
         </div>
         <div class="status-pill"><span class="dot"></span>Open to opportunities</div>
         <div class="stat-row">
-          <div class="stat"><span class="stat-num">30</span><span class="stat-label">Builds</span></div>
+          <div class="stat"><span class="stat-num">41</span><span class="stat-label">Builds</span></div>
           <div class="stat"><span class="stat-num">4</span><span class="stat-label">Orgs</span></div>
           <div class="stat"><span class="stat-num">EIT</span><span class="stat-label">EGBC</span></div>
         </div>
@@ -912,7 +913,7 @@
             <h3 class="impact-title">Reports, boards, code, and test notes.</h3>
             <p class="impact-copy">The strongest projects are tied to concrete artifacts: lab measurements, schematics, dashboards, reports, simulations, and build notes.</p>
           </div>
-          <div class="impact-metric">30 builds</div>
+            <div class="impact-metric">41 builds</div>
         </article>
       </div>
     </div>
@@ -1202,8 +1203,8 @@
         document.getElementById('modalOverview').textContent = p.overview || '';
         var ul = document.getElementById('modalFeatures');
         ul.innerHTML = (p.features || []).map(function(f) { return '<li>' + f + '</li>'; }).join('');
-        var proof = projectProof[p.title] || fallbackProof(p);
-        document.getElementById('modalProof').innerHTML = proof.map(function(t) { return '<span class="proof-chip">' + t + '</span>'; }).join('');
+        var proof = proofTrailFor(p);
+        document.getElementById('modalProof').innerHTML = proof.map(proofChipHtml).join('');
         document.getElementById('modalChallenges').textContent = p.challenges || '';
         document.getElementById('modalOutcome').textContent = p.outcome || '';
         document.getElementById('modalTags').innerHTML = p.tags.map(function(t) { return '<span class="ptag">' + t + '</span>'; }).join('');
@@ -1498,6 +1499,94 @@
           outcome: 'Decoded WSPR spots from 43 countries across multiple bands. FT8 contacts confirmed reliable copy at SNR as low as -18 dB.',
           demo: ''
         },
+        { cats: ['FPGA'], domain: 'FPGA - Audio DSP', title: 'FPGA-Powered iPod',
+          tags: ['Verilog','PicoBlaze','Flash Memory','Audio DSP'],
+          overview: 'Built a digital audio player on FPGA hardware using Verilog, an embedded PicoBlaze processor, flash-memory playback, PS/2 keyboard control, and real-time audio signal visualization.',
+          features: ['FSMs for audio playback, flash memory access, and LED control','PicoBlaze processor integration for playback control','Real-time audio synthesis from flash memory samples','LED visualization of averaged audio intensity'],
+          challenges: 'Coordinating flash reads, audio sample timing, and user input required careful state-machine sequencing so playback remained responsive without interrupting the audio stream.',
+          outcome: 'Produced a working FPGA audio player that reads stored audio, plays it through the board audio path, and visualizes signal strength in real time.',
+          demo: ''
+        },
+        { cats: ['FPGA'], domain: 'FPGA - Digital Systems', title: 'FPGA Signal Processing with Nios II, DDS, and Modulation Techniques',
+          tags: ['Nios II','DDS','Qsys','ASK / BPSK / FSK'],
+          overview: 'Integrated a Nios II soft processor, Qsys system components, Direct Digital Synthesis, and LFSR-based signal generation to create ASK, BPSK, and FSK modulated signals on FPGA hardware.',
+          features: ['Nios II soft processor and Qsys platform integration','DDS waveform generation with LFSR support','ASK, BPSK, and FSK signal generation in Verilog','VGA oscilloscope-style visualization for live signal inspection'],
+          challenges: 'The main technical challenge was coordinating hardware-generated waveforms, processor control, and display timing across clock domains without corrupting the generated modulation.',
+          outcome: 'Built a working FPGA signal-processing lab system that produced and visualized multiple digital modulation schemes in real time.',
+          demo: ''
+        },
+        { cats: ['FPGA'], domain: 'FPGA - Cryptography', title: 'RC4 Decryption Circuit with Modular FSM Design',
+          tags: ['SystemVerilog','FSM','On-Chip RAM','SignalTap'],
+          overview: 'Designed an RC4 decryption circuit using modular finite state machines, on-chip memory, and parallel keyspace search to brute-force encrypted messages on FPGA hardware.',
+          features: ['Modular FSMs for RC4 initialization, key scheduling, and output checking','On-chip RAM and ROM for encrypted message handling','Parallel keyspace search using multiple hardware units','SignalTap and Quartus debugging on DE-series FPGA boards'],
+          challenges: 'Splitting the RC4 flow into reusable FSM stages while preserving timing and memory correctness required careful state partitioning and hardware-level debugging.',
+          outcome: 'Implemented and verified a working hardware decryption flow capable of identifying readable plaintext through brute-force key search.',
+          demo: ''
+        },
+        { cats: ['Photonics'], domain: 'Photonics - Simulation', title: 'Design, Simulation, and Analysis of High-Quality Factor Fabry-Perot Cavity Resonators',
+          tags: ['SiEPIC','Lumerical','Bragg Gratings','Python'],
+          overview: 'Designed and simulated high-Q Fabry-Perot cavity resonators using the SiEPIC EBeam PDK and Lumerical tools, studying how Bragg number and cavity length affect confinement and quality factor.',
+          features: ['SiEPIC EBeam PDK layout flow','Fabry-Perot cavity built from waveguides and Bragg gratings','Lumerical simulation sweeps for quality-factor analysis','Python-assisted analysis of cavity-length and reflection trade-offs'],
+          challenges: 'Improving confinement by increasing Bragg reflection had to be balanced against round-trip loss and fabrication-aware layout constraints.',
+          outcome: 'Produced a resonator design workflow and analysis showing the trade space behind high-Q cavity behavior for silicon photonics coursework.',
+          demo: ''
+        },
+        { cats: ['Telecom','Maritime'], domain: 'Maritime - Seaspan', title: 'Wi-Fi System Upgrade for Marine Support',
+          tags: ['Wi-Fi 6','Marine Comms','Trade Study','User Support'],
+          overview: 'Supported the modernization of a shipboard Wi-Fi system at Seaspan, evaluating a transition from legacy Wi-Fi 4 equipment to Wi-Fi 6 for higher bandwidth and better onboard user experience.',
+          features: ['Legacy Wi-Fi system review for marine use','Wi-Fi 6 trade-study support','Coverage, bandwidth, and user-capacity considerations','Upgrade rationale for more than 120 onboard users'],
+          challenges: 'Marine environments create unusual RF coverage and installation constraints, so the upgrade case had to balance technical performance, shipboard integration, and user needs.',
+          outcome: 'Contributed to a modernization proposal that connected communication-system performance to practical quality-of-life improvements for deployed users.',
+          demo: ''
+        },
+        { cats: ['Embedded'], domain: 'Embedded - Robotics', title: 'SCADA Robot Arm',
+          tags: ['PID Control','SCADA','Simulation','Robotics'],
+          overview: 'Collaborated on an autonomous robot-arm project that used a SCADA-controlled PID loop to pick up marshmallows and deposit them into a bin while avoiding overshoot and collision.',
+          features: ['PID controller programming for arm motion','SCADA interface for operation and monitoring','Repeated pick-and-place behavior','Collision and overshoot avoidance tuning'],
+          challenges: 'The controller needed enough responsiveness to pick objects accurately while avoiding oscillation and overshoot near the target.',
+          outcome: 'Demonstrated repeatable simulated pick-and-place behavior with stable controller response.',
+          demo: ''
+        },
+        { cats: ['Embedded'], domain: 'Embedded - Hardware Lab', title: 'Metal Detector Using an STM32 Microcontroller',
+          tags: ['STM32','C / C++','PuTTY GUI','Signal Detection'],
+          overview: 'Built a microcontroller-based metal detector that senses changes in electromagnetic flux, compares readings against interference profiles, and displays results through a PuTTY-powered interface.',
+          features: ['STM32 firmware in C/C++','Electromagnetic flux-change detection','Coin and coil interference profile comparison','Serial text interface for live results'],
+          challenges: 'Separating useful signal changes from coil and environmental interference required repeatable calibration profiles and stable thresholding.',
+          outcome: 'Produced a working embedded detector with live serial output for classification-style feedback.',
+          demo: ''
+        },
+        { cats: ['Embedded','Power'], domain: 'Embedded - SMT Process', title: 'Autonomous Reflow Oven with Adjustable Temperature Control',
+          tags: ['8051 Assembly','FSM','SPI','Python'],
+          overview: 'Designed and programmed an autonomous reflow oven controller for SMT soldering using an AT89LP52 microcontroller, temperature measurement circuitry, an LCD interface, and a Python visualization tool.',
+          features: ['8051 assembly firmware for reflow process control','Finite state machine for heating stages and safety behavior','Temperature measurement and adjustable profile interface','Python real-time data visualization during reflow'],
+          challenges: 'The controller had to track thermal stages reliably while keeping the user interface responsive and preserving fail-safe behavior.',
+          outcome: 'Built and tested a functioning reflow controller with visual status feedback and real-time process monitoring.',
+          demo: ''
+        },
+        { cats: ['Embedded'], domain: 'Embedded - 8051 Lab', title: 'Alarm Clock Development using AT89LP51RC2 Microcontroller',
+          tags: ['8051 Assembly','Interrupts','LCD','Timers'],
+          overview: 'Developed an alarm clock on an AT89LP51RC2 microcontroller using timer interrupts to coordinate timekeeping, display control, button-based time setting, and audible alarm output.',
+          features: ['Timer-interrupt-driven timekeeping','LCD interface with 12-hour AM/PM display','Pushbutton time and alarm setting','2 kHz square-wave alarm generation'],
+          challenges: 'Multiple concurrent behaviors had to be scheduled through interrupts without display glitches or timing drift.',
+          outcome: 'Delivered a functioning embedded alarm clock demonstrating interrupt-driven firmware design.',
+          demo: ''
+        },
+        { cats: ['Embedded'], domain: 'Embedded - Measurement', title: 'Capacitance Meter Development Using EFM8 Microcontroller',
+          tags: ['EFM8','8051','LCD','Measurement'],
+          overview: 'Built an EFM8-based capacitance meter capable of measuring capacitors from 1 nF to 1 uF and displaying calculated values on an LCD.',
+          features: ['EFM8 firmware for capacitance measurement','LCD output for measured values','Support for 1 nF to 1 uF capacitors','Calibration and debugging with lab instruments'],
+          challenges: 'Small component tolerances and timing sensitivity required stable measurement timing and careful validation across the target capacitance range.',
+          outcome: 'Produced a working microcontroller-based meter with live capacitance readout.',
+          demo: ''
+        },
+        { cats: ['FPGA'], domain: 'FPGA - Computer Architecture', title: 'Simple RISC Machine using Verilog and the DE1-SoC',
+          tags: ['Verilog','RISC','ALU','DE1-SoC'],
+          overview: 'Implemented a simple RISC-style processor on the FPGA fabric of a DE1-SoC board, including instruction memory, data memory, register file, ALU, and control logic.',
+          features: ['Minimal instruction set with load, store, arithmetic, and logic operations','Instruction memory, data memory, register file, and ALU modules','Control unit for instruction decode and execution','GPIO/display interfaces for hardware-visible results'],
+          challenges: 'Integrating the datapath and control unit required clean timing between instruction fetch, decode, execute, and memory stages.',
+          outcome: 'Built a functioning educational processor that runs simple programs directly on FPGA logic.',
+          demo: ''
+        },
         { cats: ['RF'], domain: 'Medical Imaging - Simulation', title: 'MRI Slice-Selective RF Pulse Designer',
           tags: ['Bloch Equations','Streamlit','Python','RF Pulse Design'],
           overview: 'Built a Python and Streamlit dashboard for slice-selective MRI excitation. The simulator connects scan-console choices such as flip angle and slice thickness to the RF pulse, slice-selection gradient, bandwidth, and magnetization response underneath.',
@@ -1531,19 +1620,30 @@
       var projectProof = {
         'EMC / EMI Analysis of MPV': ['Huawei capstone', 'EMC report', 'field measurements'],
         'Antenna Deployer Module': ['UBC ORBIT', 'PCB build', 'thermal vac test'],
-        'Collaborative PIC Design': ['course design', 'MPW run', 'lab characterization'],
-        'WLAN for Huawei Drone': ['Huawei capstone', 'test harness', 'link analysis'],
+        'Collaborative PIC Design': [{ label: 'Course Repo', href: 'https://github.com/aryanxoxo/UBC-ELEC413-2023' }, 'MPW run', 'lab characterization'],
+        'WLAN for Huawei Drone': [{ label: 'Capstone Repo', href: 'https://github.com/aryanxoxo/Capstone13' }, 'Huawei capstone', 'link analysis'],
         'FPGA Snake Game': ['course project', 'Verilog', 'DE1 SoC demo'],
-        'LOTTOCRACK': ['personal ML', 'Python pipeline', 'negative result'],
-        'SatNOGS Ground Station': ['SDR build', 'Linux setup', 'satellite passes'],
+        'LOTTOCRACK': [{ label: 'GitHub Repo', href: 'https://github.com/aryanxoxo/LOTTOCRACK' }, 'Python pipeline', 'negative result'],
+        'SatNOGS Ground Station': [{ label: 'GitHub Repo', href: 'https://github.com/aryanxoxo/satnogs-ground-station-dashboard' }, 'Linux setup', 'satellite passes'],
         '433 MHz CubeSat Radio Link': ['link budget', 'BER testing', 'RF board'],
-        'SDR ADS-B Receiver': ['RTL SDR', 'GNU Radio', 'aircraft map'],
+        'SDR ADS-B Receiver': [{ label: 'GitHub Repo', href: 'https://github.com/aryanxoxo/ads-b-aircraft-receiver-dashboard' }, 'GNU Radio', 'aircraft map'],
         'AIS Marine Receiver': ['RTL SDR', 'NMEA parser', 'vessel map'],
         'Antenna Radiation Pattern Visualizer': ['NanoVNA', 'turntable', 'polar plots'],
         'EMI / EMC Debug Case Study': ['spectrum data', 'LTspice', 'filter fix'],
         'Custom RF PCB': ['KiCad', 'VNA data', 'SMA launch'],
         'OFDM Modem Simulation': ['MATLAB', 'BER curves', 'channel model'],
-        'MRI Slice-Selective RF Pulse Designer': ['Streamlit dashboard', 'Bloch preset comparison', 'RF pulse plots'],
+        'FPGA-Powered iPod': ['LinkedIn project', 'Verilog build', 'hardware demo'],
+        'FPGA Signal Processing with Nios II, DDS, and Modulation Techniques': [{ label: 'GitHub Repo', href: 'https://github.com/aryanxoxo/NIOS-DDS-LFSR-QSYS' }, 'Nios II', 'VGA scope'],
+        'RC4 Decryption Circuit with Modular FSM Design': [{ label: 'GitHub Repo', href: 'https://github.com/aryanxoxo/RC4-Decryption-Circuit' }, 'SystemVerilog', 'SignalTap'],
+        'Design, Simulation, and Analysis of High-Quality Factor Fabry-Perot Cavity Resonators': [{ label: 'Course Repo', href: 'https://github.com/aryanxoxo/UBC-ELEC413-2023' }, 'SiEPIC', 'Lumerical'],
+        'Wi-Fi System Upgrade for Marine Support': ['LinkedIn project', 'Seaspan', 'Wi-Fi 6 trade study'],
+        'SCADA Robot Arm': ['LinkedIn project', 'PID control', 'simulation'],
+        'Metal Detector Using an STM32 Microcontroller': ['LinkedIn project', 'STM32 firmware', 'serial UI'],
+        'Autonomous Reflow Oven with Adjustable Temperature Control': ['LinkedIn project', '8051 firmware', 'Python monitor'],
+        'Alarm Clock Development using AT89LP51RC2 Microcontroller': ['LinkedIn project', '8051 interrupts', 'LCD build'],
+        'Capacitance Meter Development Using EFM8 Microcontroller': ['LinkedIn project', 'EFM8 firmware', 'LCD readout'],
+        'Simple RISC Machine using Verilog and the DE1-SoC': ['LinkedIn project', 'Verilog CPU', 'DE1-SoC'],
+        'MRI Slice-Selective RF Pulse Designer': [{ label: 'GitHub Repo', href: 'https://github.com/aryanxoxo/mri-rf-pulse-designer' }, 'Streamlit dashboard', 'RF pulse plots'],
         'SDR Signal Classifier': ['IQ captures', 'feature extraction', 'model test'],
         'AI Lab Bench Assistant': ['SCPI control', 'PyVISA', 'test report'],
         'FPGA DDS Signal Generator': ['Verilog', 'DAC output', 'spectrum check'],
@@ -1571,6 +1671,24 @@
         return proof;
       }
 
+      function proofTrailFor(p) {
+        var proof = (projectProof[p.title] || fallbackProof(p)).slice();
+        if (p.demo) proof.unshift({ label: 'Demo', href: p.demo });
+        if (p.docs) proof.unshift({ label: 'Setup Guide', href: p.docs });
+        return proof;
+      }
+
+      function proofChipHtml(item) {
+        if (typeof item === 'string') return '<span class="proof-chip">' + item + '</span>';
+        var label = item.label || item.type || 'Proof';
+        if (item.href) return '<a class="proof-chip" href="' + item.href + '" target="_blank" rel="noopener">' + label + '</a>';
+        return '<span class="proof-chip">' + label + '</span>';
+      }
+
+      function proofLabel(item) {
+        return typeof item === 'string' ? item : (item.label || item.type || 'Proof');
+      }
+
       var grid = document.getElementById('projectGrid');
       var termList = document.getElementById('termList');
       var projectImages = {
@@ -1595,7 +1713,7 @@
         var catStr = p.cats.join(' ');
         var tagsHtml = p.tags.map(function(t) { return '<span class="ptag">' + t + '</span>'; }).join('');
         var termTagsHtml = p.tags.map(function(t) { return '<span class="term-tag">' + t + '</span>'; }).join('');
-        var proofHtml = (projectProof[p.title] || fallbackProof(p)).slice(0, 2).map(function(t) { return '<span class="proof-chip">' + t + '</span>'; }).join('');
+        var proofHtml = proofTrailFor(p).slice(0, 2).map(function(t) { return '<span class="proof-chip">' + proofLabel(t) + '</span>'; }).join('');
         var imgSrc = projectImages[p.title];
         var mediaHtml = imgSrc
           ? '<img src="' + imgSrc + '" alt="' + p.title + '" loading="eager" decoding="async" onerror="this.hidden=true;this.nextElementSibling.style.display=&quot;flex&quot;" />'
