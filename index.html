@@ -422,7 +422,7 @@
     .exp-year::after { content: '\2197'; font-size: 0.72rem; transition: transform 0.2s var(--ease); }
     .exp:hover .exp-year::after, .exp:focus-visible .exp-year::after { transform: translate(2px,-2px); }
     .experience-map {
-      position: relative; min-height: 760px; border: 1px solid var(--fg-faint);
+      position: relative; min-height: 780px; border: 1px solid var(--fg-faint);
       background:
         linear-gradient(90deg, rgba(200,185,122,0.04) 0 1px, transparent 1px 50%),
         radial-gradient(circle at 50% 16%, rgba(200,185,122,0.08), transparent 24rem),
@@ -434,16 +434,19 @@
       background: linear-gradient(180deg, rgba(200,185,122,0.78), rgba(200,185,122,0.18));
     }
     .experience-axis-label {
-      position: absolute; left: calc(50% + 0.7rem); transform: translateY(-50%);
+      position: absolute; left: calc(50% + 1.35rem); transform: translateY(-50%);
       font-family: var(--mono); font-size: 0.52rem; letter-spacing: 0.14em; color: var(--gold);
     }
     .experience-lane-label {
-      position: absolute; top: 1.2rem; font-family: var(--mono); font-size: 0.52rem;
+      position: absolute; top: 1rem; font-family: var(--mono); font-size: 0.52rem;
       letter-spacing: 0.18em; text-transform: uppercase; color: var(--fg-dim);
     }
-    .experience-lane-label.work { left: 1.25rem; }
-    .experience-lane-label.learning { right: 1.25rem; text-align: right; }
-    .experience-lane-label.bridge { left: 50%; top: 2.35rem; transform: translateX(-50%); color: var(--gold); text-align: center; }
+    .experience-lane-label.work { left: 1.5rem; }
+    .experience-lane-label.learning { right: 1.5rem; text-align: right; }
+    .experience-lane-label.bridge {
+      left: 50%; top: 1.45rem; transform: translateX(-50%); color: var(--gold);
+      text-align: center; font-size: 0.48rem; letter-spacing: 0.16em; white-space: nowrap;
+    }
     .mobile-experience { display: none; }
     .exp-node {
       position: absolute; width: min(17rem, 38%); padding: 0.8rem 0.85rem;
@@ -1253,20 +1256,20 @@
           <div class="experience-lane-label work">Professional Roles</div>
           <div class="experience-lane-label bridge">Internships &amp; Capstone</div>
           <div class="experience-lane-label learning">Education &amp; Technical Teams</div>
-          <span class="experience-axis-label" style="top:6%;">2026</span>
-          <span class="experience-axis-label" style="top:20%;">2024</span>
+          <span class="experience-axis-label" style="top:8%;">2026</span>
+          <span class="experience-axis-label" style="top:24%;">2024</span>
           <span class="experience-axis-label" style="top:38%;">2023</span>
           <span class="experience-axis-label" style="top:53%;">2022</span>
           <span class="experience-axis-label" style="top:67%;">2021</span>
-          <span class="experience-axis-label" style="top:92%;">2018</span>
+          <span class="experience-axis-label" style="top:83%;">2018</span>
 
-          <button class="exp-node work" style="top:18%;" data-exp-key="zipline" data-lane="work"><span class="exp-dot"></span><span class="exp-node-logo"></span><span><span class="exp-node-role">Flight Test Ops Engineer</span><span class="exp-node-place">Zipline International</span><span class="exp-node-year">2024 to Present</span></span></button>
-          <button class="exp-node work" style="top:30%;" data-exp-key="telus" data-lane="work"><span class="exp-dot"></span><span class="exp-node-logo"></span><span><span class="exp-node-role">Exclusive Partner Program Member</span><span class="exp-node-place">TELUS</span><span class="exp-node-year">2024</span></span></button>
+          <button class="exp-node work" style="top:17%;" data-exp-key="zipline" data-lane="work"><span class="exp-dot"></span><span class="exp-node-logo"></span><span><span class="exp-node-role">Flight Test Ops Engineer</span><span class="exp-node-place">Zipline International</span><span class="exp-node-year">2024 to Present</span></span></button>
+          <button class="exp-node work" style="top:29%;" data-exp-key="telus" data-lane="work"><span class="exp-dot"></span><span class="exp-node-logo"></span><span><span class="exp-node-role">Exclusive Partner Program Member</span><span class="exp-node-place">TELUS</span><span class="exp-node-year">2024</span></span></button>
           <button class="exp-node center" style="top:38%;" data-exp-key="huawei" data-lane="center"><span class="exp-dot"></span><span class="exp-node-logo"></span><span><span class="exp-node-role">Capstone Engineer</span><span class="exp-node-place">Huawei Canada</span><span class="exp-node-year">2023 to 2024</span></span></button>
-          <button class="exp-node learning" style="top:24%;" data-exp-key="bcit" data-lane="learning"><span class="exp-dot"></span><span class="exp-node-logo"></span><span><span class="exp-node-role">Airline and Flight Operations Coursework</span><span class="exp-node-place">BCIT</span><span class="exp-node-year">2024, two terms</span></span></button>
-          <button class="exp-node center" style="top:53%;" data-exp-key="seaspan" data-lane="center"><span class="exp-dot"></span><span class="exp-node-logo"></span><span><span class="exp-node-role">Engineering Intern</span><span class="exp-node-place">Seaspan</span><span class="exp-node-year">2022</span></span></button>
-          <button class="exp-node learning" style="top:67%;" data-exp-key="orbit" data-lane="learning"><span class="exp-dot"></span><span class="exp-node-logo"></span><span><span class="exp-node-role">RF &amp; Hardware, Satellite Team</span><span class="exp-node-place">UBC ORBIT</span><span class="exp-node-year">2021 to 2023</span></span></button>
-          <button class="exp-node learning" style="top:92%;" data-exp-key="ubc" data-lane="learning"><span class="exp-dot"></span><span class="exp-node-logo"></span><span><span class="exp-node-role">B.A.Sc. Electrical Engineering</span><span class="exp-node-place">University of British Columbia</span><span class="exp-node-year">2018 to 2023</span></span></button>
+          <button class="exp-node learning" style="top:23%;" data-exp-key="bcit" data-lane="learning"><span class="exp-dot"></span><span class="exp-node-logo"></span><span><span class="exp-node-role">Airline and Flight Operations Coursework</span><span class="exp-node-place">BCIT</span><span class="exp-node-year">2024, two terms</span></span></button>
+          <button class="exp-node center" style="top:52%;" data-exp-key="seaspan" data-lane="center"><span class="exp-dot"></span><span class="exp-node-logo"></span><span><span class="exp-node-role">Engineering Intern</span><span class="exp-node-place">Seaspan</span><span class="exp-node-year">2022</span></span></button>
+          <button class="exp-node learning" style="top:65%;" data-exp-key="orbit" data-lane="learning"><span class="exp-dot"></span><span class="exp-node-logo"></span><span><span class="exp-node-role">RF &amp; Hardware, Satellite Team</span><span class="exp-node-place">UBC ORBIT</span><span class="exp-node-year">2021 to 2023</span></span></button>
+          <button class="exp-node learning" style="top:78%;" data-exp-key="ubc" data-lane="learning"><span class="exp-dot"></span><span class="exp-node-logo"></span><span><span class="exp-node-role">B.A.Sc. Electrical Engineering</span><span class="exp-node-place">University of British Columbia</span><span class="exp-node-year">2018 to 2023</span></span></button>
 
           <div class="experience-bubble" id="experienceBubble" aria-live="polite">
             <div class="experience-bubble-head">
@@ -2414,12 +2417,7 @@
       var projectVisibleCount = PROJECT_INITIAL_VISIBLE;
       var loadMoreProjects = document.getElementById('loadMoreProjects');
 
-      function isDesktopProjectLimit() {
-        return window.matchMedia('(min-width: 760px)').matches;
-      }
-
       function updateProjectLimit() {
-        var limitEnabled = isDesktopProjectLimit();
         var visibleMatches = [];
         document.querySelectorAll('#projectGrid .project, #termList .term-row').forEach(function(el) {
           var idx = Number(el.dataset.projectIndex);
@@ -2428,10 +2426,10 @@
             return;
           }
           if (visibleMatches.indexOf(idx) === -1) visibleMatches.push(idx);
-          el.classList.toggle('load-hidden', limitEnabled && visibleMatches.indexOf(idx) >= projectVisibleCount);
+          el.classList.toggle('load-hidden', visibleMatches.indexOf(idx) >= projectVisibleCount);
         });
         var remaining = Math.max(0, visibleMatches.length - projectVisibleCount);
-        loadMoreProjects.classList.toggle('hidden', !limitEnabled || remaining === 0);
+        loadMoreProjects.classList.toggle('hidden', remaining === 0);
         loadMoreProjects.textContent = remaining ? 'Load More (' + remaining + ')' : 'Load More';
       }
 
