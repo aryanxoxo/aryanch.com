@@ -1634,6 +1634,15 @@
         demo: ''
         },
         {
+        cats: ['RF'], domain: 'RF · Hardware', title: 'Antenna Radiation Pattern Visualizer',
+        tags: ['NanoVNA','Gain &amp; Nulls','Polarization','Python'],
+        overview: 'Built a low-cost antenna pattern measurement system using a motorized turntable, a NanoVNA as the signal source, and a calibrated receiver to map azimuthal and elevation gain patterns. Python post-processing produced polar gain plots for antenna comparison and validation.',
+        features: ['Stepper-motor turntable with 1° angular resolution','NanoVNA-driven signal source with calibrated output power','Received power logged vs. angle in real time over USB','Python polar plot generation with normalization and overlay comparison'],
+        challenges: 'Multipath reflections in the indoor test environment introduced ±2 dB ripple in the measured patterns. Implementing a time-gating approach using the VNA\'s time-domain feature and absorber foam reduced multipath errors substantially.',
+        outcome: 'Measured dipole and patch antenna patterns matched textbook predictions within 3 dB. Tool used to validate UBC ORBIT antenna designs before integration.',
+        demo: ''
+        },
+        {
         cats: ['RF'], domain: 'RF · EMC', title: 'EMI / EMC Debug Case Study',
         tags: ['Noise Sources','LTspice','Grounding','Spectrum Analyzer'],
         overview: 'Systematic EMI debug study on a mixed-signal PCB exhibiting conducted and radiated emissions above CISPR 32 Class B limits. Identified switching noise coupling paths, applied filtering and layout fixes, and documented the methodology as a reproducible debug framework.',
@@ -1733,15 +1742,6 @@
         features: ['Minimal instruction set with load, store, arithmetic, and logic operations','Instruction memory, data memory, register file, and ALU modules','Control unit for instruction decode and execution','GPIO/display interfaces for hardware-visible results'],
         challenges: 'Integrating the datapath and control unit required clean timing between instruction fetch, decode, execute, and memory stages.',
         outcome: 'Built a functioning educational processor that runs simple programs directly on FPGA logic.',
-        demo: ''
-        },
-        {
-        cats: ['RF'], domain: 'RF · Hardware', title: 'Antenna Radiation Pattern Visualizer',
-        tags: ['NanoVNA','Gain &amp; Nulls','Polarization','Python'],
-        overview: 'Built a low-cost antenna pattern measurement system using a motorized turntable, a NanoVNA as the signal source, and a calibrated receiver to map azimuthal and elevation gain patterns. Python post-processing produced polar gain plots for antenna comparison and validation.',
-        features: ['Stepper-motor turntable with 1° angular resolution','NanoVNA-driven signal source with calibrated output power','Received power logged vs. angle in real time over USB','Python polar plot generation with normalization and overlay comparison'],
-        challenges: 'Multipath reflections in the indoor test environment introduced ±2 dB ripple in the measured patterns. Implementing a time-gating approach using the VNA\'s time-domain feature and absorber foam reduced multipath errors substantially.',
-        outcome: 'Measured dipole and patch antenna patterns matched textbook predictions within 3 dB. Tool used to validate UBC ORBIT antenna designs before integration.',
         demo: ''
         },
         {
@@ -1897,7 +1897,7 @@
         '433 MHz CubeSat Radio Link': [{ label: 'GitHub Repo', href: 'https://github.com/aryanxoxo/cubesat-433mhz-link-budget' }, 'link budget', 'BER testing', 'RF board'],
         'SDR ADS-B Receiver': [{ label: 'GitHub Repo', href: 'https://github.com/aryanxoxo/ads-b-aircraft-receiver-lab' }, 'Python backend', 'Mode S feed'],
         'AIS Marine Receiver': [{ label: 'GitHub Repo', href: 'https://github.com/aryanxoxo/ais-python-receiver' }, 'Python receiver', 'NMEA parser', 'live vessel map'],
-        'Antenna Radiation Pattern Visualizer': ['NanoVNA', 'turntable', 'polar plots'],
+        'Antenna Radiation Pattern Visualizer': [{ label: 'Pattern Demo', href: 'assets/img/project-thumbnails/antenna-radiation-pattern-visualizer.png' }, 'multipath cleanup', 'Python overlay', 'polar plots'],
         'EMI / EMC Debug Case Study': ['spectrum data', 'LTspice', 'filter fix'],
         'Custom RF PCB': [{ label: 'GitHub Repo', href: 'https://github.com/aryanxoxo/rf-2p4-front-end-kicad' }, '2.4 GHz front end', 'KiCad layout', 'SMA launch'],
         'OFDM Modem Simulation': [{ label: 'GitHub Repo', href: 'https://github.com/aryanxoxo/ofdm-modem-simulation' }, 'MATLAB OFDM', 'BER curves', 'MMSE equalizer'],
@@ -1971,6 +1971,7 @@
         'SatNOGS Ground Station': 'assets/img/project-thumbnails/satnogs.jpg',
         'SDR ADS-B Receiver': 'assets/img/project-thumbnails/ads-b-dashboard.png',
         'AIS Marine Receiver': 'assets/img/project-thumbnails/ais-python-receiver.png',
+        'Antenna Radiation Pattern Visualizer': 'assets/img/project-thumbnails/antenna-radiation-pattern-visualizer.png',
         'Custom RF PCB': 'assets/img/project-thumbnails/rf-2p4-front-end-kicad.png',
         'OFDM Modem Simulation': 'assets/img/project-thumbnails/ofdm-modem-simulation.png',
         'AI Lab Bench Assistant': 'assets/img/project-thumbnails/ai-lab-bench-assistant.png',
