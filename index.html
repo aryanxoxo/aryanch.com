@@ -1588,8 +1588,8 @@
           features: ['RTL-SDR tuned to 1090 MHz with custom bandpass filter','GNU Radio flowgraph for PPM demodulation and frame sync','Python decoder for ICAO address, altitude, lat/lon extraction','Live aircraft map with range > 200 km from rooftop antenna'],
           challenges: 'The RTL-SDR\'s phase noise and frequency drift introduced preamble detection errors at the edges of the RF range. Implementing a drift-compensated AGC loop in GNU Radio significantly improved frame sync reliability.',
           outcome: 'Receiver reliably decoded ADS-B messages from 60 to 80 simultaneous aircraft. The work connects directly to my pilot training because the same data feeds commercial TCAS and ATC systems.',
-          demo: 'https://aryanxoxo.github.io/ads-b-aircraft-receiver-dashboard/',
-          docs: 'https://aryanxoxo.github.io/ads-b-aircraft-receiver-dashboard/ADS-B_Setup_Guide.html'
+          demo: 'https://aryanxoxo.github.io/ads-b-aircraft-receiver-lab/',
+          docs: 'https://aryanxoxo.github.io/ads-b-aircraft-receiver-lab/ADS-B_Setup_Guide.html'
         },
         {
           cats: ['Maritime','RF'], domain: 'Maritime · Telecom', title: 'AIS Marine Receiver',
@@ -1895,7 +1895,7 @@
         'LOTTOCRACK': [{ label: 'GitHub Repo', href: 'https://github.com/aryanxoxo/LOTTOCRACK' }, 'Python pipeline', 'negative result'],
         'SatNOGS Ground Station': [{ label: 'GitHub Repo', href: 'https://github.com/aryanxoxo/satnogs-ground-station' }, 'Linux setup', 'satellite passes'],
         '433 MHz CubeSat Radio Link': [{ label: 'GitHub Repo', href: 'https://github.com/aryanxoxo/cubesat-433mhz-link-budget' }, 'link budget', 'BER testing', 'RF board'],
-        'SDR ADS-B Receiver': [{ label: 'GitHub Repo', href: 'https://github.com/aryanxoxo/ads-b-aircraft-receiver-dashboard' }, 'GNU Radio', 'aircraft map'],
+        'SDR ADS-B Receiver': [{ label: 'GitHub Repo', href: 'https://github.com/aryanxoxo/ads-b-aircraft-receiver-lab' }, { label: 'Setup Guide', href: 'https://aryanxoxo.github.io/ads-b-aircraft-receiver-lab/ADS-B_Setup_Guide.html' }, 'RTL-SDR 1090 MHz', 'Mode S frames', 'Python logger'],
         'AIS Marine Receiver': ['RTL SDR', 'NMEA parser', 'vessel map'],
         'Antenna Radiation Pattern Visualizer': ['NanoVNA', 'turntable', 'polar plots'],
         'EMI / EMC Debug Case Study': ['spectrum data', 'LTspice', 'filter fix'],
@@ -1969,6 +1969,7 @@
         'FPGA Snake Game': 'assets/img/shnake.jpg',
         'LOTTOCRACK': 'assets/img/LOTTOMAX.jpg',
         'SatNOGS Ground Station': 'assets/img/project-thumbnails/satnogs.jpg',
+        'SDR ADS-B Receiver': 'assets/img/project-thumbnails/ads-b-dashboard.png',
         'EMI / EMC Debug Case Study': 'assets/img/project-thumbnails/emi-case-study.jpg',
         'MRI Slice-Selective RF Pulse Designer': 'assets/img/project-thumbnails/mri-rf-pulse-designer.png',
         'LoRa Mesh Coverage Mapper': 'assets/img/project-thumbnails/lora-mesh.jpg',
