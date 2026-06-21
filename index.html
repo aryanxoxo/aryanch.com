@@ -1621,6 +1621,14 @@
         outcome: 'Produced a working embedded detector with live serial output for classification-style feedback.',
         demo: ''
         },
+        { cats: ['Embedded','Power'], domain: 'Embedded - SMT Process', title: 'Autonomous Reflow Oven with Adjustable Temperature Control',
+        tags: ['8051 Assembly','FSM','SPI','Python'],
+        overview: 'Designed and programmed an autonomous reflow oven controller for SMT soldering using an AT89LP52 microcontroller, temperature measurement circuitry, an LCD interface, and a Python visualization tool.',
+        features: ['8051 assembly firmware for reflow process control','Finite state machine for heating stages and safety behavior','Temperature measurement and adjustable profile interface','Python real-time data visualization during reflow'],
+        challenges: 'The controller had to track thermal stages reliably while keeping the user interface responsive and preserving fail-safe behavior.',
+        outcome: 'Built and tested a functioning reflow controller with visual status feedback and real-time process monitoring.',
+        demo: ''
+        },
         {
         cats: ['Maritime','RF'], domain: 'Maritime · Seaspan / Royal Canadian Coast Guard', title: 'EMC / EMI Analysis of MPV',
         tags: ['EMC','Antenna Placement','IEEE','Field Testing'],
@@ -1846,14 +1854,6 @@
         outcome: 'Produced a working microcontroller-based meter with live capacitance readout.',
         demo: ''
         },
-        { cats: ['Embedded','Power'], domain: 'Embedded - SMT Process', title: 'Autonomous Reflow Oven with Adjustable Temperature Control',
-        tags: ['8051 Assembly','FSM','SPI','Python'],
-        overview: 'Designed and programmed an autonomous reflow oven controller for SMT soldering using an AT89LP52 microcontroller, temperature measurement circuitry, an LCD interface, and a Python visualization tool.',
-        features: ['8051 assembly firmware for reflow process control','Finite state machine for heating stages and safety behavior','Temperature measurement and adjustable profile interface','Python real-time data visualization during reflow'],
-        challenges: 'The controller had to track thermal stages reliably while keeping the user interface responsive and preserving fail-safe behavior.',
-        outcome: 'Built and tested a functioning reflow controller with visual status feedback and real-time process monitoring.',
-        demo: ''
-        },
         { cats: ['Embedded'], domain: 'Embedded - 8051 Lab', title: 'Alarm Clock Development using AT89LP51RC2 Microcontroller',
         tags: ['8051 Assembly','Interrupts','LCD','Timers'],
         overview: 'Developed an alarm clock on an AT89LP51RC2 microcontroller using timer interrupts to coordinate timekeeping, display control, button-based time setting, and audible alarm output.',
@@ -1906,7 +1906,7 @@
         'Wi-Fi System Upgrade for Marine Support': ['LinkedIn project', 'Seaspan', 'Wi-Fi 6 trade study'],
         'SCADA Robot Arm': [{ label: 'Electrical Report', href: 'assets/downloads/scada-robot-arm-electrical-report.pdf' }, { label: 'Demo Video', href: 'https://youtu.be/M-T0mytB9Po' }, 'PID control', 'SCADA simulation'],
         'Metal Detector Using an STM32 Microcontroller': [{ label: 'Demo Video', href: 'https://www.youtube.com/watch?v=P7ko2Tej1MY' }, 'STM32 firmware', 'serial UI', 'signal detection'],
-        'Autonomous Reflow Oven with Adjustable Temperature Control': ['LinkedIn project', '8051 firmware', 'Python monitor'],
+        'Autonomous Reflow Oven with Adjustable Temperature Control': [{ label: 'Bench Photo', href: 'assets/img/project-thumbnails/autonomous-reflow-oven.jpg' }, '8051 firmware', 'Python monitor', 'reflow control'],
         'Alarm Clock Development using AT89LP51RC2 Microcontroller': ['LinkedIn project', '8051 interrupts', 'LCD build'],
         'Capacitance Meter Development Using EFM8 Microcontroller': ['EFM8 firmware', 'LCD readout', 'capacitance measurement'],
         'Simple RISC Machine using Verilog and the DE1-SoC': [{ label: 'GitHub Repo', href: 'https://github.com/aryanxoxo/portfolio-' }, 'Verilog CPU', 'DE1-SoC'],
@@ -1979,6 +1979,7 @@
         'Design, Simulation, and Analysis of High-Quality Factor Fabry-Perot Cavity Resonators': 'assets/img/project-thumbnails/fabry-perot-cavity-resonators.png',
         'LoRa Mesh Coverage Mapper': 'assets/img/project-thumbnails/lora-mesh.jpg',
         'CAN Bus Vehicle Logger': 'assets/img/project-thumbnails/can-logger.jpg',
+        'Autonomous Reflow Oven with Adjustable Temperature Control': 'assets/img/project-thumbnails/autonomous-reflow-oven.jpg',
         'Buck Converter EMI Fix': 'assets/img/project-thumbnails/buck-emi.jpg',
         'Ham Radio Digital Modes Decoder': 'assets/img/project-thumbnails/ham-radio.jpg',
         'Marine Power System Design': 'assets/img/MPV.png',
