@@ -1615,12 +1615,12 @@
         outcome: 'Station decoded telemetry from multiple LEO satellites, including NOAA weather satellites and amateur radio CubeSats. Observation logs were prepared for SatNOGS style workflows.',
         demo: ''
         },
-        { cats: ['Embedded'], domain: 'Embedded - Measurement', title: 'Capacitance Meter Development Using EFM8 Microcontroller',
-        tags: ['EFM8','8051','LCD','Measurement'],
-        overview: 'Built an EFM8-based capacitance meter capable of measuring capacitors from 1 nF to 1 uF and displaying calculated values on an LCD.',
-        features: ['EFM8 firmware for capacitance measurement','LCD output for measured values','Support for 1 nF to 1 uF capacitors','Calibration and debugging with lab instruments'],
-        challenges: 'Small component tolerances and timing sensitivity required stable measurement timing and careful validation across the target capacitance range.',
-        outcome: 'Produced a working microcontroller-based meter with live capacitance readout.',
+        { cats: ['Embedded'], domain: 'Embedded - Hardware Lab', title: 'Metal Detector Using an STM32 Microcontroller',
+        tags: ['STM32','C / C++','PuTTY GUI','Signal Detection'],
+        overview: 'Built a microcontroller-based metal detector that senses changes in electromagnetic flux, compares readings against interference profiles, and displays results through a PuTTY-powered interface.',
+        features: ['STM32 firmware in C/C++','Electromagnetic flux-change detection','Coin and coil interference profile comparison','Serial text interface for live results'],
+        challenges: 'Separating useful signal changes from coil and environmental interference required repeatable calibration profiles and stable thresholding.',
+        outcome: 'Produced a working embedded detector with live serial output for classification-style feedback.',
         demo: ''
         },
         {
@@ -1840,12 +1840,12 @@
         outcome: 'Contributed to a modernization proposal that connected communication-system performance to practical quality-of-life improvements for deployed users.',
         demo: ''
         },
-        { cats: ['Embedded'], domain: 'Embedded - Hardware Lab', title: 'Metal Detector Using an STM32 Microcontroller',
-        tags: ['STM32','C / C++','PuTTY GUI','Signal Detection'],
-        overview: 'Built a microcontroller-based metal detector that senses changes in electromagnetic flux, compares readings against interference profiles, and displays results through a PuTTY-powered interface.',
-        features: ['STM32 firmware in C/C++','Electromagnetic flux-change detection','Coin and coil interference profile comparison','Serial text interface for live results'],
-        challenges: 'Separating useful signal changes from coil and environmental interference required repeatable calibration profiles and stable thresholding.',
-        outcome: 'Produced a working embedded detector with live serial output for classification-style feedback.',
+        { cats: ['Embedded'], domain: 'Embedded - Measurement', title: 'Capacitance Meter Development Using EFM8 Microcontroller',
+        tags: ['EFM8','8051','LCD','Measurement'],
+        overview: 'Built an EFM8-based capacitance meter capable of measuring capacitors from 1 nF to 1 uF and displaying calculated values on an LCD.',
+        features: ['EFM8 firmware for capacitance measurement','LCD output for measured values','Support for 1 nF to 1 uF capacitors','Calibration and debugging with lab instruments'],
+        challenges: 'Small component tolerances and timing sensitivity required stable measurement timing and careful validation across the target capacitance range.',
+        outcome: 'Produced a working microcontroller-based meter with live capacitance readout.',
         demo: ''
         },
         { cats: ['Embedded','Power'], domain: 'Embedded - SMT Process', title: 'Autonomous Reflow Oven with Adjustable Temperature Control',
@@ -1907,10 +1907,10 @@
         'Design, Simulation, and Analysis of High-Quality Factor Fabry-Perot Cavity Resonators': [{ label: 'SiEPIC Report', href: 'assets/downloads/siepic-fabry-perot-report.pdf' }, { label: 'Course Repo', href: 'https://github.com/aryanxoxo/UBC-ELEC413-2023' }, 'SiEPIC', 'Lumerical'],
         'Wi-Fi System Upgrade for Marine Support': ['LinkedIn project', 'Seaspan', 'Wi-Fi 6 trade study'],
         'SCADA Robot Arm': [{ label: 'Electrical Report', href: 'assets/downloads/scada-robot-arm-electrical-report.pdf' }, { label: 'Demo Video', href: 'https://youtu.be/M-T0mytB9Po' }, 'PID control', 'SCADA simulation'],
-        'Metal Detector Using an STM32 Microcontroller': ['LinkedIn project', 'STM32 firmware', 'serial UI'],
+        'Metal Detector Using an STM32 Microcontroller': [{ label: 'Demo Video', href: 'https://www.youtube.com/watch?v=P7ko2Tej1MY' }, 'STM32 firmware', 'serial UI', 'signal detection'],
         'Autonomous Reflow Oven with Adjustable Temperature Control': ['LinkedIn project', '8051 firmware', 'Python monitor'],
         'Alarm Clock Development using AT89LP51RC2 Microcontroller': ['LinkedIn project', '8051 interrupts', 'LCD build'],
-        'Capacitance Meter Development Using EFM8 Microcontroller': [{ label: 'Demo Video', href: 'https://www.youtube.com/watch?v=P7ko2Tej1MY' }, 'EFM8 firmware', 'LCD readout'],
+        'Capacitance Meter Development Using EFM8 Microcontroller': ['EFM8 firmware', 'LCD readout', 'capacitance measurement'],
         'Simple RISC Machine using Verilog and the DE1-SoC': [{ label: 'GitHub Repo', href: 'https://github.com/aryanxoxo/portfolio-' }, 'Verilog CPU', 'DE1-SoC'],
         'MRI Slice-Selective RF Pulse Designer': [{ label: 'GitHub Repo', href: 'https://github.com/aryanxoxo/mri-rf-pulse-designer' }, 'Streamlit dashboard', 'RF pulse plots'],
         'SDR Signal Classifier': ['IQ captures', 'feature extraction', 'model test'],
@@ -1984,7 +1984,7 @@
         'Buck Converter EMI Fix': 'assets/img/project-thumbnails/buck-emi.jpg',
         'Ham Radio Digital Modes Decoder': 'assets/img/project-thumbnails/ham-radio.jpg',
         'Marine Power System Design': 'assets/img/MPV.png',
-        'Capacitance Meter Development Using EFM8 Microcontroller': 'assets/img/project-thumbnails/capacitance-meter-video.jpg'
+        'Metal Detector Using an STM32 Microcontroller': 'assets/img/project-thumbnails/metal-detector-stm32.jpg'
       };
 
       PROJECTS.forEach(function(p, i) {
