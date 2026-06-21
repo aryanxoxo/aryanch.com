@@ -1157,8 +1157,8 @@
           </div>
           <div class="domain-projects">
             <span class="domain-proj">WLAN for Huawei Drone</span>
-            <span class="domain-proj">Drone Telemetry Link Monitor</span>
             <span class="domain-proj">LoRa Mesh Coverage Mapper</span>
+            <span class="domain-proj">Drone Telemetry Link Monitor</span>
           </div>
         </a>
         <a class="domain" href="#work" data-domain-filter="Space" data-domain-key="Satellites">
@@ -1169,9 +1169,9 @@
             <span class="domain-org">UBC ORBIT</span>
           </div>
           <div class="domain-projects">
+            <span class="domain-proj">433 MHz CubeSat Radio Link</span>
             <span class="domain-proj">Antenna Deployer Module</span>
             <span class="domain-proj">SatNOGS Ground Station</span>
-            <span class="domain-proj">433 MHz CubeSat Radio Link</span>
           </div>
         </a>
         <a class="domain" href="#work" data-domain-filter="Maritime" data-domain-key="Ships">
@@ -1183,8 +1183,8 @@
           </div>
           <div class="domain-projects">
             <span class="domain-proj">EMC / EMI Analysis of MPV</span>
+            <span class="domain-proj">AIS Marine Receiver</span>
             <span class="domain-proj">Marine Power System Design</span>
-            <span class="domain-proj">UPS Integration &amp; Load Analysis</span>
           </div>
         </a>
         <a class="domain" href="#work" data-domain-filter="RF" data-domain-key="Airplanes">
@@ -1196,8 +1196,6 @@
           </div>
           <div class="domain-projects">
             <span class="domain-proj">SDR ADS-B Receiver</span>
-            <span class="domain-proj">Spectrum Anomaly Detector</span>
-            <span class="domain-proj">Ham Radio Digital Modes Decoder</span>
           </div>
         </a>
       </div>
@@ -2076,41 +2074,34 @@
           orgs: ['UBC ORBIT'],
           image: 'assets/img/domains/domain-satellites-inner.jpg',
           overview: 'Space systems work anchored in UBC ORBIT, the University of British Columbia\'s CubeSat design team. I worked on RF hardware and the antenna deployment subsystem, from link budget analysis through PCB design, ground station integration, and over-the-air RF testing at 437 MHz. Every design decision gets pressure-tested by vacuum, vibration, and the physics of a 400 km orbit.',
-          projectIds: ['antenna-deployer','satnogs','cubesat-link']
+          projectIds: ['433 MHz CubeSat Radio Link','Antenna Deployer Module','SatNOGS Ground Station']
         },
         Drones: {
           label: 'Drones', icon: '◈',
           orgs: ['Huawei Canada','Zipline International'],
           image: 'assets/img/domains/domain-drones.jpg',
           overview: 'UAV work spans two very different organizations. At Huawei Canada I designed and characterized a WLAN-based C2 link for a drone platform, analyzing interference resilience and proposing channel selection changes that reduced dropouts by 73%. At Zipline International I work in Flight Test Operations, supporting autonomous fixed-wing delivery aircraft through live flight testing and safety procedures.',
-          projectIds: ['drone-wlan','drone-telemetry','lora-mesh']
+          projectIds: ['WLAN for Huawei Drone','LoRa Mesh Coverage Mapper','Drone Telemetry Link Monitor']
         },
         Ships: {
           label: 'Ships', icon: '◈',
           orgs: ['Seaspan'],
           image: 'assets/img/domains/domain-ships.jpg',
           overview: 'Maritime electrical engineering at Seaspan covered the full spectrum of shipboard systems. I conducted EMC/EMI assessment work on a Royal Canadian Coast Guard multi-purpose vessel context, designed and routed marine power distribution systems, integrated UPS infrastructure for critical navigation and comms loads, and performed load analysis across vessel electrical networks. The marine environment is demanding for electrical systems because it is corrosive, vibration-heavy, and safety-critical.',
-          projectIds: ['emc-mpv','ais-receiver','marine-power','ups-integration']
+          projectIds: ['EMC / EMI Analysis of MPV','AIS Marine Receiver','Marine Power System Design','UPS Integration & Load Analysis','Wi-Fi System Upgrade for Marine Support']
         },
         Airplanes: {
           label: 'Airplanes', icon: '◈',
           orgs: ['Pilot Training'],
           image: 'assets/img/domains/domain-airplanes.jpg',
           overview: 'My aviation interest is active. I\'m currently training for my private pilot license, which has deepened my understanding of avionics, ATC communication systems, and the RF infrastructure that aviation depends on. I\'ve built software-defined receivers to decode ADS-B transponders, giving me hands-on insight into the same collision-avoidance telemetry used in real aircraft.',
-          projectIds: ['ads-b','spectrum-anomaly','ham-radio']
+          projectIds: ['SDR ADS-B Receiver']
         }
       };
 
-      /* map project id → index */
-      var projIdMap = {};
-      PROJECTS.forEach(function(p, i) { projIdMap[p.id || p.title.toLowerCase().replace(/[^a-z0-9]/g,'-')] = i; });
-      /* also build by short key */
-      var projKeyMap = {
-        'antenna-deployer': 1, 'satnogs': 6, 'cubesat-link': 7,
-        'drone-wlan': 3, 'drone-telemetry': 22, 'lora-mesh': 18,
-        'emc-mpv': 0, 'ais-receiver': 9, 'marine-power': 26, 'ups-integration': 27,
-        'ads-b': 8, 'spectrum-anomaly': 19, 'ham-radio': 28
-      };
+      /* map project title -> index so domain links survive project reordering */
+      var projectTitleMap = {};
+      PROJECTS.forEach(function(p, i) { projectTitleMap[p.title] = i; });
 
       var activeDomainKey = null;
 
@@ -2127,8 +2118,8 @@
         document.getElementById('domOverview').textContent = d.overview;
         var list = document.getElementById('domProjList');
         list.innerHTML = '';
-        d.projectIds.forEach(function(pid) {
-          var idx = projKeyMap[pid];
+        d.projectIds.forEach(function(title) {
+          var idx = projectTitleMap[title];
           if (idx === undefined || !PROJECTS[idx]) return;
           var p = PROJECTS[idx];
           var el = document.createElement('div');
