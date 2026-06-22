@@ -1098,8 +1098,8 @@
     <a class="logo" href="#home">A<b>.</b>C<b>.</b></a>
     <ul class="nav-center">
       <li><a href="#domains" data-nav>Domains</a></li>
-      <li><a href="#work" data-nav>Projects</a></li>
       <li><a href="#about" data-nav>About</a></li>
+      <li><a href="#work" data-nav>Projects</a></li>
       <li><a href="#contact" data-nav>Contact</a></li>
     </ul>
     <div class="nav-right">
@@ -1257,53 +1257,6 @@
     </div>
   </section>
 
-  <!-- WORK -->
-  <section id="work">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <div>
-          <div class="eyebrow">Featured systems</div>
-          <h2 class="section-title">Projects I am proud of.</h2>
-          <p class="section-note">These are the projects that, over the years, I have been most proud of.</p>
-        </div>
-        <span class="section-num">/ 02</span>
-      </div>
-      <div class="featured-grid reveal" id="featuredGrid"></div>
-      <div class="archive-intro reveal">
-        <div class="archive-title">Archive / Coursework / Experiments</div>
-        <p class="archive-copy">The rest of the board stays available for depth: coursework builds, older experiments, simulation tools, and smaller proof trails that support the main hardware story.</p>
-      </div>
-      <div class="project-controls">
-        <div class="filter-chips" id="filterChips">
-          <button class="chip active" data-filter="All">All</button>
-          <button class="chip" data-filter="RF">RF</button>
-          <button class="chip" data-filter="Space">Space</button>
-          <button class="chip" data-filter="Embedded">Embedded</button>
-          <button class="chip" data-filter="FPGA">FPGA</button>
-          <button class="chip" data-filter="AI">AI</button>
-          <button class="chip" data-filter="Telecom">Telecom</button>
-          <button class="chip" data-filter="Maritime">Maritime</button>
-          <button class="chip" data-filter="Power">Power</button>
-          <button class="chip" data-filter="Photonics">Photonics</button>
-        </div>
-        <div class="view-toggle">
-          <button class="view-btn active" id="btnGrid">Grid</button>
-          <button class="view-btn" id="btnTerm">Terminal</button>
-        </div>
-      </div>
-      <div class="project-grid" id="projectGrid"></div>
-      <div class="terminal-view" id="termView">
-        <div class="term-header">
-          <span>Type</span><span>Project</span><span>Domain</span><span>Stack</span>
-        </div>
-        <div id="termList"></div>
-      </div>
-      <div class="load-more-wrap">
-        <button class="load-more-btn" id="loadMoreProjects" type="button">Load More</button>
-      </div>
-    </div>
-  </section>
-
   <!-- ABOUT -->
   <section id="about">
     <div class="wrap">
@@ -1316,7 +1269,7 @@
         </div>
       </div>
       <div class="about-right reveal">
-        <div class="section-num" style="margin-bottom:1.5rem;">/ 03 Experience</div>
+        <div class="section-num" style="margin-bottom:1.5rem;">/ 02 Experience</div>
         <div class="experience-map" id="experienceMap">
           <div class="experience-lane-label work">Professional Roles</div>
           <div class="experience-lane-label bridge">Internships &amp; Capstone</div>
@@ -1360,6 +1313,53 @@
           <div class="exp" data-exp-key="orbit"><div class="exp-main"><div class="exp-logo"></div><div><div class="exp-role">RF &amp; Hardware, Satellite Team</div><div class="exp-place">UBC ORBIT</div><div class="exp-note">Worked on CubeSat RF communication hardware, antenna deployment reliability, 433/437 MHz link analysis, PCB iteration, and subsystem integration.</div></div></div><div class="exp-year">2019 to 2023</div></div>
           <div class="exp" data-exp-key="ubc"><div class="exp-main"><div class="exp-logo"></div><div><div class="exp-role">B.A.Sc. Electrical Engineering</div><div class="exp-place">University of British Columbia</div><div class="exp-note">Electrical engineering training across circuits, signals, embedded systems, RF, photonics, digital design, and lab-based hardware/software projects.</div></div></div><div class="exp-year">2018 to 2023</div></div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section id="work">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div>
+          <div class="eyebrow">Featured systems</div>
+          <h2 class="section-title">Projects I am proud of.</h2>
+          <p class="section-note">These are the projects that, over the years, I have been most proud of.</p>
+        </div>
+        <span class="section-num">/ 03</span>
+      </div>
+      <div class="featured-grid reveal" id="featuredGrid"></div>
+      <div class="archive-intro reveal">
+        <div class="archive-title">Archive / Coursework / Experiments</div>
+        <p class="archive-copy">The rest of the board stays available for depth: coursework builds, older experiments, simulation tools, and smaller proof trails that support the main hardware story.</p>
+      </div>
+      <div class="project-controls">
+        <div class="filter-chips" id="filterChips">
+          <button class="chip active" data-filter="All">All</button>
+          <button class="chip" data-filter="RF">RF</button>
+          <button class="chip" data-filter="Space">Space</button>
+          <button class="chip" data-filter="Embedded">Embedded</button>
+          <button class="chip" data-filter="FPGA">FPGA</button>
+          <button class="chip" data-filter="AI">AI</button>
+          <button class="chip" data-filter="Telecom">Telecom</button>
+          <button class="chip" data-filter="Maritime">Maritime</button>
+          <button class="chip" data-filter="Power">Power</button>
+          <button class="chip" data-filter="Photonics">Photonics</button>
+        </div>
+        <div class="view-toggle">
+          <button class="view-btn active" id="btnGrid">Grid</button>
+          <button class="view-btn" id="btnTerm">Terminal</button>
+        </div>
+      </div>
+      <div class="project-grid" id="projectGrid"></div>
+      <div class="terminal-view" id="termView">
+        <div class="term-header">
+          <span>Type</span><span>Project</span><span>Domain</span><span>Stack</span>
+        </div>
+        <div id="termList"></div>
+      </div>
+      <div class="load-more-wrap">
+        <button class="load-more-btn" id="loadMoreProjects" type="button">Load More</button>
       </div>
     </div>
   </section>
@@ -1423,7 +1423,7 @@
 
       /* ---- Scrollspy nav ---- */
       var navLinks = document.querySelectorAll('[data-nav]');
-      var sections = ['domains', 'work', 'about', 'contact'].map(function (id) { return document.getElementById(id); });
+      var sections = ['domains', 'about', 'work', 'contact'].map(function (id) { return document.getElementById(id); });
       function setActiveNav(id) {
         navLinks.forEach(function (l) {
           l.classList.toggle('active', l.getAttribute('href') === '#' + id);
