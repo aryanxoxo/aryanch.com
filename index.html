@@ -1533,6 +1533,15 @@
         demo: '/projects/mri-rf-pulse-designer/model/'
         },
         {
+        cats: ['Embedded','RF'], domain: 'UAV · Telemetry', title: 'Drone Telemetry Link Monitor',
+        tags: ['LoRa','ESP32','Python','Latency Analysis'],
+        overview: 'Built a UAV telemetry link monitor around a Parrot Anafi carrying an independent ESP32 + LoRa payload. The drone-side node transmits compact telemetry packets over a 915 MHz LoRa link; the ground-station ESP32 forwards newline-delimited JSON to a local Python dashboard for link-quality review.',
+        features: ['ESP32 + SX1276/SX1278 LoRa transmitter and receiver firmware','915 MHz link settings with configurable spreading factor and bandwidth','Serial JSON feed for RSSI, SNR, packet loss, latency, range/bearing, altitude, and antenna heading','Local Python dashboard for antenna geometry, RF trends, latency trends, CSV logging, and post-test review'],
+        challenges: 'The key design choice was keeping the telemetry monitor independent from the Anafi flight-control and failsafe systems. The dashboard includes simulator mode for UI checks, but measured RF use requires the ground-station serial feed from the LoRa receiver.',
+        outcome: 'Produced a repo-backed validation setup with firmware, hardware notes, sample log format, and dashboard instructions. With the receiver connected, the dashboard explains whether link degradation is driven by range, antenna off-axis angle, packet loss, RSSI/SNR margin, or latency spikes.',
+        demo: ''
+        },
+        {
         cats: ['Photonics'], domain: 'Photonics · ELEC 413', title: 'Collaborative PIC Design',
         tags: ['Silicon Photonics','Optical Resonators','MATLAB','PWB'],
         overview: 'Designed a silicon photonic integrated circuit (PIC) on the SiEPIC platform featuring ring resonators, directional couplers, and grating couplers. The design was fabricated through a multi-project wafer (MPW) run and characterized with swept-laser transmission measurements.',
@@ -1812,15 +1821,6 @@
         demo: ''
         },
         {
-        cats: ['Embedded','RF'], domain: 'UAV · Telemetry', title: 'Drone Telemetry Link Monitor',
-        tags: ['LoRa','ESP32','Python','Latency Analysis'],
-        overview: 'Built a telemetry link monitoring tool for UAV ground stations. An ESP32 node on the drone transmits flight state over LoRa at configurable intervals; a ground station receiver logs RSSI, SNR, and latency, and a Python dashboard visualizes link health in real time during flight.',
-        features: ['LoRa link at 915 MHz with configurable SF and BW settings','Round-trip latency measurement using sequence number echo','Python dashboard showing RSSI, SNR, packet loss, and latency trends','Automatic SF adaptation based on live link quality metrics'],
-        challenges: 'Multipath fading during low-altitude passes caused burst packet loss that confused the latency estimator. Adding a forward error correction layer and separating the latency measurement from the telemetry payload resolved the issue.',
-        outcome: 'Reliable telemetry maintained at 2.8 km range in open field conditions at SF9. Dashboard used during flight tests to identify antenna orientation effects on link margin.',
-        demo: ''
-        },
-        {
         cats: ['FPGA'], domain: 'FPGA · DSP', title: 'FPGA DSP Filter',
         tags: ['FIR / IIR','Verilog','Fixed-Point','MATLAB'],
         overview: 'Designed and implemented FIR and IIR digital filters in Verilog on an FPGA, with coefficients designed in MATLAB using the Parks-McClellan and bilinear transform methods. Fixed-point arithmetic was used throughout, with overflow and rounding analysis to meet the target SNR.',
@@ -1919,7 +1919,7 @@
         'Spectrum Anomaly Detector': ['RTL SDR', 'baseline model', 'alert log'],
         'Buck Converter EMI Fix': ['KiCad', 'LTspice', 'before after data'],
         'Zephyr RTOS Sensor Node': ['nRF52840', 'Zephyr', 'power profile'],
-        'Drone Telemetry Link Monitor': ['LoRa link', 'flight logs', 'dashboard'],
+        'Drone Telemetry Link Monitor': [{ label: 'GitHub Repo', href: 'https://github.com/aryanxoxo/uav-telemetry-link-monitor' }, 'Parrot Anafi payload', 'ESP32 LoRa', 'local dashboard'],
         'FPGA DSP Filter': ['Verilog', 'ModelSim', 'MATLAB vectors'],
         'Wi-Fi Coverage Heatmap': ['RSSI survey', 'floor plan', 'heat map'],
         'CAN Bus Vehicle Logger': ['STM32', 'OBD II logs', 'Python dashboard'],
@@ -1978,6 +1978,7 @@
         'MRI Slice-Selective RF Pulse Designer': 'assets/img/project-thumbnails/mri-rf-pulse-designer.png',
         'Design, Simulation, and Analysis of High-Quality Factor Fabry-Perot Cavity Resonators': 'assets/img/project-thumbnails/fabry-perot-cavity-resonators.png',
         'LoRa Mesh Coverage Mapper': 'assets/img/project-thumbnails/lora-mesh.jpg',
+        'Drone Telemetry Link Monitor': 'assets/img/project-thumbnails/uav-telemetry-link-monitor.jpg',
         'CAN Bus Vehicle Logger': 'assets/img/project-thumbnails/can-logger.jpg',
         'Autonomous Reflow Oven with Adjustable Temperature Control': 'assets/img/project-thumbnails/autonomous-reflow-oven.jpg',
         'Alarm Clock Development using AT89LP51RC2 Microcontroller': 'assets/img/project-thumbnails/alarm-clock-at89lp51rc2.jpg',
