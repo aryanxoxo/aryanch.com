@@ -610,6 +610,15 @@
     #contact .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
     .contact-heading { font-family: var(--serif); font-size: clamp(2.2rem, 5vw, 3.4rem); line-height: 1.05; margin-bottom: 2rem; }
     .contact-heading em { font-style: italic; color: var(--gold); }
+    .pride-fun {
+      font-style: italic;
+      background: linear-gradient(90deg, #e40303, #ff8c00, #ffed00, #008026, #24408e, #732982, #e40303);
+      background-size: 220% 100%;
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent; color: transparent;
+      animation: pride-flow 4.5s linear infinite;
+    }
+    @keyframes pride-flow { to { background-position: 220% 0; } }
     .contact-links { display: flex; flex-direction: column; gap: 0.9rem; }
     .contact-link {
       font-size: 0.7rem; letter-spacing: 0.06em; color: var(--fg-mid);
@@ -1126,8 +1135,8 @@
         </div>
         <div class="status-pill"><span class="dot"></span>Open to opportunities</div>
         <div class="stat-row">
-          <div class="stat"><span class="stat-num">Proof</span><span class="stat-label">Trails</span></div>
-          <div class="stat"><span class="stat-num">4</span><span class="stat-label">Orgs</span></div>
+          <div class="stat"><span class="stat-num">B.A.Sc.</span><span class="stat-label">Electrical Engineering, UBC</span></div>
+          <div class="stat"><span class="stat-num">5+</span><span class="stat-label">Years Professional Experience</span></div>
           <div class="stat"><span class="stat-num">EIT</span><span class="stat-label">EGBC</span></div>
         </div>
         <div class="disciplines">
@@ -1160,7 +1169,7 @@
 
   <!-- MANIFESTO -->
   <div class="manifesto reveal">
-    <span class="manifesto-text">Measure it. Build it. Prove it.</span>
+    <span class="manifesto-text">Without hope there is nothing.</span>
   </div>
 
   <!-- PERSONAL OS -->
@@ -1254,8 +1263,8 @@
       <div class="section-head reveal">
         <div>
           <div class="eyebrow">Featured systems</div>
-          <h2 class="section-title">The strongest proof first.</h2>
-          <p class="section-note">These are the systems I want a recruiter or hardware team to inspect first: RF, UAS, CubeSat hardware, validation work, and public evidence.</p>
+          <h2 class="section-title">Projects I am proud of.</h2>
+          <p class="section-note">These are the projects that, over the years, I have been most proud of.</p>
         </div>
         <span class="section-num">/ 02</span>
       </div>
@@ -1360,7 +1369,7 @@
     <div class="wrap">
       <div class="contact-left reveal">
         <div class="eyebrow">Get in touch</div>
-        <div class="contact-heading" style="margin-top:1rem;">Let's build<br><em>something.</em></div>
+        <div class="contact-heading" style="margin-top:1rem;">Let's build<br>something <span class="pride-fun">fun.</span></div>
         <div class="contact-links">
           <a class="contact-link" href="mailto:arianchahardovalee@gmail.com"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>arianchahardovalee@gmail.com</a>
           <a class="contact-link" href="tel:+14158003435"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-3 2a14 14 0 006 6l2-3 5 2v4a2 2 0 01-2 2A18 18 0 013 6a2 2 0 012-2"/></svg>+1 (415) 800-3435</a>
