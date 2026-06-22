@@ -266,6 +266,27 @@
     .manifesto-text::before,
     .manifesto-text::after { content: ''; width: 3rem; height: 1px; background: var(--gold); opacity: 0.5; flex-shrink: 0; }
 
+    .ops-section { border-bottom: 1px solid var(--fg-faint); }
+    .ops-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+      background: var(--fg-faint);
+    }
+    .ops-item {
+      background: rgba(10,10,8,0.86);
+      padding: 1.35rem 1.25rem;
+      min-height: 118px;
+    }
+    .ops-label {
+      display: block; margin-bottom: 0.55rem;
+      font-size: 0.54rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--gold);
+    }
+    .ops-value {
+      display: block;
+      font-family: var(--serif); font-size: 1.12rem; line-height: 1.25;
+      color: var(--fg);
+    }
+
     /* ───── IMPACT ───── */
     .impact-grid {
       display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
@@ -323,6 +344,54 @@
     .domain-arrow { position: absolute; top: 1.5rem; right: 1.5rem; color: var(--fg-dim); font-size: 0.8rem; transition: color 0.3s, transform 0.3s var(--ease); }
     .domain:hover .domain-arrow { color: var(--gold); transform: translate(3px,-3px); }
     /* ───── PROJECTS ───── */
+    .featured-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+      background: var(--fg-faint); margin-bottom: 2.25rem;
+    }
+    .featured-card {
+      background: var(--bg); color: inherit; text-decoration: none;
+      display: grid; grid-template-rows: auto 1fr; min-height: 100%;
+      outline: 1px solid rgba(200,185,122,0.14);
+      transition: background 0.3s, outline-color 0.3s, box-shadow 0.3s;
+    }
+    .featured-card:hover, .featured-card:focus-visible {
+      background: var(--bg-soft);
+      outline-color: rgba(200,185,122,0.58);
+      box-shadow: 0 0 34px rgba(200,185,122,0.14);
+    }
+    .featured-media { position: relative; aspect-ratio: 16/10; overflow: hidden; background: var(--bg-soft); }
+    .featured-media img {
+      width: 100%; height: 100%; object-fit: cover; object-position: center;
+      filter: grayscale(0.22) brightness(0.9) contrast(1.04);
+      transition: transform 0.7s var(--ease), filter 0.5s;
+    }
+    .featured-card:hover .featured-media img { transform: scale(1.035); filter: grayscale(0) brightness(0.98); }
+    .featured-body { padding: 1.2rem 1.15rem 1.3rem; }
+    .featured-label {
+      font-size: 0.52rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 0.55rem;
+    }
+    .featured-title { font-family: var(--serif); font-size: 1.28rem; line-height: 1.12; margin-bottom: 0.65rem; }
+    .featured-copy { font-size: 0.66rem; line-height: 1.65; color: var(--fg-mid); }
+    .featured-proof {
+      margin-top: 0.85rem; padding-top: 0.75rem; border-top: 1px solid var(--fg-faint);
+      display: flex; flex-wrap: wrap; gap: 0.38rem;
+    }
+    .featured-proof-btn {
+      font-size: 0.5rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--gold); border: 1px solid rgba(200,185,122,0.26);
+      padding: 0.22rem 0.55rem; background: rgba(200,185,122,0.055);
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .featured-proof-btn:hover, .featured-proof-btn:focus-visible {
+      border-color: var(--gold); background: rgba(200,185,122,0.14); color: var(--fg);
+    }
+    .archive-intro {
+      border-top: 1px solid var(--fg-faint); padding-top: 1.35rem; margin: 0 0 1.2rem;
+      display: flex; justify-content: space-between; align-items: end; gap: 1.5rem;
+    }
+    .archive-title { font-family: var(--serif); font-size: 1.45rem; line-height: 1.1; }
+    .archive-copy { font-size: 0.68rem; line-height: 1.7; color: var(--fg-mid); max-width: 54ch; }
     .project-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--fg-faint); }
     .project {
       background: var(--bg); display: block; position: relative; overflow: hidden;
@@ -724,6 +793,8 @@
       .stat { text-align: left; }
       .domain-grid { grid-template-columns: repeat(2, 1fr); }
       .impact-grid { grid-template-columns: repeat(2, 1fr); }
+      .ops-grid { grid-template-columns: repeat(2, 1fr); }
+      .featured-grid { grid-template-columns: repeat(2, 1fr); }
       .project-grid { grid-template-columns: 1fr; }
       #about .wrap, #contact .wrap { grid-template-columns: 1fr; gap: 2.5rem; }
       .term-header { display: none; }
@@ -779,6 +850,9 @@
       .impact-card, .domain { min-height: auto; padding: 1.4rem 1.1rem; }
       .domain-grid { grid-template-columns: 1fr; }
       .impact-grid { grid-template-columns: 1fr; }
+      .ops-grid, .featured-grid { grid-template-columns: 1fr; }
+      .archive-intro { display: block; }
+      .archive-copy { margin-top: 0.55rem; }
       .project-controls { align-items: stretch; }
       .filter-chips { gap: 0.35rem; }
       .chip, .view-btn { font-size: 0.52rem; padding: 0.34rem 0.58rem; }
@@ -1052,7 +1126,7 @@
         </div>
         <div class="status-pill"><span class="dot"></span>Open to opportunities</div>
         <div class="stat-row">
-          <div class="stat"><span class="stat-num">41</span><span class="stat-label">Builds</span></div>
+          <div class="stat"><span class="stat-num">Proof</span><span class="stat-label">Trails</span></div>
           <div class="stat"><span class="stat-num">4</span><span class="stat-label">Orgs</span></div>
           <div class="stat"><span class="stat-num">EIT</span><span class="stat-label">EGBC</span></div>
         </div>
@@ -1089,6 +1163,25 @@
     <span class="manifesto-text">Measure it. Build it. Prove it.</span>
   </div>
 
+  <!-- PERSONAL OS -->
+  <section class="ops-section">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div>
+          <div class="eyebrow">Personal operating system</div>
+          <h2 class="section-title">How I show up.</h2>
+        </div>
+        <span class="section-num">/ 00</span>
+      </div>
+      <div class="ops-grid reveal">
+        <div class="ops-item"><span class="ops-label">Based</span><span class="ops-value">San Francisco Bay Area</span></div>
+        <div class="ops-item"><span class="ops-label">Focus</span><span class="ops-value">RF systems, flight test, hardware validation</span></div>
+        <div class="ops-item"><span class="ops-label">Tools</span><span class="ops-value">Python, SDR, VNA, KiCad / Altium, Verilog</span></div>
+        <div class="ops-item"><span class="ops-label">Outside Work</span><span class="ops-value">Pilot training, radio, building hardware</span></div>
+      </div>
+    </div>
+  </section>
+
   <!-- IMPACT -->
   <section id="impact">
     <div class="wrap">
@@ -1097,7 +1190,7 @@
           <div class="eyebrow">What stands out</div>
           <h2 class="section-title">A portfolio built around real <em>systems</em>.</h2>
         </div>
-        <span class="section-num">/ 00</span>
+        <span class="section-num">/ 01</span>
       </div>
       <div class="impact-grid reveal">
         <article class="impact-card">
@@ -1130,7 +1223,7 @@
             <h3 class="impact-title">Reports, boards, code, and test notes.</h3>
             <p class="impact-copy">My strongest projects now point to concrete proof: public source archives, test scripts, reports, screenshots, bench photos, videos, and measured/simulated results.</p>
           </div>
-            <div class="impact-metric">41 builds</div>
+            <div class="impact-metric">Proof trail</div>
         </article>
       </div>
     </div>
@@ -1144,7 +1237,7 @@
           <div class="eyebrow">From small systems to bigger ones</div>
           <h2 class="section-title">Where I work</h2>
         </div>
-        <span class="section-num">/ 01</span>
+        <span class="section-num">/ 02</span>
       </div>
       <div class="domain-grid reveal">
         <a class="domain" href="#work" data-domain-filter="Embedded" data-domain-key="Drones">
@@ -1207,11 +1300,16 @@
     <div class="wrap">
       <div class="section-head reveal">
         <div>
-          <div class="eyebrow">Selected work</div>
-          <h2 class="section-title">Projects</h2>
-          <p class="section-note">A focused set of engineering builds, field work, reports, code, and measured results.</p>
+          <div class="eyebrow">Featured systems</div>
+          <h2 class="section-title">The strongest proof first.</h2>
+          <p class="section-note">These are the systems I want a recruiter or hardware team to inspect first: RF, UAS, CubeSat hardware, validation work, and public evidence.</p>
         </div>
-        <span class="section-num">/ 02</span>
+        <span class="section-num">/ 03</span>
+      </div>
+      <div class="featured-grid reveal" id="featuredGrid"></div>
+      <div class="archive-intro reveal">
+        <div class="archive-title">Archive / Coursework / Experiments</div>
+        <p class="archive-copy">The rest of the board stays available for depth: coursework builds, older experiments, simulation tools, and smaller proof trails that support the main hardware story.</p>
       </div>
       <div class="project-controls">
         <div class="filter-chips" id="filterChips">
@@ -1234,7 +1332,7 @@
       <div class="project-grid" id="projectGrid"></div>
       <div class="terminal-view" id="termView">
         <div class="term-header">
-          <span>#</span><span>Project</span><span>Domain</span><span>Stack</span>
+          <span>Type</span><span>Project</span><span>Domain</span><span>Stack</span>
         </div>
         <div id="termList"></div>
       </div>
@@ -1884,9 +1982,18 @@
         return phIcons.Default;
       }
 
+      var FEATURED_PROJECT_TITLES = [
+        'WLAN for Huawei Drone',
+        'Antenna Deployer Module',
+        '433 MHz CubeSat Radio Link',
+        'Custom RF PCB',
+        'EMC / EMI Analysis of MPV',
+        'Drone Telemetry Link Monitor'
+      ];
+
       var projectProof = {
-        'EMC / EMI Analysis of MPV': ['Seaspan project', 'Royal Canadian Coast Guard vessel', 'EMC report', 'field measurements'],
-        'Antenna Deployer Module': ['UBC ORBIT', 'PCB build', 'thermal vac test'],
+        'EMC / EMI Analysis of MPV': [{ label: 'Report', href: 'https://github.com/aryanxoxo/mpv-emc-emi-analysis' }, { label: 'Plots', href: 'assets/img/farfield.png' }, 'EMC report', 'field measurements'],
+        'Antenna Deployer Module': [{ label: 'GitHub Repo', href: 'https://github.com/aryanxoxo/antenna-deployer-module' }, { label: 'Photos', href: 'assets/img/antennadep.png' }, 'PCB build', 'thermal vac test'],
         'Collaborative PIC Design': [{ label: 'SiEPIC Report', href: 'assets/downloads/siepic-fabry-perot-report.pdf' }, { label: 'Course Repo', href: 'https://github.com/aryanxoxo/UBC-ELEC413-2023' }, 'MPW run', 'lab characterization'],
         'WLAN for Huawei Drone': [{ label: 'Demo Video', href: 'https://youtu.be/Lz6MdKZGIeY?si=7fXExLBOrLQj-PSZ' }, { label: 'Overview of the WLAN', href: 'assets/img/wlan-overview.jpg' }, { label: 'Start/Stop Strategy', href: 'assets/img/wlan-start-stop-strategy.jpg' }, { label: 'Capstone Repo', href: 'https://github.com/aryanxoxo/Capstone13' }],
         'FPGA Snake Game': ['course project', 'Verilog', 'DE1 SoC demo'],
@@ -1989,6 +2096,82 @@
         'Metal Detector Using an STM32 Microcontroller': 'assets/img/project-thumbnails/metal-detector-stm32.jpg'
       };
 
+      var featuredProof = {
+        'WLAN for Huawei Drone': [
+          { label: 'Demo', href: 'https://youtu.be/Lz6MdKZGIeY?si=7fXExLBOrLQj-PSZ' },
+          { label: 'GitHub', href: 'https://github.com/aryanxoxo/Capstone13' },
+          { label: 'Photos', href: 'assets/img/wlan-overview.jpg' },
+          { label: 'Test Notes', href: 'assets/img/wlan-start-stop-strategy.jpg' }
+        ],
+        'Antenna Deployer Module': [
+          { label: 'GitHub', href: 'https://github.com/aryanxoxo/antenna-deployer-module' },
+          { label: 'Photos', href: 'assets/img/antennadep.png' },
+          { label: 'Test Notes', href: 'https://github.com/aryanxoxo/antenna-deployer-module' }
+        ],
+        '433 MHz CubeSat Radio Link': [
+          { label: 'GitHub', href: 'https://github.com/aryanxoxo/cubesat-433mhz-link-budget' },
+          { label: 'Plots', href: 'https://github.com/aryanxoxo/cubesat-433mhz-link-budget/tree/main/figures' },
+          { label: 'Report', href: 'https://github.com/aryanxoxo/cubesat-433mhz-link-budget' }
+        ],
+        'Custom RF PCB': [
+          { label: 'GitHub', href: 'https://github.com/aryanxoxo/rf-2p4-front-end-kicad' },
+          { label: 'Photos', href: 'assets/img/project-thumbnails/rf-2p4-front-end-kicad.png' },
+          { label: 'Test Notes', href: 'https://github.com/aryanxoxo/rf-2p4-front-end-kicad' }
+        ],
+        'EMC / EMI Analysis of MPV': [
+          { label: 'Report', href: 'https://github.com/aryanxoxo/mpv-emc-emi-analysis' },
+          { label: 'Plots', href: 'assets/img/farfield.png' },
+          { label: 'Test Notes', href: 'https://github.com/aryanxoxo/mpv-emc-emi-analysis' }
+        ],
+        'Drone Telemetry Link Monitor': [
+          { label: 'GitHub', href: 'https://github.com/aryanxoxo/uav-telemetry-link-monitor' },
+          { label: 'Photos', href: 'assets/img/project-thumbnails/uav-telemetry-link-monitor.jpg' },
+          { label: 'Test Notes', href: 'https://github.com/aryanxoxo/uav-telemetry-link-monitor' }
+        ]
+      };
+
+      function renderFeaturedProjects() {
+        var featuredGrid = document.getElementById('featuredGrid');
+        if (!featuredGrid) return;
+        featuredGrid.innerHTML = '';
+        FEATURED_PROJECT_TITLES.forEach(function(title) {
+          var idx = projectIndexByTitle(title);
+          if (idx < 0) return;
+          var p = PROJECTS[idx];
+          var imgSrc = projectImages[p.title];
+          var proofButtons = (featuredProof[p.title] || proofTrailFor(p)).slice(0, 4).map(function(item) {
+            var label = proofLabel(item);
+            var href = item.href || '#work';
+            return '<a class="featured-proof-btn" href="' + href + '" target="_blank" rel="noopener">' + label + '</a>';
+          }).join('');
+          var card = document.createElement('a');
+          card.className = 'featured-card';
+          card.href = '#work';
+          card.dataset.projectIndex = idx;
+          card.innerHTML =
+            '<div class="featured-media">' +
+              (imgSrc ? '<img src="' + imgSrc + '" alt="' + p.title + '" loading="eager" decoding="async" />' : '') +
+            '</div>' +
+            '<div class="featured-body">' +
+              '<div class="featured-label">' + p.domain + '</div>' +
+              '<div class="featured-title">' + p.title + '</div>' +
+              '<p class="featured-copy">' + firstSentence(p.overview || '') + '</p>' +
+              '<div class="featured-proof">' + proofButtons + '</div>' +
+            '</div>';
+          featuredGrid.appendChild(card);
+        });
+        featuredGrid.addEventListener('click', function(e) {
+          if (e.target.closest('.featured-proof-btn')) return;
+          var card = e.target.closest('.featured-card');
+          if (!card) return;
+          e.preventDefault();
+          var idx = Number(card.dataset.projectIndex);
+          if (idx !== -1) openModal(PROJECTS[idx], projectLabelFor(PROJECTS[idx]));
+        });
+      }
+
+      renderFeaturedProjects();
+
       PROJECTS.forEach(function(p, i) {
         var num = String(i + 1).padStart(2, '0');
         var catStr = p.cats.join(' ');
@@ -2012,7 +2195,7 @@
         card.dataset.cats = catStr;
         card.innerHTML =
           '<div class="project-media">' +
-            '<span class="project-index">' + num + '</span>' +
+            '<span class="project-index">' + projectLabelFor(p) + '</span>' +
             '<span class="project-arrow" aria-hidden="true"></span>' +
             mediaHtml +
           '</div>' +
@@ -2031,7 +2214,7 @@
         row.dataset.projectIndex = i;
         row.dataset.cats = catStr;
         row.innerHTML =
-          '<span class="term-idx">' + num + '</span>' +
+          '<span class="term-idx">' + projectLabelFor(p).replace(' ', '<br>') + '</span>' +
           '<span class="term-title">' + p.title + '</span>' +
           '<span class="term-domain">' + p.domain + '</span>' +
           '<span class="term-tags">' + termTagsHtml + '</span>';
@@ -2049,14 +2232,14 @@
         if (!card) return;
         e.preventDefault();
         var idx = Number(card.dataset.projectIndex);
-        if (idx !== -1) openModal(PROJECTS[idx], String(idx + 1).padStart(2, '0'));
+        if (idx !== -1) openModal(PROJECTS[idx], projectLabelFor(PROJECTS[idx]));
       });
       termList.addEventListener('click', function(e) {
         var row = e.target.closest('.term-row');
         if (!row) return;
         e.preventDefault();
         var idx = Number(row.dataset.projectIndex);
-        if (idx !== -1) openModal(PROJECTS[idx], String(idx + 1).padStart(2, '0'));
+        if (idx !== -1) openModal(PROJECTS[idx], projectLabelFor(PROJECTS[idx]));
       });
 
       /* reveal newly added cards */
@@ -2133,7 +2316,7 @@
             '<span class="dom-proj-link-arrow" aria-hidden="true">&nearr;</span>';
           el.addEventListener('click', function() {
             closeDomainModal(false);
-            openModal(p, String(idx + 1).padStart(2,'0'), key);
+            openModal(p, projectLabelFor(p), key);
           });
           list.appendChild(el);
         });
@@ -2328,6 +2511,14 @@
         });
       });
 
+      function isFeaturedProject(title) {
+        return FEATURED_PROJECT_TITLES.indexOf(title) !== -1;
+      }
+
+      function projectLabelFor(p) {
+        return isFeaturedProject(p.title) ? 'Featured' : 'Archive';
+      }
+
       function projectIndexByTitle(title) {
         for (var i = 0; i < PROJECTS.length; i++) if (PROJECTS[i].title === title) return i;
         return -1;
@@ -2365,7 +2556,7 @@
             el.addEventListener('click', function(e) {
               e.stopPropagation();
               closeExperienceBubble();
-              openModal(p, String(idx + 1).padStart(2,'0'));
+              openModal(p, projectLabelFor(p));
             });
             projectList.appendChild(el);
           });
@@ -2426,7 +2617,7 @@
             '<span class="dom-proj-link-arrow" aria-hidden="true">&nearr;</span>';
           el.addEventListener('click', function() {
             closeExperienceModal(false);
-            openModal(p, String(idx + 1).padStart(2,'0'));
+            openModal(p, projectLabelFor(p));
           });
           list.appendChild(el);
         });
@@ -2464,7 +2655,7 @@
         });
         var remaining = Math.max(0, visibleMatches.length - projectVisibleCount);
         loadMoreProjects.classList.toggle('hidden', remaining === 0);
-        loadMoreProjects.textContent = remaining ? 'Load More (' + remaining + ')' : 'Load More';
+        loadMoreProjects.textContent = 'Show More Projects';
       }
 
       function applyFilters() {
