@@ -1331,7 +1331,6 @@
       <div class="featured-grid reveal" id="featuredGrid"></div>
       <div class="archive-intro reveal">
         <div class="archive-title">Archive / Coursework / Experiments</div>
-        <p class="archive-copy">The rest of the board stays available for depth: coursework builds, older experiments, simulation tools, and smaller proof trails that support the main hardware story.</p>
       </div>
       <div class="project-controls">
         <div class="filter-chips" id="filterChips">
@@ -2629,7 +2628,10 @@
           el.classList.toggle('hidden', !match);
         });
         updateProjectLimit();
-        /* wave preset: single selection or default */
+      }
+
+      function syncWaveToActiveFilters() {
+        var isAll = activeFilters.has('All');
         if (!isAll && activeFilters.size === 1) setWavePreset([...activeFilters][0]);
         else setWavePreset('All');
       }
@@ -2666,6 +2668,7 @@
           }
         }
         applyFilters();
+        syncWaveToActiveFilters();
       });
 
       /* disc-tags → filter + scroll */
@@ -2680,6 +2683,7 @@
             if (c.dataset.filter === f) c.classList.add('active');
           });
           applyFilters();
+          syncWaveToActiveFilters();
           document.getElementById('work').scrollIntoView({ behavior: 'smooth' });
         });
       });
