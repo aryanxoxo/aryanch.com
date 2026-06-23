@@ -1225,6 +1225,7 @@
           </div>
           <div class="domain-projects">
             <span class="domain-proj">WLAN for Huawei Drone</span>
+            <span class="domain-proj">Local AI Vision for Huawei Drone</span>
             <span class="domain-proj">LoRa Mesh Coverage Mapper</span>
             <span class="domain-proj">Drone Telemetry Link Monitor</span>
           </div>
@@ -1587,6 +1588,15 @@
         challenges: 'Urban RF environments introduced significant co-channel interference that degraded control link reliability below acceptable thresholds. Implementing adaptive channel selection without adding latency to the control loop required careful timing analysis.',
         outcome: 'Proposed channel selection changes reduced command link dropout events by 73% in bench tests simulating dense urban RF conditions. The findings were documented for the capstone sponsor.',
         demo: ''
+        },
+        {
+        cats: ['AI','Embedded','RF'], domain: 'Drone AI · Huawei Canada', title: 'Local AI Vision for Huawei Drone',
+        tags: ['Edge AI','Camera Pipeline','DE1-SoC','Latency'],
+        overview: 'Enabled local AI/ML vision on the Huawei drone prototype by integrating a camera recognition pipeline with an edge ML board and the drone communication stack. The demo showed local face/object recognition running alongside the drone system rather than depending on a remote cloud loop.',
+        features: ['Camera feed routed into a local ML inference path','Face-recognition / vision demo connected to the drone control architecture','DE1-SoC / edge-board integration with drone communication and sensor workflows','Latency observation used as the main performance constraint for the next design iteration'],
+        challenges: 'The phenomenal part was making AI work with the drone system at all: camera, inference, communication, and operator feedback had to behave like one system. The limiting factor shown in the video was latency, which made timing and data-path design the central engineering issue.',
+        outcome: 'Produced a working AI/camera integration demo that proved local recognition could be attached to the drone workflow and gave the team a concrete latency target for future hardware/software optimization.',
+        demo: 'assets/videos/huawei-ai-vision-latency-demo.mp4'
         },
         { cats: ['Embedded'], domain: 'Embedded - Robotics', title: 'SCADA Robot Arm',
         tags: ['PID Control','SCADA','Simulation','Robotics'],
@@ -1958,6 +1968,7 @@
 
       var FEATURED_PROJECT_TITLES = [
         'WLAN for Huawei Drone',
+        'Local AI Vision for Huawei Drone',
         'Antenna Deployer Module',
         '433 MHz CubeSat Radio Link',
         'Custom RF PCB',
@@ -1970,6 +1981,7 @@
         'Antenna Deployer Module': [{ label: 'GitHub Repo', href: 'https://github.com/aryanxoxo/antenna-deployer-module' }, { label: 'Photos', href: 'assets/img/antennadep.png' }, 'PCB build', 'thermal vac test'],
         'Collaborative PIC Design': [{ label: 'SiEPIC Report', href: 'assets/downloads/siepic-fabry-perot-report.pdf' }, { label: 'Course Repo', href: 'https://github.com/aryanxoxo/UBC-ELEC413-2023' }, 'MPW run', 'lab characterization'],
         'WLAN for Huawei Drone': [{ label: 'Demo Video', href: 'https://youtu.be/Lz6MdKZGIeY?si=7fXExLBOrLQj-PSZ' }, { label: 'Overview of the WLAN', href: 'assets/img/wlan-overview.jpg' }, { label: 'Start/Stop Strategy', href: 'assets/img/wlan-start-stop-strategy.jpg' }, { label: 'Capstone Repo', href: 'https://github.com/aryanxoxo/Capstone13' }],
+        'Local AI Vision for Huawei Drone': [{ label: 'Demo Video', href: 'assets/videos/huawei-ai-vision-latency-demo.mp4' }, { label: 'Video Frame', href: 'assets/img/project-thumbnails/huawei-ai-vision-latency-demo.jpg' }, 'local ML inference', 'camera latency'],
         'FPGA Snake Game': ['course project', 'Verilog', 'DE1 SoC demo'],
         'LOTTOCRACK': [{ label: 'GitHub Repo', href: 'https://github.com/aryanxoxo/LOTTOCRACK' }, 'Python pipeline', 'negative result'],
         'SatNOGS Ground Station': [{ label: 'GitHub Repo', href: 'https://github.com/aryanxoxo/satnogs-ground-station' }, 'Linux setup', 'satellite passes'],
@@ -2045,6 +2057,7 @@
         'Collaborative PIC Design': 'assets/img/PIC.png',
         '433 MHz CubeSat Radio Link': 'assets/img/project-thumbnails/cubesat-radio-link.jpg',
         'WLAN for Huawei Drone': 'assets/img/wlan-overview.jpg',
+        'Local AI Vision for Huawei Drone': 'assets/img/project-thumbnails/huawei-ai-vision-latency-demo.jpg',
         'FPGA Snake Game': 'assets/img/shnake.jpg',
         'LOTTOCRACK': 'assets/img/LOTTOMAX.jpg',
         'SatNOGS Ground Station': 'assets/img/project-thumbnails/satnogs.jpg',
@@ -2076,6 +2089,11 @@
           { label: 'GitHub', href: 'https://github.com/aryanxoxo/Capstone13' },
           { label: 'Photos', href: 'assets/img/wlan-overview.jpg' },
           { label: 'Test Notes', href: 'assets/img/wlan-start-stop-strategy.jpg' }
+        ],
+        'Local AI Vision for Huawei Drone': [
+          { label: 'Demo', href: 'assets/videos/huawei-ai-vision-latency-demo.mp4' },
+          { label: 'Photos', href: 'assets/img/project-thumbnails/huawei-ai-vision-latency-demo.jpg' },
+          { label: 'Capstone', href: 'https://github.com/aryanxoxo/Capstone13' }
         ],
         'Antenna Deployer Module': [
           { label: 'GitHub', href: 'https://github.com/aryanxoxo/antenna-deployer-module' },
@@ -2245,8 +2263,8 @@
           label: 'Drones', icon: '◈',
           orgs: ['Huawei Canada','Zipline International'],
           image: 'assets/img/domains/domain-drones.jpg',
-          overview: 'UAV work spans two very different organizations. At Huawei Canada I built and characterized a WLAN-based C2 link for a drone platform, integrating camera, IMU, LiDAR, sensor power, and AI-board communication. At Zipline International I supported autonomous fixed-wing delivery aircraft through flight-test procedures, readiness checks, RF link awareness, and post-test documentation.',
-          projectIds: ['WLAN for Huawei Drone','LoRa Mesh Coverage Mapper','Drone Telemetry Link Monitor']
+          overview: 'UAV work spans two very different organizations. At Huawei Canada I built and characterized a WLAN-based C2 link for a drone platform, integrated camera, IMU, LiDAR, sensor power, and AI-board communication, and helped demonstrate local ML/camera recognition on the drone workflow where latency became the key design constraint. At Zipline International I supported autonomous fixed-wing delivery aircraft through flight-test procedures, readiness checks, RF link awareness, and post-test documentation.',
+          projectIds: ['WLAN for Huawei Drone','Local AI Vision for Huawei Drone','LoRa Mesh Coverage Mapper','Drone Telemetry Link Monitor']
         },
         Ships: {
           label: 'Ships', icon: '◈',
@@ -2403,7 +2421,7 @@
             'Documented the architecture, start/stop strategy, demo video, diagrams, and repo-backed proof trail.'
           ],
           responsibilities: ['Characterize WLAN command-and-control behavior under practical constraints','Integrate camera, IMU, LiDAR, sensor power, and AI-board communication','Translate test observations into architecture changes and sponsor-ready explanation'],
-          projects: ['WLAN for Huawei Drone']
+          projects: ['WLAN for Huawei Drone','Local AI Vision for Huawei Drone']
         },
         bcit: {
           role: 'Airline and Flight Operations Coursework',
