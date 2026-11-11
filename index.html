@@ -344,6 +344,9 @@
     .domain-proj::before { content: '↳'; color: rgba(200,185,122,0.4); font-size: 0.5rem; flex-shrink: 0; }
     .domain:hover .domain-proj { color: var(--fg-mid); }
     .domain { min-height: 260px; }
+    .network-emc-thread { margin-top: 1.25rem; padding: 1.4rem 1.5rem; border-top: 1px solid var(--fg-faint); border-bottom: 1px solid var(--fg-faint); display: grid; grid-template-columns: minmax(180px, 0.7fr) 2fr; gap: 1.5rem; align-items: start; }
+    .network-emc-title { font-family: var(--serif); font-size: 1.35rem; line-height: 1.2; color: var(--fg); }
+    .network-emc-copy { color: var(--fg-mid); font-size: 0.7rem; line-height: 1.8; max-width: 78ch; }
     .domain-arrow { position: absolute; top: 1.5rem; right: 1.5rem; color: var(--fg-dim); font-size: 0.8rem; transition: color 0.3s, transform 0.3s var(--ease); }
     .domain:hover .domain-arrow { color: var(--gold); transform: translate(3px,-3px); }
     /* ───── PROJECTS ───── */
@@ -870,6 +873,8 @@
       .section-title { font-size: clamp(1.75rem, 10vw, 2.35rem); }
       .impact-card, .domain { min-height: auto; padding: 1.4rem 1.1rem; }
       .domain-grid { grid-template-columns: 1fr; }
+      .network-emc-thread { grid-template-columns: 1fr; gap: 0.7rem; padding: 1.2rem 0; }
+      .network-emc-copy { font-size: 0.68rem; }
       .impact-grid { grid-template-columns: 1fr; }
       .ops-grid, .featured-grid { grid-template-columns: 1fr; }
       .archive-intro { display: block; }
@@ -1267,6 +1272,13 @@
             <span class="domain-proj">SDR ADS-B Receiver</span>
           </div>
         </a>
+      </div>
+      <div class="network-emc-thread reveal">
+        <div>
+          <div class="eyebrow">Cisco · Seaspan</div>
+          <h3 class="network-emc-title">Network hardware, from standards to EMC validation.</h3>
+        </div>
+        <p class="network-emc-copy">My work with switches, routers, and access points connects standards interpretation with system-level testing. At Seaspan, that included evaluating shipboard antenna placement through electromagnetic simulation and checking how communications systems perform together. At Cisco, I carry that end-to-end view into EMC testing: running chamber and lab evaluations, investigating device immunity issues, troubleshooting failures, and documenting results so teams can understand how hardware behaves in real operating conditions.</p>
       </div>
     </div>
   </section>
