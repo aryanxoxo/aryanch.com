@@ -2384,6 +2384,7 @@
       if (satCard) satCard.dataset.domainKey = 'Satellites';
 
       var expLogos = {
+        cisco: '<svg viewBox="0 0 32 32"><path d="M5 8v8M10 4v12M15 8v8M20 4v12M25 8v8"/><path d="M4 23h24"/></svg>',
         telus: '<svg viewBox="0 0 32 32"><path d="M7 9h18M16 9v16"/><path d="M22 13l4-4M22 19l4 4"/></svg>',
         zipline: '<svg viewBox="0 0 32 32"><path d="M5 22L25 8l-7 16"/><path d="M10 18l8 6"/><path d="M6 10h8"/></svg>',
         huawei: '<svg viewBox="0 0 32 32"><path d="M16 17c-4-5-2-10 0-13 2 3 4 8 0 13Z"/><path d="M16 17c-6-1-8-6-8-10 4 1 8 4 8 10Z"/><path d="M16 17c6-1 8-6 8-10-4 1-8 4-8 10Z"/><path d="M10 23c3 3 9 3 12 0"/></svg>',
@@ -2394,6 +2395,7 @@
       };
 
       var expLogoImages = {
+        cisco: 'assets/img/logos/cisco.png',
         zipline: 'assets/img/logos/zipline.svg',
         telus: 'assets/img/logos/telus.svg',
         huawei: 'assets/img/logos/huawei.svg',
@@ -2403,7 +2405,7 @@
         ubc: 'assets/img/logos/ubc-crest.jpg'
       };
 
-      var experienceLandscapeLogos = { orbit: true };
+      var experienceLandscapeLogos = { orbit: true, cisco: true };
 
       function experienceLogoHtml(key) {
         var src = expLogoImages[key];
