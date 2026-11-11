@@ -1116,7 +1116,7 @@
       <li><a href="#contact" data-nav>Contact</a></li>
     </ul>
     <div class="nav-right">
-      <span class="nav-clock"><span class="pip"></span>San Francisco <span id="clock">Local</span></span>
+      <span class="nav-clock"><span class="pip"></span><span id="clockCity">San Francisco</span> <span id="clock">Local</span></span>
       <a class="nav-resume" href="assets/downloads/Aryan_Chahardovalee_Long_Resume_2026.pdf" target="_blank" rel="noopener">Resume</a>
     </div>
   </nav>
@@ -1485,15 +1485,25 @@
       window.addEventListener('scroll', updateNavActive, { passive: true });
       window.addEventListener('resize', updateNavActive);
 
-      /* ---- Live Vancouver clock ---- */
+      /* ---- Rotating Bay Area and Vancouver clock ---- */
+      var clockCities = [
+        { name: 'San Francisco', zone: 'America/Los_Angeles' },
+        { name: 'Vancouver', zone: 'America/Vancouver' }
+      ];
+      var clockCityIndex = 0;
       function tick() {
+        var city = clockCities[clockCityIndex];
         var t = new Date().toLocaleTimeString('en-US', {
+          timeZone: city.zone, hour: '2-digit', minute: '2-digit', hour12: false
+        });
+        var label = document.getElementById('clockCity'); if (label) label.textContent = city.name;
+        var a = document.getElementById('clock'); if (a) a.textContent = t;
+        var b = document.getElementById('clock2'); if (b) b.textContent = new Date().toLocaleTimeString('en-US', {
           timeZone: 'America/Los_Angeles', hour: '2-digit', minute: '2-digit', hour12: false
         });
-        var a = document.getElementById('clock'); if (a) a.textContent = t;
-        var b = document.getElementById('clock2'); if (b) b.textContent = t;
+        clockCityIndex = (clockCityIndex + 1) % clockCities.length;
       }
-      tick(); setInterval(tick, 1000 * 30);
+      tick(); setInterval(tick, 1000 * 5);
 
       /* ---- Marquee: duplicate for seamless loop ---- */
       var track = document.getElementById('mtrack');
