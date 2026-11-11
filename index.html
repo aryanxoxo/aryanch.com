@@ -1279,7 +1279,7 @@
         <div class="about-quote" style="margin-top:1rem;">From <span>small systems</span> to bigger ones.</div>
         <div class="about-body">
           <p>I'm an Electrical Engineer and University of British Columbia graduate with hands-on experience across autonomous aircraft, satellite hardware, maritime communication systems, photonic integrated circuits, RF systems, and drone platforms.</p>
-          <p>My work spans R&amp;D flight test operations at Zipline International, the UBC ORBIT Satellite Design Team, an internship at Seaspan, and a year-long capstone with Huawei Canada. I'm also training for my pilot's license. I'm drawn to the boundary between hardware and software, especially where signal integrity, safety, and system-level thinking decide whether something works in the real world.</p>
+          <p>My work spans EMC testing at Cisco, R&amp;D flight test operations at Zipline International, the UBC ORBIT Satellite Design Team, an internship at Seaspan, and a year-long capstone with Huawei Canada. I'm also training for my pilot's license. I'm drawn to the boundary between hardware and software, especially where signal integrity, safety, and system-level thinking decide whether something works in the real world.</p>
         </div>
       </div>
       <div class="about-right reveal">
@@ -1296,6 +1296,7 @@
           <span class="experience-axis-label" style="top:83%;">2018</span>
 
           <button class="exp-node work" style="top:17%;" data-exp-key="zipline" data-lane="work"><span class="exp-dot"></span><span class="exp-node-logo"></span><span><span class="exp-node-role">Flight Test Ops Engineer</span><span class="exp-node-place">Zipline International</span><span class="exp-node-year">2024 to 2026</span></span></button>
+          <button class="exp-node work" style="top:7%;" data-exp-key="cisco" data-lane="work"><span class="exp-dot"></span><span class="exp-node-logo"></span><span><span class="exp-node-role">EMC Test Engineer</span><span class="exp-node-place">Cisco</span><span class="exp-node-year">Aug 2026 to Present</span></span></button>
           <button class="exp-node work" style="top:29%;" data-exp-key="telus" data-lane="work"><span class="exp-dot"></span><span class="exp-node-logo"></span><span><span class="exp-node-role">Exclusive Partner Program Member</span><span class="exp-node-place">TELUS</span><span class="exp-node-year">2024</span></span></button>
           <button class="exp-node center" style="top:38%;" data-exp-key="huawei" data-lane="center"><span class="exp-dot"></span><span class="exp-node-logo"></span><span><span class="exp-node-role">Capstone Engineer</span><span class="exp-node-place">Huawei Canada</span><span class="exp-node-year">2022 to 2023</span></span></button>
           <button class="exp-node learning" style="top:23%;" data-exp-key="bcit" data-lane="learning"><span class="exp-dot"></span><span class="exp-node-logo"></span><span><span class="exp-node-role">Airline and Flight Operations Coursework</span><span class="exp-node-place">BCIT</span><span class="exp-node-year">2024, two terms</span></span></button>
@@ -1319,6 +1320,7 @@
           </div>
         </div>
         <div class="timeline mobile-experience" id="mobileExperience">
+          <div class="exp" data-exp-key="cisco"><div class="exp-main"><div class="exp-logo"></div><div><div class="exp-role">EMC Test Engineer</div><div class="exp-place">Cisco</div><div class="exp-note">EMC laboratory testing and RF troubleshooting, including emissions and immunity testing, chamber work, and investigation of electrical and electromagnetic issues.</div></div></div><div class="exp-year">Aug 2026 to Present</div></div>
           <div class="exp" data-exp-key="zipline"><div class="exp-main"><div class="exp-logo"></div><div><div class="exp-role">Flight Test Ops Engineer</div><div class="exp-place">Zipline International</div><div class="exp-note">Led and coordinated R&amp;D flight-test execution across multiple aircraft systems, software-validation campaigns, regression triage, safety-critical procedures, and operator-facing test documentation.</div></div></div><div class="exp-year">2024 to 2026</div></div>
           <div class="exp" data-exp-key="telus"><div class="exp-main"><div class="exp-logo"></div><div><div class="exp-role">Exclusive Partner Program Member</div><div class="exp-place">TELUS</div><div class="exp-note">Technical customer-facing work focused on requirements translation, device/service troubleshooting, product tradeoffs, and clear explanation of setup choices.</div></div></div><div class="exp-year">2024</div></div>
           <div class="exp" data-exp-key="huawei"><div class="exp-main"><div class="exp-logo"></div><div><div class="exp-role">Capstone Engineer</div><div class="exp-place">Huawei Canada</div><div class="exp-note">Built and tested a drone WLAN architecture integrating camera, IMU, LiDAR, AI-board communication, sensor power, and real-time prototype debugging.</div></div></div><div class="exp-year">2022 to 2023</div></div>
@@ -2383,6 +2385,19 @@
       }
 
       var EXPERIENCES = {
+        cisco: {
+          role: 'EMC Test Engineer',
+          place: 'Cisco',
+          year: 'Aug 2026 to Present',
+          website: 'https://www.cisco.com/',
+          frame: [
+            'EMC laboratory testing for electronic and network hardware.',
+            'Worked with radiated and conducted emissions and immunity testing, RF troubleshooting, and chamber operations.',
+            'Supported investigation of electromagnetic issues using lab measurements and structured test documentation.'
+          ],
+          responsibilities: ['Run EMC emissions and immunity tests in a laboratory environment','Troubleshoot RF and electromagnetic issues using spectrum analyzers, network analyzers, oscilloscopes, and related lab equipment','Support ESD, EFT, surge, and chamber testing while documenting test setup, results, and observed failures'],
+          projects: []
+        },
         telus: {
           role: 'Exclusive Partner Program Member',
           place: 'TELUS',
