@@ -105,6 +105,9 @@
       font-size: 0.62rem; letter-spacing: 0.12em; color: var(--fg-dim);
       display: flex; align-items: center; gap: 0.5rem;
     }
+    .nav-clock-city { display: inline-block; width: 8.7em; text-align: right; transition: opacity 0.28s var(--ease), transform 0.28s var(--ease); }
+    .nav-clock-city.is-leaving { opacity: 0; transform: translateY(-0.45em); }
+    .nav-clock-time { display: inline-block; width: 3.1em; font-variant-numeric: tabular-nums; }
     .nav-clock .pip { width: 4px; height: 4px; border-radius: 50%; background: var(--gold); }
     .nav-resume {
       font-size: 0.66rem; letter-spacing: 0.15em; text-transform: uppercase;
@@ -1116,7 +1119,7 @@
       <li><a href="#contact" data-nav>Contact</a></li>
     </ul>
     <div class="nav-right">
-      <span class="nav-clock"><span class="pip"></span><span id="clockCity">San Francisco</span> <span id="clock">Local</span></span>
+      <span class="nav-clock"><span class="pip"></span><span id="clockCity" class="nav-clock-city">San Francisco</span> <span id="clock" class="nav-clock-time">Local</span></span>
       <a class="nav-resume" href="assets/downloads/Aryan_Chahardovalee_Long_Resume_2026.pdf" target="_blank" rel="noopener">Resume</a>
     </div>
   </nav>
@@ -1491,19 +1494,31 @@
         { name: 'Vancouver', zone: 'America/Vancouver' }
       ];
       var clockCityIndex = 0;
-      function tick() {
-        var city = clockCities[clockCityIndex];
-        var t = new Date().toLocaleTimeString('en-US', {
-          timeZone: city.zone, hour: '2-digit', minute: '2-digit', hour12: false
+      function updateClock() {
+        var a = document.getElementById('clock');
+        if (a) a.textContent = new Date().toLocaleTimeString('en-US', {
+          timeZone: clockCities[clockCityIndex].zone, hour: '2-digit', minute: '2-digit', hour12: false
         });
-        var label = document.getElementById('clockCity'); if (label) label.textContent = city.name;
-        var a = document.getElementById('clock'); if (a) a.textContent = t;
         var b = document.getElementById('clock2'); if (b) b.textContent = new Date().toLocaleTimeString('en-US', {
           timeZone: 'America/Los_Angeles', hour: '2-digit', minute: '2-digit', hour12: false
         });
-        clockCityIndex = (clockCityIndex + 1) % clockCities.length;
       }
-      tick(); setInterval(tick, 1000 * 5);
+      function rotateClockCity() {
+        var label = document.getElementById('clockCity');
+        if (!label) return;
+        label.classList.add('is-leaving');
+        window.setTimeout(function() {
+          clockCityIndex = (clockCityIndex + 1) % clockCities.length;
+          label.textContent = clockCities[clockCityIndex].name;
+          updateClock();
+          requestAnimationFrame(function() { label.classList.remove('is-leaving'); });
+        }, 280);
+      }
+      function tick() {
+        updateClock();
+      }
+      tick(); setInterval(tick, 1000);
+      setInterval(rotateClockCity, 5000);
 
       /* ---- Marquee: duplicate for seamless loop ---- */
       var track = document.getElementById('mtrack');
